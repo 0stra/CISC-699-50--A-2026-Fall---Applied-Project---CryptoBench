@@ -1,0 +1,25 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "PLACEHOLDER-fill-in-once-plugin-version-confirmed",
+  "serialNumber": "urn:uuid:PLACEHOLDER-generate-at-freeze-time",
+  "version": 0,
+  "metadata": {
+    "timestamp": "PLACEHOLDER-set-at-freeze-time",
+    "authors": [
+      {
+        "name": "PLACEHOLDER-reviewer-name"
+      }
+    ],
+    "properties": [
+      {
+        "name": "cryptobench:schema-notes",
+        "value": "This file is CryptoBench's frozen reference inventory. Each entry under components[] represents one manually verified cryptographic asset. Two project-local fields are added inside each component's properties array beyond standard CBOM fields: cryptobench:category (one of key-establishment, digital-signature, hashing, protocol-transport-configuration) and cryptobench:observability (one of source-visible, endpoint-visible, both). This file is built by two independent manual review passes and is frozen (read-only) once both passes agree. It is never written to by a discovery tool."
+      },
+      {
+        "name": "cryptobench:freeze-status",
+        "value": "NOT YET FROZEN - zero components populated as of Implementation Sprint I"
+      }
+    ]
+  },
+  "components": []
+}
