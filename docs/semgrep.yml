@@ -1,0 +1,11 @@
+# CryptoBench — Semgrep configuration
+#
+# Points at Semgrep Registry's existing cryptography ruleset by name.
+# No custom rules are defined anywhere in this project (NFR-6) — every
+# rule used here ships with Semgrep itself and is used unmodified.
+#
+# Version actually installed is recorded in docs/ENVIRONMENT.md, not here,
+# so there is a single source of truth for pinned versions.
+
+rules:
+  - p/cryptography
