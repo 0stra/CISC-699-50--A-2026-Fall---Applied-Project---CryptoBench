@@ -1,0 +1,63 @@
+CryptoBench - Test case 1 (Semgrep invocation on an existing public Java file)
+RAW OUTPUT RECORD - saved from the terminal, nothing edited except this header.
+
+IMPORTANT: this run was executed on Linux container on 2026-10-18. See journal/2026-10-18.md.
+
+Environment:   Ubuntu 24.04.5 LTS, Python 3.13.16 (cloud container)
+Semgrep:       1.181.0   (installed with pip)
+Rules used:    unmodified Java crypto audit rules, directory java/lang/security/audit/crypto, from github.com/semgrep/semgrep-rules, commit 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9 (24 rules). The hosted Semgrep registry (semgrep.dev) was unreachable from the container (HTTP 403), so the p/cryptography collection named in .semgrep.yml could NOT be used for this run.
+Sample file:   src/main/java/org/apache/commons/codec/digest/Md5Crypt.java from github.com/apache/commons-codec, commit f13dd50f566c318283c4138820b15d75c26a0217, Apache License 2.0. Existing public code, not written by the student.
+Options:       --metrics=off, no custom rules, no edits to the sample.
+
+Commands run (exactly as typed in the container):
+  1. pip install --break-system-packages semgrep
+  2. semgrep --version
+  3. git clone --depth 1 https://github.com/semgrep/semgrep-rules.git rules
+  4. git clone --depth 1 https://github.com/apache/commons-codec.git cc
+  5. semgrep scan --metrics=off --disable-version-check --config rules/java/lang/security/audit/crypto cc/src/main/java/org/apache/commons/codec/digest/Md5Crypt.java
+  (command 5 was run twice, Run 1 and Run 2 below; a --json -o copy was also written for the finding-set comparison)
+  Registry attempt that failed: curl https://semgrep.dev/c/p/cryptography returned HTTP 403 (CONNECT tunnel failed).
+
+----- Run 1 (terminal output) -----
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 24 Code rules:
+  Scanning 1 file with 24 java rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 24
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 24 rules on 1 file: 0 findings.
+
+----- Run 2 (terminal output, identical settings) -----
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 24 Code rules:
+  Scanning 1 file with 24 java rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 24
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 24 rules on 1 file: 0 findings.
+
+Finding sets compared (json results): run 1 = 0 findings, run 2 = 0 findings; sets identical: True
