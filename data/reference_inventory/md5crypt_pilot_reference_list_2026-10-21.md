@@ -1,8 +1,8 @@
 # Pilot reference list for one file (not the frozen CryptoBench inventory)
 
-File: Md5Crypt.java, Apache Commons Codec (Apache License 2.0), commit f13dd50f566c318283c4138820b15d75c26a0217, 361 lines. Line numbers below were checked against this copy and also match the copy on my laptop (361 lines, same crypto lines).
+File: Md5Crypt.java, Apache Commons Codec (Apache License 2.0), commit f13dd50f566c318283c4138820b15d75c26a0217, 361 lines. Line numbers below were checked against this copy. On 21 October 2026 I downloaded the same commit on my laptop and its sha256 (fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747) matches the container copy.
 
-Status: this list was drafted by reading the file on 21 October 2026. So it does not meet the CryptoBench freeze rule (two independent passes by me with full agreement). It is used only to test the comparison procedure on one file. I check each entry against the file in my recorded walkthrough.
+Status: this list was drafted by Claude (AI assistant) by reading the file on 21 October 2026. It is NOT an independent manual pass by me, so it does not meet the CryptoBench freeze rule (two independent passes by me with full agreement). It is used only to test the comparison procedure on one file. I check each entry against the file in my recorded walkthrough.
 
 Scope: only cryptographic uses a source-code scanner could see in this one file.
 
