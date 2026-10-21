@@ -1,80 +1,96 @@
-CryptoBench - Hard Stop 4 pilot. 
+CryptoBench - Hard Stop 4 pilot. PERSONAL RUN (my own computer).
+Run by me (Nitin Prakash) on my MacBook, 2026-10-21, about 7:12 to 7:15 PM EDT. I typed and ran every command myself in the terminal. The commands were supplied to me as step-by-step instructions by Claude (AI assistant) in chat; I did not change them. This run repeats checks A and B from the reference run by Claude in a cloud container (analysis/raw/semgrep_pilot_official_rules_REFERENCE_2026-10-21.txt).
 
-Run in a cloud container, 2026-10-21 about 21:30-21:35 UTC.
+Pinned environment (printed by the commands below):
+macOS 15.7.9 (build 24G830), system Python 3.8.2, Semgrep 1.99.0 installed in ~/.semgrep-venv, --metrics=off, --disable-version-check.
+Rules: unmodified files from github.com/semgrep/semgrep-rules, commit 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9 (git rev-parse HEAD printed this value after git checkout).
+Target file: Md5Crypt.java, apache/commons-codec commit f13dd50f566c318283c4138820b15d75c26a0217, downloaded from that commit, 361 lines, sha256 fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747
+Fixture: java/lang/security/audit/crypto/use-of-md5-digest-utils.java from the same rules commit, sha256 bd22fdb5ef195e383ec69aa9dbf1d0fd8f6cb5d41aef3f725f1aba5e5aa05908
+Both hashes start with the same characters as the container run (fa779456b25d2d36 and bd22fdb5ef195e38), so the same files were scanned.
 
-Purpose: check whether the official Semgrep MD5 rule works (positive control on its own test file) and whether it and three related official rules find anything in Md5Crypt.java.
+----- Setup commands and output (as pasted from my terminal) -----
+mkdir -p ~/cryptobench-run/out && cd ~/cryptobench-run
+git clone https://github.com/semgrep/semgrep-rules.git
+cd semgrep-rules
+git checkout 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9
+git rev-parse HEAD
+(result) HEAD is now at 17e31e11 Merge pull request #4083 from semgrep/malaverdiere/fix-keyvault-timeadd-duration
+17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9
 
-Pinned environment: Ubuntu 24.04.5, Python 3.13.16, Semgrep 1.181.0, --metrics=off, --disable-version-check.
-Rules: unmodified files from github.com/semgrep/semgrep-rules, commit 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9 (registry p/ names not used; the registry gave 403 here and 404 for p/cryptography on the student's Mac).
-Target file: Md5Crypt.java, apache/commons-codec commit f13dd50f566c318283c4138820b15d75c26a0217, 361 lines, sha256 starting fa779456b25d2d36. Student's Mac copy (master, 18 Oct) also has 361 lines and the same crypto line numbers (67, 98, 188, 245, 259, 275, 312).
-Fixture: java/lang/security/audit/crypto/use-of-md5-digest-utils.java from the same rules commit, sha256 starting bd22fdb5ef195e38.
+curl -fsSL -o ~/cryptobench-run/Md5Crypt.java https://raw.githubusercontent.com/apache/commons-codec/f13dd50f566c318283c4138820b15d75c26a0217/src/main/java/org/apache/commons/codec/digest/Md5Crypt.java
+wc -l ~/cryptobench-run/Md5Crypt.java
+(result) 361 /Users/nitinprakash/cryptobench-run/Md5Crypt.java
 
-===== RUN A (positive control): one official rule on its own test file =====
+~/.semgrep-venv/bin/semgrep --version
+sw_vers
+python3 --version
+shasum -a 256 ~/cryptobench-run/Md5Crypt.java
+shasum -a 256 java/lang/security/audit/crypto/use-of-md5-digest-utils.java
+date
+(result)
+1.99.0   (also printed a NotOpenSSLWarning about LibreSSL 2.8.3 and "A new version of Semgrep is available")
+ProductName: macOS, ProductVersion: 15.7.9, BuildVersion: 24G830
+Python 3.8.2
+fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747  /Users/nitinprakash/cryptobench-run/Md5Crypt.java
+bd22fdb5ef195e383ec69aa9dbf1d0fd8f6cb5d41aef3f725f1aba5e5aa05908  java/lang/security/audit/crypto/use-of-md5-digest-utils.java
+Wed Oct 21 19:12:52 EDT 2026
 
-Command (run from the semgrep-rules folder):
+===== CHECK A (positive control): one official rule on its own test file =====
+Command (run from inside the semgrep-rules folder, output saved to out/A1.txt):
+~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml java/lang/security/audit/crypto/use-of-md5-digest-utils.java > ~/cryptobench-run/out/A1.txt 2>&1; echo "exit=$?" >> ~/cryptobench-run/out/A1.txt
 
-semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml java/lang/security/audit/crypto/use-of-md5-digest-utils.java
+Contents of A1.txt (as printed by cat):
+/Users/nitinprakash/.semgrep-venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
 
-Fixture annotations in the file: line 6 "ok", line 14 "ruleid" (expected hit on line 15), line 20 "ok".
-Fixture line 15: byte[] hashValue = DigestUtils.getMd5Digest().digest(password.getBytes());
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
 
-Output, run 1 (findings part and summary):
-│ 1 Code Finding │
-└────────────────┘
-                                                                
-    java/lang/security/audit/crypto/use-of-md5-digest-utils.java
-    ❯❱ java.lang.security.audit.crypto.use-of-md5-digest-utils
-          ❰❰ Blocking ❱❱
-          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
-          therefore not suitable as a cryptographic signature. Use HMAC instead.                         
-                                                                                                         
-           ▶▶┆ Autofix ▶ getSha512Digest
-           15┆ byte[] hashValue = DigestUtils.getMd5Digest().digest(password.getBytes());
-
-                
-                
 ┌──────────────┐
 │ Scan Summary │
 └──────────────┘
-✅ Scan completed successfully.
- • Findings: 1 (1 blocking)
- • Rules run: 1
- • Targets scanned: 1
- • Parsed lines: ~100.0%
- • No ignore information available
+
 Ran 1 rule on 1 file: 1 finding.
+
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+
+    java/lang/security/audit/crypto/use-of-md5-digest-utils.java
+    ❯❱ java.lang.security.audit.crypto.use-of-md5-digest-utils
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
+          therefore not suitable as a cryptographic signature. Use HMAC instead.
+
+           ▶▶┆ Autofix ▶ getSha512Digest
+           15┆ byte[] hashValue = DigestUtils.getMd5Digest().digest(password.getBytes());
+
 exit=0
 
-Run 2: output identical to run 1 (checked with diff, ignoring blank lines and trailing numbers). exit=0 both times.
+===== CHECK B: four official rules on Md5Crypt.java =====
+Command (output saved to out/B1.txt):
+~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml --config java/lang/security/audit/crypto/use-of-md5.yaml --config java/lang/security/audit/crypto/weak-random.yaml --config java/lang/security/audit/md5-used-as-password.yaml ~/cryptobench-run/Md5Crypt.java > ~/cryptobench-run/out/B1.txt 2>&1; echo "exit=$?" >> ~/cryptobench-run/out/B1.txt
 
-===== RUN B: four official rules on Md5Crypt.java =====
-Command: semgrep scan --metrics=off --disable-version-check --config .../use-of-md5-digest-utils.yaml --config .../use-of-md5.yaml --config .../weak-random.yaml --config java/lang/security/audit/md5-used-as-password.yaml Md5Crypt.java
+Contents of B1.txt (as printed by cat):
+/Users/nitinprakash/.semgrep-venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
 
-Output, run 1 (scan status and summary):
+┌─────────────┐
 │ Scan Status │
 └─────────────┘
   Scanning 1 file tracked by git with 4 Code rules:
   Scanning 1 file with 4 java rules.
-                
-                
+
 ┌──────────────┐
 │ Scan Summary │
 └──────────────┘
-✅ Scan completed successfully.
- • Findings: 0 (0 blocking)
- • Rules run: 4
- • Targets scanned: 1
- • Parsed lines: ~100.0%
- • No ignore information available
+
 Ran 4 rules on 1 file: 0 findings.
 exit=0
 
-Run 2: identical to run 1 (diff, ignoring blank lines). exit=0 both times.
-
-===== Reading of the result =====
-
-Rule use-of-md5-digest-utils matches only the chained form DigestUtils.getMd5Digest().digest(...). Md5Crypt.java line 259 instead assigns the result: "final MessageDigest messageDigestMd5 = DigestUtils.getMd5Digest();" and calls update/digest on the variable later. The rule's shape does not match, so no finding.
-Rule use-of-md5 matches MessageDigest.getInstance("MD5"), which does not appear in Md5Crypt.java.
-Rule weak-random matches "new java.util.Random(...).method(...)" or Math.random(); Md5Crypt.java receives a Random as a parameter and never constructs one, so no match.
-Rule md5-used-as-password matches MessageDigest.getInstance("MD5") followed by password use; not present.
-Conclusion: Run A shows the rule and tool work (it hit the one expected line and skipped the two "ok" lines). Run B's zero is therefore a true zero for these patterns, not a non-functional tool, but it is a coverage gap for this file, because the file does use MD5 (lines 259, 275, 312).
+----- What this record does and does not show -----
+Check A was run once and Check B was run once with a saved output. I typed the Check B command twice, but both runs wrote to the same file (out/B1.txt), so the second overwrote the first and only one output exists. I therefore do not claim a saved repeat run or a comparison of two outputs on my laptop.
+Result: both checks gave the same findings on my laptop (Semgrep 1.99.0) as in the container (Semgrep 1.181.0): 1 finding at line 15 for check A, and 0 findings for check B. This agrees across the two machines and Semgrep versions for these two checks only. It does not test other rules, and it is not a reproducibility test on one machine.
+The terminal summary of Semgrep 1.99.0 does not print "Targets scanned" or "Parsed lines", which the container's 1.181.0 prints. That is a difference in output format, not in the findings.
