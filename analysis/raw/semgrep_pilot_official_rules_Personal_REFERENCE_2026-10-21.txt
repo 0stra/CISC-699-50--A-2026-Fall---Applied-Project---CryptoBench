@@ -90,7 +90,31 @@ Contents of B1.txt (as printed by cat):
 Ran 4 rules on 1 file: 0 findings.
 exit=0
 
+===== SECOND RUN OF BOTH CHECKS (separate output files) =====
+Later on 21 October 2026 (the exact time was not printed). My first attempt at a repeat of check B wrote to the same file as the first run and overwrote it, so I ran both checks again with new output file names (A2.txt and B2.txt) and compared them with the first outputs.
+
+cd ~/cryptobench-run/semgrep-rules
+git rev-parse HEAD
+(result) 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9
+
+Check A, second run:
+~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml java/lang/security/audit/crypto/use-of-md5-digest-utils.java > ~/cryptobench-run/out/A2.txt 2>&1; echo "exit=$?" >> ~/cryptobench-run/out/A2.txt
+
+Check B, second run:
+~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml --config java/lang/security/audit/crypto/use-of-md5.yaml --config java/lang/security/audit/crypto/weak-random.yaml --config java/lang/security/audit/md5-used-as-password.yaml ~/cryptobench-run/Md5Crypt.java > ~/cryptobench-run/out/B2.txt 2>&1; echo "exit=$?" >> ~/cryptobench-run/out/B2.txt
+
+ls ~/cryptobench-run/out
+(result) A1.txt  A2.txt  B1.txt  B2.txt
+
+Comparison:
+diff ~/cryptobench-run/out/A1.txt ~/cryptobench-run/out/A2.txt
+diff ~/cryptobench-run/out/B1.txt ~/cryptobench-run/out/B2.txt
+(result) no output from either command, so the first and second outputs are identical.
+
+Contents of A2.txt (as printed by cat): same as A1.txt above. 1 rule on 1 file, 1 finding, java/lang/security/audit/crypto/use-of-md5-digest-utils.java line 15: byte[] hashValue = DigestUtils.getMd5Digest().digest(password.getBytes()); exit=0
+Contents of B2.txt (as printed by cat): same as B1.txt above. 4 rules on 1 file, 0 findings, exit=0.
+
 ----- What this record does and does not show -----
-Check A was run once and Check B was run once with a saved output. I typed the Check B command twice, but both runs wrote to the same file (out/B1.txt), so the second overwrote the first and only one output exists. I therefore do not claim a saved repeat run or a comparison of two outputs on my laptop.
-Result: both checks gave the same findings on my laptop (Semgrep 1.99.0) as in the container (Semgrep 1.181.0): 1 finding at line 15 for check A, and 0 findings for check B. This agrees across the two machines and Semgrep versions for these two checks only. It does not test other rules, and it is not a reproducibility test on one machine.
-The terminal summary of Semgrep 1.99.0 does not print "Targets scanned" or "Parsed lines", which the container's 1.181.0 prints. That is a difference in output format, not in the findings.
+Each check was run twice on my laptop with separate saved outputs, and the two outputs are identical for both checks. Check A found 1 finding at line 15 and check B found 0 findings, which is also what the container runs found (Semgrep 1.181.0, each check run twice). So the result repeats on my laptop and agrees across the two machines and Semgrep versions for these two checks.
+It does not test other rules, other files, or other Semgrep versions. The terminal summary of Semgrep 1.99.0 does not print "Targets scanned" or "Parsed lines", which the container's 1.181.0 prints. That is a difference in output format, not in the findings.
+Note on the first attempt: I typed the check B command twice at first and both runs wrote to out/B1.txt, so the second overwrote the first. That is why the repeat above uses new file names.
