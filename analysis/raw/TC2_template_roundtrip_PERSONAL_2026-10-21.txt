@@ -1,0 +1,81 @@
+CryptoBench - Hard Stop 4 pilot. TEST CASE 2, INVENTORY TEMPLATE ROUND-TRIP. PERSONAL ATTEMPTS 1 AND 2 FAILED; ATTEMPT 3 PASSED.
+Done by me (Nitin Prakash) on my MacBook, 2026-10-21, around 10:05 to 10:08 PM EDT (the date command printed Wed Oct 21 22:08:35 EDT 2026 at the end). I typed and ran the commands and made the edit by hand in Visual Studio Code. The step-by-step commands and the text of the JSON entry were supplied by Claude (AI assistant) in chat.
+
+Purpose: check that I can copy the reference inventory template, add one entry by hand, save it, reopen it and still have a valid file. No coding. The original template is never edited.
+
+Template: reference_inventory_template.json from my repository (docs/data/reference_inventory/), downloaded from the main branch. 25 lines. sha256 a851ef3d6547c6e75f728144f2e8b9575b0853f4e63a4f9b65c693ad89a2139d. The template has an empty components list ("components": []).
+Entry I tried to add: one cryptographic-asset component for MD5 at Md5Crypt.java line 259 (reference list entry 1), with the project fields cryptobench:category = hashing and cryptobench:observability = source-visible.
+
+Commands and output (as pasted from my terminal):
+mkdir -p ~/cryptobench-run/tc2 && cd ~/cryptobench-run/tc2
+curl -fsSL -o template_original.json <raw URL of the template on GitHub main>
+wc -l template_original.json  ->  25
+shasum -a 256 template_original.json  ->  a851ef3d6547c6e75f728144f2e8b9575b0853f4e63a4f9b65c693ad89a2139d
+cp template_original.json template_copy.json
+python3 -m json.tool template_copy.json > /dev/null && echo "template parses"  ->  template parses
+open -a "Visual Studio Code" template_copy.json
+
+Mistake 1: I pasted the JSON entry into the Terminal instead of the editor. zsh printed "command not found" lines for each line of it. These commands did nothing and changed no file.
+
+After editing the copy in VS Code and saving:
+open -a "Visual Studio Code" template_copy.json
+python3 -m json.tool template_copy.json > /dev/null && echo "copy parses after save"
+(result) Expecting ',' delimiter: line 27 column 3 (char 639)
+grep -c '"type": "cryptographic-asset"' template_copy.json  ->  1
+diff template_original.json template_copy.json
+(result) 1c1,26 : line 1 of the original, "{", was replaced by "{" followed directly by the whole new block ("components": [ ... ]) on lines 1 to 26. No other difference was shown.
+shasum -a 256 template_original.json  ->  a851ef3d6547c6e75f728144f2e8b9575b0853f4e63a4f9b65c693ad89a2139d  (original unchanged)
+
+Cause (read from the diff by Claude; to be confirmed by me when I retry): the new block was inserted at the very top of the file, right after the opening brace, and the original "components": [] line near the bottom was not replaced. So the copy has two "components" keys, and there is no comma after the inserted block. That is why Python stops at line 27, where the next key ("bomFormat") begins.
+
+Result: ATTEMPT 1 FAILED. The copy saved and reopened, but it is not valid JSON, because of my hand-editing mistake. The original template is intact. The test case is not passed yet.
+Next: make a fresh copy, find the line "components": [] near the bottom with the editor's search, replace only that text with the block, save, close, reopen, and check again. I will record attempt 2 in a new section of this file.
+What this says about the method: hand-editing a JSON inventory is error-prone even for one entry. The freeze step needs a validity check after every edit (a parse check), and the real inventory file must be edited only on a copy.
+
+===== ATTEMPT 2 (fresh copy, template_copy2.json) =====
+Around 10:10 to 10:19 PM EDT on 2026-10-21 (the date command printed Wed Oct 21 22:18:52 EDT 2026 at the end). I made a fresh copy of the original template, edited it in Visual Studio Code and saved it. I had also checked the text of the complete JSON file with Claude before saving (Claude parsed the same text in a cloud container and it was valid JSON with one component).
+
+Commands and output (as pasted from my terminal):
+cd ~/cryptobench-run/tc2
+python3 -m json.tool template_copy2.json > /dev/null && echo "copy parses after save"
+(result) copy parses after save
+grep -c '"type": "cryptographic-asset"' template_copy2.json
+(result) 0
+diff template_original.json template_copy2.json
+(result) no output at all
+shasum -a 256 template_original.json
+(result) a851ef3d6547c6e75f728144f2e8b9575b0853f4e63a4f9b65c693ad89a2139d (original unchanged)
+head -c 1 template_copy2.json
+(result) {
+tail -c 2 template_copy2.json | od -c
+(result) } followed by a newline
+date
+(result) Wed Oct 21 22:18:52 EDT 2026
+
+What this shows (read by Claude from the output): the file is valid JSON, but the count of cryptographic-asset entries is 0 and diff printed nothing, so template_copy2.json is identical to the original template. My entry is not in the saved file. The parse check passed only because the file had not changed. I do not yet know why (the edit may not have been saved, or may have been saved in a different file); I will check which file the editor had open.
+
+Result: ATTEMPT 2 DID NOT TEST THE ROUND-TRIP and is NOT A PASS. Test case 2 had not passed after two attempts.
+What I learned: a parse check alone is not enough. After every edit I must also count the entry and compare the copy with the original. I made a third attempt (below).
+
+===== ATTEMPT 3 (new file, template_copy3.json): PASSED =====
+About 10:20 to 10:26 PM EDT on 2026-10-21 (the date command printed Wed Oct 21 22:26:27 EDT 2026 at the end). Claude gave me the complete JSON text (the template with the one MD5 entry in the components list), which Claude had first parsed in a cloud container (valid, one component). I opened a new empty file in Visual Studio Code, pasted the complete text, saved it as template_copy3.json in ~/cryptobench-run/tc2, closed it, reopened it from disk and ran the checks.
+
+Commands and output (as pasted from my terminal):
+cd ~/cryptobench-run/tc2
+python3 -m json.tool template_copy3.json > /dev/null && echo "copy parses after save"
+(result) copy parses after save
+grep -c '"type": "cryptographic-asset"' template_copy3.json
+(result) 1
+diff template_original.json template_copy3.json
+(result) 24,25c24,50 : lines 24 and 25 of the original ("components": [] and the closing brace) are replaced by the components block with one entry (type cryptographic-asset, bom-ref pilot-md5crypt-entry-1, name MD5, assetType algorithm, primitive hash, cryptoFunctions digest, evidence occurrence Md5Crypt.java line 259, cryptobench:category hashing, cryptobench:observability source-visible) and the closing brace. The diff also notes "No newline at end of file" for the new file, which is harmless. No other differences.
+shasum -a 256 template_original.json
+(result) a851ef3d6547c6e75f728144f2e8b9575b0853f4e63a4f9b65c693ad89a2139d (original unchanged)
+head -c 1 template_copy3.json
+(result) {
+tail -c 2 template_copy3.json | od -c
+(result) newline, then }
+date
+(result) Wed Oct 21 22:26:27 EDT 2026
+
+Result: TEST CASE 2 PASSED on the third attempt. The copy saved, reopened and parses as valid JSON; it contains exactly one cryptographic-asset entry; the only difference from the original is the added components block; the original template is unchanged.
+Limits: this checks save, reopen, valid JSON and the comparison with the original. It does not validate the file against the CycloneDX schema. The text of the entry came from Claude and I pasted a complete file into a new editor tab, so this tests save and reopen, not composing an entry from scratch. My first two attempts failed because of my editing (attempt 1: block inserted at the top, file invalid; attempt 2: file saved without my entry), which is why I now check the entry count and the comparison with the original as well as the parse.
