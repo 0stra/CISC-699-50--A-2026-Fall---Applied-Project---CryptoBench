@@ -1,0 +1,11 @@
+# Journal, 22 October 2026
+
+## Hard Stop 3, thesis version 2
+
+**What I did.** I revised my Hard Stop 3 package (Assignment 06) to follow the thesis instructions.`docs/PROCEDURE_NOTES.md` and `docs/ISSUE_LOG.md` from my existing records (journal 18 and 21 October, the raw files in `analysis/raw/`, `docs/ENVIRONMENT.md`) and the rubric. No new tool run was made for this version. The evidence is the runs already recorded: R1, P1, R2, P3, P4 and test case 2.
+
+**What changed in my thinking.** The pilot's main finding about my method is that a zero has three possible readings, not two (non-functional, true negative, coverage gap), and that a positive control has to share the code shape of what it validates. These are logged as ISSUE-08 and the protocol changes in `docs/PROCEDURE_NOTES.md`.
+
+**New issues logged.** ISSUE-08 (control of the wrong shape), ISSUE-09 (reference list not independent), ISSUE-10 (hand-edit failures in the template).
+
+**Next.** My own pass over the nine entries in Md5Crypt.java before I look at the provisional list. Check the new references against the sources. Confirm the repository tree for ISSUE-03.
