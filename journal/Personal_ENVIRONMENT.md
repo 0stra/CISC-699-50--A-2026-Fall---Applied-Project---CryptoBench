@@ -1,0 +1,62 @@
+# ENVIRONMENT.md
+
+CryptoBench pinned environment record. Last updated 21 October 2026 (Hard Stop 4). Only values I have seen printed in a terminal or on screen are filled in. Anything not yet installed or checked is marked as such, not guessed.
+
+## 1. My laptop (personal runs)
+
+Source: `analysis/raw/semgrep_pilot_official_rules_PERSONAL_2026-10-21.txt`, checked on 21 October 2026, about 7:12 PM EDT.
+
+- Machine: MacBook Pro
+- Operating system: macOS 15.7.9 (build 24G830)
+- Python: 3.8.2 (system Python)
+- Semgrep: 1.99.0, installed in a virtual environment at `~/.semgrep-venv`. This is the newest Semgrep that supports Python 3.8. A direct `pip3 install --user semgrep` failed on this Mac (old pip 19.2.3, no Homebrew), which is why the virtual environment is used.
+- Semgrep options used in every run: `--metrics=off` and `--disable-version-check`
+- Known warning, harmless: NotOpenSSLWarning about LibreSSL 2.8.3
+- Editor seen on 18 October: Visual Studio Code 1.142
+
+## 2. Cloud container (reference runs by Claude, not my computer)
+
+Source: `analysis/raw/semgrep_pilot_official_rules_REFERENCE_2026-10-21.txt` and `analysis/raw/semgrep_TC1_Md5Crypt_2026-10-18.txt`.
+
+- Operating system: Ubuntu 24.04.5 LTS
+- Python: 3.13.16
+- Semgrep: 1.181.0
+- Same options as above
+
+## 3. Semgrep rules (pinned)
+
+- Repository: https://github.com/semgrep/semgrep-rules
+- Commit: `17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9` (HEAD printed as "Merge pull request #4083 from semgrep/malaverdiere/fix-keyvault-timeadd-duration")
+- Files used, unmodified: `java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml`, `use-of-md5.yaml`, `weak-random.yaml` (same folder), and `java/lang/security/audit/md5-used-as-password.yaml`
+- Registry rulesets are not used. `p/cryptography` and `p/crypto` return HTTP 404 (18 October, my Mac, ISSUE-06). The registry returned 403 in the container.
+- `.semgrep.yml` in the repository root still names `p/cryptography`. It will be changed only after Dr. Shaalan confirms the replacement. Until then no run uses it.
+
+## 4. Input files (pinned)
+
+- Target: `Md5Crypt.java` from apache/commons-codec (Apache License 2.0), commit `f13dd50f566c318283c4138820b15d75c26a0217`, 361 lines
+  - sha256: `fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747` (same on my laptop and in the container)
+- Positive-control file: `java/lang/security/audit/crypto/use-of-md5-digest-utils.java` from the rules commit above
+  - sha256: `bd22fdb5ef195e383ec69aa9dbf1d0fd8f6cb5d41aef3f725f1aba5e5aa05908` (same on both machines)
+- The 18 October laptop copy of `Md5Crypt.java` came from the master branch with no commit recorded and was not hash-checked. It is not used for the 21 October results.
+
+## 5. Commands
+
+The exact commands for checks A and B are in the two raw files named above. They are not repeated here so there is one source of truth.
+
+## 6. Results at this date (for the record)
+
+- Check A (the MD5 DigestUtils rule on its own test file): 1 finding at line 15, exit 0. Container run twice, identical. Laptop run once.
+- Check B (four official rules on `Md5Crypt.java`): 0 findings, exit 0. Container run twice, identical. Laptop run once saved.
+- Laptop and container agree on both checks. Not tested on other rules.
+
+## 7. Not yet installed or not yet recorded
+
+- SonarQube: not installed. Version pairing with the Sonar Cryptography Plugin (RISK-01 / ISSUE-01) is untested.
+- Sonar Cryptography Plugin: not installed.
+- TLS scanner: not yet selected or installed. No endpoint is scanned until written authorisation is on file, or the service is one I own.
+- Git version on my laptop: not recorded.
+- Second saved laptop output for each check: planned for the week of 26 October.
+
+## 8. Verification log
+
+- 21 October 2026: laptop rules commit confirmed with `git rev-parse HEAD`; file and fixture sha256 match the container values; checks A and B give the same findings on both machines.
