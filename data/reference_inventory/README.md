@@ -37,3 +37,7 @@ This file is not edited after both independent review passes agree on its
 contents. Any later correction is itself a disagreement and triggers a
 re-run of both passes, not a silent edit (Literature and Requirements
 Brief, Table 3).
+
+## Provisional pilot list
+
+`md5crypt_pilot_reference_list_2026-10-21.md` is a nine-entry list for `Md5Crypt.java`, drafted by Claude (an AI assistant). It is not the frozen inventory and not an independent pass by me, so it does not meet the freeze rule above. It is used only to test the comparison procedure.

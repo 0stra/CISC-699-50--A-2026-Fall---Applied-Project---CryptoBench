@@ -1,0 +1,50 @@
+CryptoBench - Test case 1 (Semgrep invocation on an existing public Java file)
+RAW OUTPUT RECORD - attempt on the student's own computer. Output pasted as printed; only this header and the section titles were added.
+
+Who ran it and where: run on the student's MacBook, 2026-10-18, about 2:35 to 2:36 PM Eastern, through Claude Code (an AI assistant in the terminal) at the student's request. The student read the output.
+
+Environment found on the Mac: system Python 3.8.2, pip 19.2.3, Homebrew not installed, Semgrep not installed beforehand.
+
+----- Install -----
+1. pip3 install --user semgrep
+   Result: failed. The old pip tried to build a dependency from source (maturin) and stopped with "ERROR: Command errored out with exit status 1".
+2. python3 -m venv ~/.semgrep-venv, upgrade pip inside it, then install semgrep inside it
+   Result: worked. ~/.semgrep-venv/bin/semgrep --version printed 1.99.0 (the newest Semgrep that supports Python 3.8).
+   Notices printed: urllib3 v2 / LibreSSL NotOpenSSLWarning, and "A new version of Semgrep is available".
+
+----- Sample file -----
+Downloaded with: curl -fsSL -o ~/Downloads/Md5Crypt.java https://raw.githubusercontent.com/apache/commons-codec/master/src/main/java/org/apache/commons/codec/digest/Md5Crypt.java
+Result: 361 lines, Apache License header present. Taken from the master branch, so no commit hash was recorded for this copy.
+
+----- Command run (twice) -----
+~/.semgrep-venv/bin/semgrep scan --metrics=off --config p/cryptography ~/Downloads/Md5Crypt.java
+
+----- Run 1 output -----
+/Users/nitinprakash/.semgrep-venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+METRICS: Using configs from the Registry (like --config=p/ci) reports pseudonymous rule metrics to semgrep.dev.
+To disable Registry rule metrics, use "--metrics=off".
+Using configs only from local files (like --config=xyz.yml) does not enable metrics.
+
+More information: https://semgrep.dev/docs/metrics
+
+[ERROR] Failed to download configuration from https://semgrep.dev/p/cryptography HTTP 404.
+[ERROR] invalid configuration file found (1 configs were invalid)
+exit=7
+
+----- Run 2 output -----
+/Users/nitinprakash/.semgrep-venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+[ERROR] Failed to download configuration from https://semgrep.dev/p/cryptography HTTP 404.
+[ERROR] invalid configuration file found (1 configs were invalid)
+exit=7
+
+----- Registry check (which ruleset names exist) -----
+Command: for r in cryptography crypto java security-audit; do printf "p/%s -> " $r; curl -s -o /dev/null -w "%{http_code}\n" https://semgrep.dev/c/p/$r; done
+p/cryptography -> 404
+p/crypto -> 404
+p/java -> 200
+p/security-audit -> 200
+
+----- Result -----
+Both runs failed the same way and exit code 7 (invalid configuration). No file was scanned, so there is no findings summary line. The registry does not have a ruleset called p/cryptography on this date. Test case 1 is NOT passed.

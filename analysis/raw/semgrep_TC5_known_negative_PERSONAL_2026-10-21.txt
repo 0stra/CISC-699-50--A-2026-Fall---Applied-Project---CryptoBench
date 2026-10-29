@@ -1,0 +1,46 @@
+CryptoBench - Hard Stop 4 pilot. CHECK C, KNOWN NEGATIVE. PERSONAL RUN (my own computer).
+Run by me (Nitin Prakash) on my MacBook, 2026-10-21, finishing before 10:02:46 PM EDT (the time printed by the date command at the end). I typed and ran every command myself. The commands were supplied to me as step-by-step instructions by Claude (AI assistant) in chat. Claude also chose the file: before giving it to me, Claude downloaded it in a cloud container, searched it for cryptography words (none) and ran the same four rules on it (0 findings). That container check was not saved as a separate record, so I do not rely on it.
+
+Purpose: a known-negative check. The file contains no cryptography, so the four rules should report nothing. A finding would be a false positive.
+
+Pinned environment: same as my earlier run today. macOS 15.7.9, system Python 3.8.2, Semgrep 1.99.0 in ~/.semgrep-venv, --metrics=off, --disable-version-check.
+Rules: unmodified files from github.com/semgrep/semgrep-rules, commit 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9. git rev-parse HEAD printed this value before the scans.
+File: StringUtils.java from apache/commons-codec (Apache License 2.0), commit f13dd50f566c318283c4138820b15d75c26a0217, path src/main/java/org/apache/commons/codec/binary/StringUtils.java, downloaded from that commit.
+Checks on the file (as pasted from my terminal):
+wc -l -> 425 lines
+shasum -a 256 -> 6c44ebc7424c69fd04b6f3df10332934a149e6901fd29e86d96df4176527a99a
+grep -c -i "MessageDigest\|Random\|MD5\|Cipher\|SHA\|digest" -> 0
+
+Download command:
+curl -fsSL -o ~/cryptobench-run/StringUtils.java https://raw.githubusercontent.com/apache/commons-codec/f13dd50f566c318283c4138820b15d75c26a0217/src/main/java/org/apache/commons/codec/binary/StringUtils.java
+
+Scan command, run twice from inside the semgrep-rules folder (outputs N1.txt and N2.txt):
+~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml --config java/lang/security/audit/crypto/use-of-md5.yaml --config java/lang/security/audit/crypto/weak-random.yaml --config java/lang/security/audit/md5-used-as-password.yaml ~/cryptobench-run/StringUtils.java > ~/cryptobench-run/out/N1.txt 2>&1; echo "exit=$?" >> ~/cryptobench-run/out/N1.txt
+(the same command with N2.txt for the second run)
+
+ls ~/cryptobench-run/out -> A1.txt  A2.txt  B1.txt  B2.txt  N1.txt  N2.txt
+diff ~/cryptobench-run/out/N1.txt ~/cryptobench-run/out/N2.txt -> no output, so the two outputs are identical.
+
+Contents of N1.txt (as printed by cat):
+/Users/nitinprakash/.semgrep-venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 4 Code rules:
+  Scanning 1 file with 4 java rules.
+
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+
+Ran 4 rules on 1 file: 0 findings.
+exit=0
+
+N2.txt: identical to N1.txt (diff printed nothing).
+date -> Wed Oct 21 22:02:46 EDT 2026
+
+----- What this record does and does not show -----
+The four rules gave 0 findings on a file that contains no cryptography, twice, identical. So there was no false positive on this file. This is the known-negative step. It differs from the zero on Md5Crypt.java, which was a coverage gap because that file does use MD5.
+It shows nothing about false-positive rates in general. It is one file, four rules, one Semgrep version on one machine.
