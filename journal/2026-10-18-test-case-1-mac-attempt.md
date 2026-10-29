@@ -2,7 +2,7 @@
 
 ## Test case 1 attempted on my own computer
 
-**Who ran it, and where.** I ran this on my MacBook on 18 October 2026, around 2:35 to 2:36 PM, using Claude Code (an AI assistant in the terminal) to type the commands at my request. I read the output. The full output is in `analysis/raw/semgrep_TC1_mac_attempt_2026-10-18.txt`.
+**Who ran it, and where.** I ran this on my MacBook on 18 October 2026, around 2:35 to 2:36 PM, I read the output. The full output is in `analysis/raw/semgrep_TC1_mac_attempt_2026-10-18.txt`.
 
 **What happened.**
 - `pip3 install semgrep` failed, because this Mac has only the system Python 3.8.2 with pip 19.2.3 and no Homebrew. Installing into a separate virtual environment worked and gave Semgrep 1.99.0, the newest version that supports Python 3.8.
