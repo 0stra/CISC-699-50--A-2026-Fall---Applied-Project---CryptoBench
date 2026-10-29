@@ -1,7 +1,7 @@
 CryptoBench - Test case 1 (Semgrep invocation on an existing public Java file)
 RAW OUTPUT RECORD - attempt on the student's own computer. Output pasted as printed; only this header and the section titles were added.
 
-Who ran it and where: run my MacBook, 2026-10-18, about 2:35 to 2:36 PM Eastern.
+Who ran it and where: I ran on my MacBook, 2026-10-18, about 2:35 to 2:36 PM Eastern.
 
 Environment found on the Mac: system Python 3.8.2, pip 19.2.3, Homebrew not installed, Semgrep not installed beforehand.
 
