@@ -1,5 +1,5 @@
 CryptoBench - Hard Stop 4 pilot. CHECK C, KNOWN NEGATIVE. PERSONAL RUN (my own computer).
-Run by me (Nitin Prakash) on my MacBook, 2026-10-21, finishing before 10:02:46 PM EDT (the time printed by the date command at the end). I typed and ran every command myself. The commands were supplied to me as step-by-step instructions by Claude (AI assistant) in chat. Claude also chose the file: before giving it to me, Claude downloaded it in a cloud container, searched it for cryptography words (none) and ran the same four rules on it (0 findings). That container check was not saved as a separate record, so I do not rely on it.
+Run by me (Nitin Prakash) on my MacBook, 2026-10-21, finishing before 10:02:46 PM EDT (the time printed by the date command at the end). I typed and ran every command myself.Claude downloaded it in a cloud container, searched it for cryptography words (none) and ran the same four rules on it (0 findings). That container check was not saved as a separate record, so I do not rely on it.
 
 Purpose: a known-negative check. The file contains no cryptography, so the four rules should report nothing. A finding would be a false positive.
 
