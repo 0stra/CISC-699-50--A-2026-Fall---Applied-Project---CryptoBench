@@ -1,5 +1,5 @@
 CryptoBench - Hard Stop 4 pilot. TEST CASE 2, INVENTORY TEMPLATE ROUND-TRIP. PERSONAL ATTEMPTS 1 AND 2 FAILED; ATTEMPT 3 PASSED.
-Done by me (Nitin Prakash) on my MacBook, 2026-10-21, around 10:05 to 10:08 PM EDT (the date command printed Wed Oct 21 22:08:35 EDT 2026 at the end). I typed and ran the commands and made the edit by hand in Visual Studio Code. The step-by-step commands and the text of the JSON entry were supplied by Claude (AI assistant) in chat.
+Done by me (Nitin Prakash) on my MacBook, 2026-10-21, around 10:05 to 10:08 PM EDT (the date command printed Wed Oct 21 22:08:35 EDT 2026 at the end). I typed and ran the commands and made the edit by hand in Visual Studio Code.
 
 Purpose: check that I can copy the reference inventory template, add one entry by hand, save it, reopen it and still have a valid file. No coding. The original template is never edited.
 
