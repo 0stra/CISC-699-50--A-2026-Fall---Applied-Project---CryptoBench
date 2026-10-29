@@ -9,13 +9,13 @@ This file says what currently works, what is partial and what is blocked, and wh
 - Semgrep: pilot done on one public file (Md5Crypt.java). Runs R1, P1, R2, P3 and P4 and test case 2 are recorded. Usable with the protocol changes in section 3. No accuracy claim.
 - Sonar Cryptography Plugin (inside SonarQube): not installed, not tested. Version pairing with SonarQube is unchecked (ISSUE-01, RISK-01).
 - TLS scanner: not selected or installed. No endpoint scanned. No written authorisation on file (RISK-05).
-- Reference inventory: template only. A nine-entry pilot list for Md5Crypt.java exists, It is provisional and not independent (ISSUE-09).
+- Reference inventory: template only. A nine-entry pilot list for Md5Crypt.java exists, drafted by Claude. It is provisional and not independent (ISSUE-09).
 
 ## 2. Run vocabulary (same as Assignment 08)
 
 - R1, R2: reference runs done by Claude in a cloud container, not on my computer.
 - P1, P3, P4: my own runs on my MacBook.
-- P2: one extra VS Code scan with custom rules written by Claude Code. Supplementary only.
+- P2: one extra VS Code scan with custom rules written by Claude Code. Supplementary only, not evidence.
 - Test case 2: my own attempts to add one entry to a copy of the inventory template.
 
 ## 3. Protocol (changed after the pilot)

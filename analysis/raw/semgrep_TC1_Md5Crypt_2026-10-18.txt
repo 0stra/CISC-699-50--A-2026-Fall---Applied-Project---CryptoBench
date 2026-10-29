@@ -1,7 +1,7 @@
 CryptoBench - Test case 1 (Semgrep invocation on an existing public Java file)
 RAW OUTPUT RECORD - saved from the terminal, nothing edited except this header.
 
-IMPORTANT: this run was executed on Linux container on 2026-10-18. See journal/2026-10-18.md.
+IMPORTANT: this run was executed by Claude (AI assistant) in a cloud Linux container on 2026-10-18, not on the student's own machine. See journal/2026-10-18.md.
 
 Environment:   Ubuntu 24.04.5 LTS, Python 3.13.16 (cloud container)
 Semgrep:       1.181.0   (installed with pip)

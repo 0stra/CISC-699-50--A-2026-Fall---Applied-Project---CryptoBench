@@ -12,7 +12,7 @@ CryptoBench issue and risk log. Updated 22 October 2026 (Hard Stop 3, thesis ver
 - ISSUE-06, ruleset p/cryptography does not exist (HTTP 404 on 18 October, also p/crypto). Severity: high. State: mitigated by pinned local rules, awaiting Dr. Shaalan's confirmation. `.semgrep.yml` unchanged.
 - ISSUE-07, Semgrep 1.99.0 on the laptop and 1.181.0 in the container. Severity: medium. State: checked for checks A, B and C, which give the same findings. Other rules untested. Scored runs to use one environment.
 - ISSUE-08 (new, 22 October), positive control of the wrong code shape. The control passes on the chained MD5 form and Md5Crypt.java uses the variable form, so a passing control did not warn about the miss. Severity: medium to high. State: open. Protocol change 2 applies. Closed when a same-shape control is found or the gap is recorded.
-- ISSUE-09 (new, 22 October), reference list not independent. Severity: high. State: open. My own pass is pending.
+- ISSUE-09 (new, 22 October), reference list not independent. Claude drafted the nine entries. Severity: high. State: open. My own pass is pending.
 - ISSUE-10 (new, 22 October), hand-editing of the inventory template failed twice before passing (test case 2). Severity: low to medium. State: mitigated by protocol change 5. Not checked against the CycloneDX schema, so not fully closed.
 
 ## Risks carried forward
