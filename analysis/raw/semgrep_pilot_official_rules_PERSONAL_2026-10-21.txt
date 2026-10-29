@@ -1,5 +1,5 @@
 CryptoBench - Hard Stop 4 pilot. PERSONAL RUN (my own computer).
-Run by me (Nitin Prakash) on my MacBook, 2026-10-21, about 7:12 to 7:15 PM EDT. I typed and ran every command myself in the terminal. The commands were supplied to me as step-by-step instructions by Claude (AI assistant) in chat; I did not change them. This run repeats checks A and B from the reference run by Claude in a cloud container (analysis/raw/semgrep_pilot_official_rules_REFERENCE_2026-10-21.txt).
+Run by me (Nitin Prakash) on my MacBook, 2026-10-21, about 7:12 to 7:15 PM EDT. I typed and ran every command myself in the terminal. ; I did not change them. This run repeats checks A and B from the reference run by Claude in a cloud container (analysis/raw/semgrep_pilot_official_rules_REFERENCE_2026-10-21.txt).
 
 Pinned environment (printed by the commands below):
 macOS 15.7.9 (build 24G830), system Python 3.8.2, Semgrep 1.99.0 installed in ~/.semgrep-venv, --metrics=off, --disable-version-check.
