@@ -1,6 +1,6 @@
 # ENVIRONMENT.md
 
-CryptoBench pinned environment record. Last updated 21 October 2026 (Hard Stop 4). Only values I have seen printed in a terminal or on screen are filled in. Anything not yet installed or checked is marked as such, not guessed.
+CryptoBench pinned environment record. Last updated 21 October 2026 (Hard Stop 4). Only values I have seen printed in a terminal or on screen are filled in.
 
 ## 1. My laptop (personal runs)
 
