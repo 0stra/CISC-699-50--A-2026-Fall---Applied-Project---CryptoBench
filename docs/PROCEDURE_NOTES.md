@@ -15,7 +15,7 @@ This file says what currently works, what is partial and what is blocked, and wh
 
 - R1, R2: reference runs done by Claude in a cloud container, not on my computer.
 - P1, P3, P4: my own runs on my MacBook.
-- P2: one extra VS Code scan with custom rules written by Claude Code. Supplementary only, not evidence.
+- P2: one extra VS Code scan with custom rules. Supplementary only.
 - Test case 2: my own attempts to add one entry to a copy of the inventory template.
 
 ## 3. Protocol (changed after the pilot)
