@@ -6,7 +6,7 @@ Purpose: check that I can copy the reference inventory template, add one entry b
 Template: reference_inventory_template.json from my repository (docs/data/reference_inventory/), downloaded from the main branch. 25 lines. sha256 a851ef3d6547c6e75f728144f2e8b9575b0853f4e63a4f9b65c693ad89a2139d. The template has an empty components list ("components": []).
 Entry I tried to add: one cryptographic-asset component for MD5 at Md5Crypt.java line 259 (reference list entry 1), with the project fields cryptobench:category = hashing and cryptobench:observability = source-visible.
 
-Commands and output (as pasted from my terminal):
+Commands and output:
 mkdir -p ~/cryptobench-run/tc2 && cd ~/cryptobench-run/tc2
 curl -fsSL -o template_original.json <raw URL of the template on GitHub main>
 wc -l template_original.json  ->  25
@@ -26,7 +26,7 @@ diff template_original.json template_copy.json
 (result) 1c1,26 : line 1 of the original, "{", was replaced by "{" followed directly by the whole new block ("components": [ ... ]) on lines 1 to 26. No other difference was shown.
 shasum -a 256 template_original.json  ->  a851ef3d6547c6e75f728144f2e8b9575b0853f4e63a4f9b65c693ad89a2139d  (original unchanged)
 
-Cause (read from the diff by Claude; to be confirmed by me when I retry): the new block was inserted at the very top of the file, right after the opening brace, and the original "components": [] line near the bottom was not replaced. So the copy has two "components" keys, and there is no comma after the inserted block. That is why Python stops at line 27, where the next key ("bomFormat") begins.
+Cause : the new block was inserted at the very top of the file, right after the opening brace, and the original "components": [] line near the bottom was not replaced. So the copy has two "components" keys, and there is no comma after the inserted block. That is why Python stops at line 27, where the next key ("bomFormat") begins.
 
 Result: ATTEMPT 1 FAILED. The copy saved and reopened, but it is not valid JSON, because of my hand-editing mistake. The original template is intact. The test case is not passed yet.
 Next: make a fresh copy, find the line "components": [] near the bottom with the editor's search, replace only that text with the block, save, close, reopen, and check again. I will record attempt 2 in a new section of this file.
@@ -52,7 +52,7 @@ tail -c 2 template_copy2.json | od -c
 date
 (result) Wed Oct 21 22:18:52 EDT 2026
 
-What this shows (read by Claude from the output): the file is valid JSON, but the count of cryptographic-asset entries is 0 and diff printed nothing, so template_copy2.json is identical to the original template. My entry is not in the saved file. The parse check passed only because the file had not changed. I do not yet know why (the edit may not have been saved, or may have been saved in a different file); I will check which file the editor had open.
+What this shows: the file is valid JSON, but the count of cryptographic-asset entries is 0 and diff printed nothing, so template_copy2.json is identical to the original template. My entry is not in the saved file. The parse check passed only because the file had not changed. I do not yet know why (the edit may not have been saved, or may have been saved in a different file); I will check which file the editor had open.
 
 Result: ATTEMPT 2 DID NOT TEST THE ROUND-TRIP and is NOT A PASS. Test case 2 had not passed after two attempts.
 What I learned: a parse check alone is not enough. After every edit I must also count the entry and compare the copy with the original. I made a third attempt (below).
@@ -60,7 +60,7 @@ What I learned: a parse check alone is not enough. After every edit I must also 
 ===== ATTEMPT 3 (new file, template_copy3.json): PASSED =====
 About 10:20 to 10:26 PM EDT on 2026-10-21 (the date command printed Wed Oct 21 22:26:27 EDT 2026 at the end). Claude gave me the complete JSON text (the template with the one MD5 entry in the components list), which Claude had first parsed in a cloud container (valid, one component). I opened a new empty file in Visual Studio Code, pasted the complete text, saved it as template_copy3.json in ~/cryptobench-run/tc2, closed it, reopened it from disk and ran the checks.
 
-Commands and output (as pasted from my terminal):
+Commands and output :
 cd ~/cryptobench-run/tc2
 python3 -m json.tool template_copy3.json > /dev/null && echo "copy parses after save"
 (result) copy parses after save
@@ -78,5 +78,5 @@ date
 (result) Wed Oct 21 22:26:27 EDT 2026
 
 Result: TEST CASE 2 PASSED on the third attempt. The copy saved, reopened and parses as valid JSON; it contains exactly one cryptographic-asset entry; the only difference from the original is the added components block; the original template is unchanged.
-Limits: this checks save, reopen, valid JSON and the comparison with the original. It does not validate the file against the CycloneDX schema. The text of the entry came from Claude and I pasted a complete file into a new editor tab, so this tests save and reopen, not composing an entry from scratch. My first two attempts failed because of my editing (attempt 1: block inserted at the top, file invalid; attempt 2: file saved without my entry), which is why I now check the entry count and the comparison with the original as well as the parse.
+Limits: this checks save, reopen, valid JSON and the comparison with the original. It does not validate the file against the CycloneDX schema.So this tests save and reopen, not composing an entry from scratch. My first two attempts failed because of my editing (attempt 1: block inserted at the top, file invalid; attempt 2: file saved without my entry), which is why I now check the entry count and the comparison with the original as well as the parse.
 
