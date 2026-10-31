@@ -1,12 +1,12 @@
 # ISSUE_LOG.md
 
-CryptoBench issue and risk log. Updated 22 October 2026 (Hard Stop 3, thesis version 2). Belongs at `docs/ISSUE_LOG.md`. Owner of every item: Nitin (individual project).
+CryptoBench issue and risk log. Updated 22 October 2026 (Hard Stop 3, thesis version 2), revised 31 October 2026. Belongs at `docs/ISSUE_LOG.md`. Owner of every item: Nitin (individual project).
 
 ## Issues
 
-- ISSUE-01, Sonar Cryptography Plugin not installed. Severity: high. State: open. The 25 October gate in Assignment 07 Rule 1 will not be met.
+- ISSUE-01, Sonar Cryptography Plugin not installed. Severity: high. State: open. The 25 October gate in Assignment 07 Rule 1 has passed without the plugin being installed, so the fallback applies (Semgrep and the TLS scanner, plugin reported as an open dependency) unless Dr. Shaalan decides otherwise.
 - ISSUE-02, Semgrep registry rule drift. Severity: medium. State: mitigated for the pilot runs by local rules pinned by commit. Open for any run that uses the registry.
-- ISSUE-03, repository folder nesting. Severity: low. State: open until I confirm from the repository tree that leftover copies under `docs/` are gone.
+- ISSUE-03, repository folder nesting. Severity: low. State: closed. Leftover copies under `docs/` were moved to the top-level folders in the repository reorganisation; to be confirmed from the repository tree.
 - ISSUE-04, environment record placeholders. Severity: medium. State: partly closed. Semgrep, Python and operating system are filled in. SonarQube, plugin, TLS scanner and Git are still empty.
 - ISSUE-05, no tool-execution evidence. Severity: high (version 1). State: closed for Semgrep by R1, P1, R2, P3, P4 and test case 2. Open for the plugin and the TLS scanner.
 - ISSUE-06, ruleset p/cryptography does not exist (HTTP 404 on 18 October, also p/crypto). Severity: high. State: mitigated by pinned local rules,`.semgrep.yml` unchanged.
