@@ -1,0 +1,148 @@
+CryptoBench - repeat of the Semgrep pilot checks. PERSONAL RUN P5 (my own computer).
+Run by me (Nitin Prakash) on my MacBook, Sat 31 Oct 2026, about 3:45 PM EDT. I typed and ran every command myself. The commands were supplied to me in chat by Claude (AI assistant); they are the same commands as in semgrep_pilot_official_rules_PERSONAL_2026-10-21.txt and semgrep_TC5_known_negative_PERSONAL_2026-10-21.txt, with output saved to ~/cryptobench-run/out31/.
+
+Pinned environment: macOS 15.7.9, Python 3.8.2, Semgrep 1.99.0 in ~/.semgrep-venv, --metrics=off, --disable-version-check.
+Rules: unmodified semgrep-rules files, commit 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9 (git rev-parse HEAD printed this value).
+Files: Md5Crypt.java, 361 lines, sha256 fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747. StringUtils.java, 425 lines, sha256 6c44ebc7424c69fd04b6f3df10332934a149e6901fd29e86d96df4176527a99a. Rule fixture sha256 bd22fdb5ef195e383ec69aa9dbf1d0fd8f6cb5d41aef3f725f1aba5e5aa05908. All match the 21 October records.
+
+Result (as printed by my terminal): each check was run twice and the two outputs were compared with diff. Check A (positive control, one rule on its own test file): 1 finding, both runs, "A same". Check B (four rules on Md5Crypt.java): 0 findings, both runs, "B same". Check C (four rules on StringUtils.java): 0 findings, both runs, "C same".
+
+What this shows: the 21 October findings repeat on my laptop on a second day with the same versions and files. It is a self-check by one person. It does not test other rules, files or Semgrep versions, and it says nothing about the reference list.
+
+----- Raw outputs (cat of A1, A2, B1, B2, C1, C2) -----
+===== A1 =====
+/Users/nitinprakash/.semgrep-venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+
+Ran 1 rule on 1 file: 1 finding.
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                                                                
+    java/lang/security/audit/crypto/use-of-md5-digest-utils.java
+    ❯❱ java.lang.security.audit.crypto.use-of-md5-digest-utils
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
+          therefore not suitable as a cryptographic signature. Use HMAC instead.                         
+                                                                                                         
+           ▶▶┆ Autofix ▶ getSha512Digest
+           15┆ byte[] hashValue = DigestUtils.getMd5Digest().digest(password.getBytes());
+
+exit=0
+===== A2 =====
+/Users/nitinprakash/.semgrep-venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+
+Ran 1 rule on 1 file: 1 finding.
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                                                                
+    java/lang/security/audit/crypto/use-of-md5-digest-utils.java
+    ❯❱ java.lang.security.audit.crypto.use-of-md5-digest-utils
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
+          therefore not suitable as a cryptographic signature. Use HMAC instead.                         
+                                                                                                         
+           ▶▶┆ Autofix ▶ getSha512Digest
+           15┆ byte[] hashValue = DigestUtils.getMd5Digest().digest(password.getBytes());
+
+exit=0
+===== B1 =====
+/Users/nitinprakash/.semgrep-venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 4 Code rules:
+  Scanning 1 file with 4 java rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+
+Ran 4 rules on 1 file: 0 findings.
+exit=0
+===== B2 =====
+/Users/nitinprakash/.semgrep-venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 4 Code rules:
+  Scanning 1 file with 4 java rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+
+Ran 4 rules on 1 file: 0 findings.
+exit=0
+===== C1 =====
+/Users/nitinprakash/.semgrep-venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 4 Code rules:
+  Scanning 1 file with 4 java rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+
+Ran 4 rules on 1 file: 0 findings.
+exit=0
+===== C2 =====
+/Users/nitinprakash/.semgrep-venv/lib/python3.8/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 4 Code rules:
+  Scanning 1 file with 4 java rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+
+Ran 4 rules on 1 file: 0 findings.
+exit=0
