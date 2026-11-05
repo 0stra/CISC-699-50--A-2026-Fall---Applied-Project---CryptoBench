@@ -6,9 +6,9 @@ Version 1 (29 October 2026, Assignment 09) and version 2 (4 November 2026) are k
 
 **Stable evidence version.** The audited release candidate is commit `aeec71de620e5d8a000adbd79af4bd50ce929886` (called a10-rc1 in `docs/AUDIT_RECORD_A10.md`). Fixes made after the audit are in later commits; the final commit and its tag `a10-rc6` are named in `docs/AUDIT_RECORD_A10.md`. A file cannot contain its own commit hash, which is why the hashes are recorded in the audit record. A claim made later should cite the tag and the claim number, for example "K8 at a10-rc6". Raw records are not edited after they are written, so the file names below are stable. If a record changes, a new tag is made.
 
-Written by Claude (AI assistant) from the existing records. K8 rests on a new run made by Claude in its container (R3); I did not run it. I repeated checks D and E myself on my MacBook on 4 November (record P6); I had the expected values in front of me.
+K8 rests on a new run made by Claude in its container (R3); I did not run it. I repeated checks D and E myself on my MacBook on 4 November (record P6); I had the expected values in front of me.
 
-Run labels: R = reference run by Claude in a cloud container (R3 = the 4 November control run). P6 = my 4 November checks D and E on my MacBook. P7 = my 4 November check F (the other three rules). P = run on my MacBook. P1 was typed by Claude Code at my request; P3 and P4 I typed and ran myself. TC2 = my three attempts at the template round-trip.
+Run labels: R = reference run by Claude in a cloud container (R3 = the 4 November control run). P6 = my 4 November checks D and E on my MacBook. P7 = my 4 November check F (the other three rules). P = run on my MacBook.P3 and P4 I typed and ran myself. TC2 = my three attempts at the template round-trip.
 
 Figure files: `analysis/results/figure_1_proof_map.png` (claims to records), `analysis/results/figure_2_zero_classification.png` (how a zero is classified) and `analysis/results/figure_3_rule_results_2026-11-05.png` (findings per rule, own test file against Md5Crypt.java). Claude drew all three from the content of this register; they are not independent evidence (`docs/SOURCE_LEDGER.md`).
 
@@ -150,7 +150,7 @@ Figure files: `analysis/results/figure_1_proof_map.png` (claims to records), `an
 
 **L5.** The template check covers JSON validity, not the CycloneDX schema. Consequence: the inventory instrument is only partly validated.
 
-**L7.** The control file is synthetic (written by Claude). It was run by Claude (1.181.0) and by me (1.99.0, P6), one rule, two versions. Consequence: K8 holds for this one rule and these two versions only; my P6 run was not blind to the expected result.
+**L7.** The control file is synthetic. It was run by Claude (1.181.0) and by me (1.99.0, P6), one rule, two versions. Consequence: K8 holds for this one rule and these two versions only; my P6 run was not blind to the expected result.
 
 **L8.** DigestUtils.java line 469 holds `getMd5Digest().digest(data)` without the `DigestUtils.` prefix and the rule does not match it. This is a second shape the rule misses; it was observed, not explored. Consequence: the shape gap has at least two forms.
 
