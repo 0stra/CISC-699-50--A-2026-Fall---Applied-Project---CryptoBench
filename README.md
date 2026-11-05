@@ -65,7 +65,7 @@ Expected outputs: A = 1 finding (line 15); B = 0; C = 0; D = 1 finding (line 6 o
 - The reference inventory is not frozen. The provisional list was drafted by Claude; my pass 1 is not fully independent; pass 2, the agreed list and the comparison are still to do (ISSUE-09). No recall or precision may be computed from it.
 - One file per tool, chosen by convenience (RISK-04).
 - Two Semgrep versions are in use (ISSUE-07). Registry rules drift (ISSUE-02), so only the pinned files are used.
-- The control file is synthetic and was run once by Claude (claims register L7).
+- The control file is synthetic. Claude ran it first; I repeated it on my MacBook, knowing the expected result (claims register L7).
 - Nothing here has been confirmed by my supervisor. No approval is implied by any file.
 
 ## 9. Reviewer navigation: how to verify a claim

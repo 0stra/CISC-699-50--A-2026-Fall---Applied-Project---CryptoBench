@@ -4,9 +4,9 @@ Version 1 (29 October 2026, Assignment 09) is kept unchanged at `analysis/result
 
 **Stable evidence version.** The audited release candidate is commit `aeec71de620e5d8a000adbd79af4bd50ce929886` (called a10-rc1 in `docs/AUDIT_RECORD_A10.md`). Fixes made after the audit are in later commits; the final commit and its tag `a10-rc2` are named in `docs/AUDIT_RECORD_A10.md`. A file cannot contain its own commit hash, which is why the hashes are recorded in the audit record. A claim made later should cite the tag and the claim number, for example "K8 at a10-rc2". Raw records are not edited after they are written, so the file names below are stable. If a record changes, a new tag is made.
 
-Written by Claude (AI assistant) from the existing records. K8 rests on a new run made by Claude in its container (R3); I did not run it. I have not yet repeated check D myself on my MacBook.
+Written by Claude (AI assistant) from the existing records. K8 rests on a new run made by Claude in its container (R3); I did not run it. I repeated checks D and E myself on my MacBook on 4 November (record P6); I had the expected values in front of me.
 
-Run labels: R = reference run by Claude in a cloud container (R3 = the 4 November control run). P = run on my MacBook. P1 was typed by Claude Code at my request; P3 and P4 I typed and ran myself. TC2 = my three attempts at the template round-trip.
+Run labels: R = reference run by Claude in a cloud container (R3 = the 4 November control run). P6 = my 4 November checks D and E on my MacBook. P = run on my MacBook. P1 was typed by Claude Code at my request; P3 and P4 I typed and ran myself. TC2 = my three attempts at the template round-trip.
 
 Figure files: `analysis/results/figure_1_proof_map.png` (claims to records) and `analysis/results/figure_2_zero_classification.png` (how a zero is classified).
 
@@ -98,9 +98,9 @@ Figure files: `analysis/results/figure_1_proof_map.png` (claims to records) and 
 
 **Claim.** On a 14-line control with the same call in two shapes, the unmodified official rule use-of-md5-digest-utils finds the chained form (line 6) and does not find the variable form (lines 10 to 12), which is the shape Md5Crypt.java uses at lines 259, 275 and 312. The same rule also finds nothing in DigestUtils.java, DigestUtilsTest.java or Md5Crypt.java from the pinned commit.
 
-**Records.** R3, 4 November, reference run by Claude in the container (Semgrep 1.181.0). Not yet repeated on my MacBook.
+**Records.** R3, 4 November, reference run by Claude in the container (Semgrep 1.181.0). P6, 4 November, my own checks D and E on my MacBook (Semgrep 1.99.0), each twice, identical: 1 finding at line 6, 0 findings on DigestUtils.java and DigestUtilsTest.java.
 
-**Files.** `analysis/raw/semgrep_samshape_control_REFERENCE_2026-11-04.txt`, `data/test_material/same_shape_control/SameShapeControl.java`, `data/test_material/same_shape_control/README.md`
+**Files.** `analysis/raw/semgrep_samshape_control_REFERENCE_2026-11-04.txt`, `analysis/raw/semgrep_checks_D_E_PERSONAL_2026-11-04.txt`, `data/test_material/same_shape_control/SameShapeControl.java`, `data/test_material/same_shape_control/README.md`
 
 **Limits.** L1, L7, L8.
 
@@ -118,7 +118,7 @@ Figure files: `analysis/results/figure_1_proof_map.png` (claims to records) and 
 
 **L5.** The template check covers JSON validity, not the CycloneDX schema. Consequence: the inventory instrument is only partly validated.
 
-**L7.** The control file is synthetic (written by Claude) and was run once, by Claude, on one Semgrep version. Consequence: K8 is a single AI-run observation until I repeat it.
+**L7.** The control file is synthetic (written by Claude). It was run by Claude (1.181.0) and by me (1.99.0, P6), one rule, two versions. Consequence: K8 holds for this one rule and these two versions only; my P6 run was not blind to the expected result.
 
 **L8.** DigestUtils.java line 469 holds `getMd5Digest().digest(data)` without the `DigestUtils.` prefix and the rule does not match it. This is a second shape the rule misses; it was observed, not explored. Consequence: the shape gap has at least two forms.
 

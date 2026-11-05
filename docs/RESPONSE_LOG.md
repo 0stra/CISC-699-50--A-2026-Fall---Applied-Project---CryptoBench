@@ -12,7 +12,7 @@ Response log for the feedback on Assignment 09 (professor feedback, received bef
 
 - **Change made.** Added a 14-line control with the same MD5 call in the chained and variable forms, and ran the unmodified official rule on it. Result: the rule finds the chained form (line 6) only.
 - **Location.** `data/test_material/same_shape_control/`; `analysis/raw/semgrep_samshape_control_REFERENCE_2026-11-04.txt`; claim K8 and updated K4 in `analysis/results/claims_register_2026-11-04.md`; ISSUE-08 in `docs/ISSUE_LOG.md`; check D in `docs/REPRODUCE.md`.
-- **Unresolved.** The control was written and run by Claude, once, in the container. I have not repeated it on my MacBook. Only one of the four rules was probed for shape.
+- **Unresolved.** The control was written by Claude and first run by Claude in the container. I repeated checks D and E on my MacBook (P6, `analysis/raw/semgrep_checks_D_E_PERSONAL_2026-11-04.txt`) with the same results; that run was not blind. Only one of the four rules was probed for shape.
 
 ## F3. "Attach stable claim records"
 
@@ -32,3 +32,4 @@ Response log for the feedback on Assignment 09 (professor feedback, received bef
 - **K8 part not reproducible.** Change: check E added. Location: `docs/REPRODUCE.md` section 3. Unresolved: the re-test was by the author only.
 - **Vague wording.** Change: placeholders, working folder, output wording and reviewer file delivery clarified. Location: `docs/REPRODUCE.md`. Unresolved: none known.
 - **AI attribution removed from three files on 31 October.** Change: restored. Location: `data/reference_inventory/own_pass/own_pass_1.md`, `docs/PROCEDURE_NOTES.md`, `journal/2026-10-31.md`. Unresolved: none.
+- **Check D wording on Semgrep 1.99.0.** My P6 run showed that 1.99.0 prints no `Findings: N` line. Change: expected outputs now rely on the `Ran ...` line. Location: `docs/REPRODUCE.md`. Unresolved: none.

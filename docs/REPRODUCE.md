@@ -50,23 +50,23 @@ Every run uses the options `--metrics=off --disable-version-check`. Run each che
 
 **Check A (positive control, rule author's own test file).**
 `semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml java/lang/security/audit/crypto/use-of-md5-digest-utils.java`
-Expected: the summary box prints `Findings: 1 (1 blocking)`, the finding excerpt is marked `15┆`, and the summary line reads `Ran 1 rule on 1 file: 1 finding.`
+Expected: the line `Ran 1 rule on 1 file: 1 finding.` is printed (Semgrep 1.181.0 also prints `Findings: 1 (1 blocking)` in the summary box; 1.99.0 does not), the finding excerpt is marked `15┆`, and the summary line reads `Ran 1 rule on 1 file: 1 finding.`
 
 **Check B (four official rules on the target file).**
 `semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml --config java/lang/security/audit/crypto/use-of-md5.yaml --config java/lang/security/audit/crypto/weak-random.yaml --config java/lang/security/audit/md5-used-as-password.yaml ../Md5Crypt.java`
-Expected: `Findings: 0 (0 blocking)` and `Ran 4 rules on 1 file: 0 findings.`
+Expected: `Ran 4 rules on 1 file: 0 findings.` (1.181.0 also prints `Findings: 0 (0 blocking)`).
 
 **Check C (known negative, same four rules on a file with no cryptography).**
 The same command as check B, with `../StringUtils.java` as the last argument.
-Expected: `Findings: 0 (0 blocking)` and `Ran 4 rules on 1 file: 0 findings.`
+Expected: `Ran 4 rules on 1 file: 0 findings.`
 
 **Check D (same-shape control, added 4 November 2026).**
 `semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml ../SameShapeControl.java`
-Expected: `Findings: 1 (1 blocking)`, the excerpt is marked `6┆` (`return DigestUtils.getMd5Digest().digest(data);`), and there is no finding on lines 10 to 12. Summary line: `Ran 1 rule on 1 file: 1 finding.`
+Expected: the excerpt is marked `6┆` (`return DigestUtils.getMd5Digest().digest(data);`), and there is no finding on lines 10 to 12. Summary line: `Ran 1 rule on 1 file: 1 finding.`
 
 **Check E (the same rule on two more public files, and the shape of Md5Crypt.java).**
 `semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml ../DigestUtils.java ../DigestUtilsTest.java`
-Expected: `Findings: 0 (0 blocking)` and `Ran 1 rule on 2 files: 0 findings.` Then show the three lines of `Md5Crypt.java` that the claims refer to: `sed -n '259p;275p;312p' ../Md5Crypt.java`. Expected: each line assigns `DigestUtils.getMd5Digest()` to a variable (the variable form), at lines 259, 275 and 312. `DigestUtils.java` line 469 holds `getMd5Digest().digest(data)` without the `DigestUtils.` prefix (`sed -n 469p ../DigestUtils.java`), a second shape the rule does not match (claims register L8).
+Expected: `Ran 1 rule on 2 files: 0 findings.` Then show the three lines of `Md5Crypt.java` that the claims refer to: `sed -n '259p;275p;312p' ../Md5Crypt.java`. Expected: each line assigns `DigestUtils.getMd5Digest()` to a variable (the variable form), at lines 259, 275 and 312. `DigestUtils.java` line 469 holds `getMd5Digest().digest(data)` without the `DigestUtils.` prefix (`sed -n 469p ../DigestUtils.java`), a second shape the rule does not match (claims register L8).
 
 The line `Scanning 1 file tracked by git` can appear even though the files are outside any repository you made; it is Semgrep's wording and not a problem. Semgrep may print a warning about LibreSSL on macOS (harmless) and a "Scan Status" box. These are not findings.
 

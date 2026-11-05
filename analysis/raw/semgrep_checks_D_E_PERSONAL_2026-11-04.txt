@@ -1,0 +1,47 @@
+Checks D and E, run by me (Nitin Prakash) on my MacBook, 4 November 2026, 20:17 to 20:19 EST. I typed and ran every command in the VS Code terminal. Claude supplied the command blocks in chat and, after I ran them, read my saved output files (out/D1.txt, D2.txt, E1.txt, E2.txt, hashes.txt) through the linked-computer connection to copy them here. Claude did not run these checks.
+
+Machine: MacBook Pro, macOS 15.7.9, Python 3.8.2, Semgrep 1.99.0 (~/.semgrep-venv). Known harmless warning: NotOpenSSLWarning (LibreSSL 2.8.3).
+Rules: semgrep/semgrep-rules commit 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9 (git rev-parse HEAD printed exactly this at 20:14).
+Working folder: ~/cb-work (new, empty before the run). Commands followed docs/REPRODUCE.md at repository commit 1a368b940520234710cd082717bbe1160f4d9529, except that I ran the semgrep binary as ~/.semgrep-venv/bin/semgrep.
+
+sha256 (shasum -a 256), all equal to the values in docs/REPRODUCE.md step 2:
+fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747  Md5Crypt.java
+6c44ebc7424c69fd04b6f3df10332934a149e6901fd29e86d96df4176527a99a  StringUtils.java
+427fa77411e7a0ea7798151b199aa17892b7f1043ad7d26baf566d2d97e36347  DigestUtils.java
+b886f74b8450318218366af7d486666de1e1a94945e81f3ba191ef36cbbda426  DigestUtilsTest.java
+657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539  SameShapeControl.java (14 lines)
+a0614baf029418dd9b298713c3328f371faa1edb0eac7cc2c4a3a99ce1a220a5  use-of-md5-digest-utils.yaml
+bd22fdb5ef195e383ec69aa9dbf1d0fd8f6cb5d41aef3f725f1aba5e5aa05908  use-of-md5-digest-utils.java
+StringUtils.java was hashed in the same step; I did not use it in checks D or E.
+
+What went wrong first (kept in this record):
+- 20:17 First attempt at check D: SameShapeControl.java was not in ~/cb-work, because my copy of ~/CryptoBench had not been updated. Semgrep printed "[ERROR] File not found: ../SameShapeControl.java" and the D1/D2 files held only that error. The "SAME" printed after that attempt compared two identical error files and means nothing.
+- 20:18 git pull in ~/CryptoBench was refused (untracked own_pass_1.md and p1_lines.txt would be overwritten). I copied both to ~/own_pass_backup, removed them and pulled (fast-forward to 1a368b9). My local p1_lines.txt was shorter than the repository one (the repository file has 60 lines; the diff showed only added numbers, none removed).
+- 20:19 Check D rerun with the control file in place. The results below are from this rerun. The D1/D2 files were overwritten.
+
+Check E (first run 20:17:33), twice, outputs E1.txt and E2.txt:
+~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml ../DigestUtils.java ../DigestUtilsTest.java
+Result: "Scanning 2 files tracked by git with 1 Code rule", "Ran 1 rule on 2 files: 0 findings." diff E1.txt E2.txt: no output (identical).
+sed -n '259p;275p;312p' ../Md5Crypt.java printed:
+        final MessageDigest messageDigestMd5 = DigestUtils.getMd5Digest();
+        MessageDigest altMessageDigestMd5 = DigestUtils.getMd5Digest();
+            altMessageDigestMd5 = DigestUtils.getMd5Digest();
+sed -n 469p ../DigestUtils.java printed:
+        return getMd5Digest().digest(data);
+
+Check D (rerun 20:19:34), twice, outputs D1.txt and D2.txt:
+~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml ../SameShapeControl.java
+Output of D1.txt (D2.txt identical, diff printed nothing):
+    Scanning 1 file tracked by git with 1 Code rule:
+    Ran 1 rule on 1 file: 1 finding.
+    1 Code Finding
+    ../SameShapeControl.java
+    java.lang.security.audit.crypto.use-of-md5-digest-utils
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is therefore not suitable as a cryptographic signature. Use HMAC instead.
+           Autofix: getSha512Digest
+            6  return DigestUtils.getMd5Digest().digest(data);
+(blank lines and box-drawing characters trimmed in this copy; the original files are on my Mac in ~/cb-work/out/)
+
+Observation about the instructions: Semgrep 1.99.0 does not print a "Findings: N (N blocking)" line in its summary box (Semgrep 1.181.0 does). The line "Ran N rule(s) on N file(s): N finding(s)." is printed by both. docs/REPRODUCE.md was changed to rely on the "Ran ..." line.
+
+Result: check D gave 1 finding at line 6 and none on lines 10 to 12; check E gave 0 findings on both Apache files. Both agree with the container run R3 (Semgrep 1.181.0) and with the expectations in docs/REPRODUCE.md. This is my own run on the Mac, but I followed instructions written by Claude and I had the expected values in front of me, so it is not blind.
