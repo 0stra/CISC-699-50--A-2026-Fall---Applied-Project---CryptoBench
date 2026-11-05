@@ -26,7 +26,7 @@ Status words: **Validated** (checked against the source by me or by a separate p
 ## 4. The claims register and its mapping from claims to records
 
 - Proposed by: Claude (all versions).
-- Checked by: Claude compared each claim with the raw records by search before submitting; the fresh-agent audit (a separate AI process with low independence) re-checked the mapping on the audited commit and found defects, since fixed (`docs/CORRECTION_HISTORY.md`). I have not compared every line myself.
+- Checked by: Claude compared each claim with the raw records by search before submitting; the fresh-agent audit re-checked the mapping on the audited commit and found defects, since fixed (`docs/CORRECTION_HISTORY.md`). I have not compared every line myself.
 - Status: **Partly validated.** The check was made by AI processes, not by me.
 
 ## 5. The classification of the zero (coverage gap, two causes)
