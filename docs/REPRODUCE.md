@@ -16,28 +16,33 @@ Check Semgrep is installed: `semgrep --version` prints a version number.
 
 ## 1. Make an empty working folder and fetch the pinned rules
 
-Use a new empty folder, outside `REPO`. Call it `WORK`.
+Use a new empty folder, outside `REPO`. `REPO` and `WORK` are placeholders for real folder paths you choose (for example `~/cb-repo` and `~/cb-work`).
 
-1. `mkdir WORK` and `cd WORK`.
+1. Create the folder `WORK` (`mkdir -p ~/cb-work`) and `cd` into it.
 2. `git clone https://github.com/semgrep/semgrep-rules.git`
 3. `cd semgrep-rules`
 4. `git checkout 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9`
 5. `git rev-parse HEAD` must print exactly `17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9`. If not, stop.
 
-You stay inside `semgrep-rules` for the rest of the steps. The commands below use paths relative to it.
+You stay inside the `semgrep-rules` folder for the rest of the steps, and run every command below from there. The commands use paths relative to it (`../` is `WORK`).
 
 ## 2. Fetch the two pinned Apache files and verify every file
 
 1. `curl -fsSL -o ../Md5Crypt.java https://raw.githubusercontent.com/apache/commons-codec/f13dd50f566c318283c4138820b15d75c26a0217/src/main/java/org/apache/commons/codec/digest/Md5Crypt.java`
 2. `curl -fsSL -o ../StringUtils.java https://raw.githubusercontent.com/apache/commons-codec/f13dd50f566c318283c4138820b15d75c26a0217/src/main/java/org/apache/commons/codec/binary/StringUtils.java`
-3. Copy the control file from your repository copy: `cp REPO/data/test_material/same_shape_control/SameShapeControl.java ../SameShapeControl.java` (replace `REPO` with the real path).
-4. Compute the SHA-256 of each file and compare with the expected values:
+3. Fetch two more pinned public files used by check E, from the same commit:
+   - `curl -fsSL -o ../DigestUtils.java https://raw.githubusercontent.com/apache/commons-codec/f13dd50f566c318283c4138820b15d75c26a0217/src/main/java/org/apache/commons/codec/digest/DigestUtils.java`
+   - `curl -fsSL -o ../DigestUtilsTest.java https://raw.githubusercontent.com/apache/commons-codec/f13dd50f566c318283c4138820b15d75c26a0217/src/test/java/org/apache/commons/codec/digest/DigestUtilsTest.java`
+4. Copy the control file from your repository copy: `cp REPO/data/test_material/same_shape_control/SameShapeControl.java ../SameShapeControl.java` (replace `REPO` with the real path).
+5. Compute the SHA-256 of each file and compare with the expected values:
    - `../Md5Crypt.java`: `fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747` (361 lines)
    - `../StringUtils.java`: `6c44ebc7424c69fd04b6f3df10332934a149e6901fd29e86d96df4176527a99a` (425 lines)
+   - `../DigestUtils.java`: `427fa77411e7a0ea7798151b199aa17892b7f1043ad7d26baf566d2d97e36347`
+   - `../DigestUtilsTest.java`: `b886f74b8450318218366af7d486666de1e1a94945e81f3ba191ef36cbbda426`
    - `../SameShapeControl.java`: `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539` (14 lines)
    - `java/lang/security/audit/crypto/use-of-md5-digest-utils.java` (inside the rules clone): `bd22fdb5ef195e383ec69aa9dbf1d0fd8f6cb5d41aef3f725f1aba5e5aa05908`
    - `java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml` (the rule, inside the rules clone): `a0614baf029418dd9b298713c3328f371faa1edb0eac7cc2c4a3a99ce1a220a5`
-5. If any value differs, stop. The input is not the one the records describe.
+6. If any value differs, stop. The input is not the one the records describe.
 
 ## 3. Run the four checks
 
@@ -45,21 +50,25 @@ Every run uses the options `--metrics=off --disable-version-check`. Run each che
 
 **Check A (positive control, rule author's own test file).**
 `semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml java/lang/security/audit/crypto/use-of-md5-digest-utils.java`
-Expected: `Findings: 1`, the finding is on line 15, and the summary line reads `Ran 1 rule on 1 file: 1 finding.`
+Expected: the summary box prints `Findings: 1 (1 blocking)`, the finding excerpt is marked `15┆`, and the summary line reads `Ran 1 rule on 1 file: 1 finding.`
 
 **Check B (four official rules on the target file).**
 `semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml --config java/lang/security/audit/crypto/use-of-md5.yaml --config java/lang/security/audit/crypto/weak-random.yaml --config java/lang/security/audit/md5-used-as-password.yaml ../Md5Crypt.java`
-Expected: `Findings: 0` and `Ran 4 rules on 1 file: 0 findings.`
+Expected: `Findings: 0 (0 blocking)` and `Ran 4 rules on 1 file: 0 findings.`
 
 **Check C (known negative, same four rules on a file with no cryptography).**
 The same command as check B, with `../StringUtils.java` as the last argument.
-Expected: `Findings: 0` and `Ran 4 rules on 1 file: 0 findings.`
+Expected: `Findings: 0 (0 blocking)` and `Ran 4 rules on 1 file: 0 findings.`
 
 **Check D (same-shape control, added 4 November 2026).**
 `semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml ../SameShapeControl.java`
-Expected: `Findings: 1`, the finding is on line 6 (`return DigestUtils.getMd5Digest().digest(data);`), and no finding on lines 10 to 12. Summary line: `Ran 1 rule on 1 file: 1 finding.`
+Expected: `Findings: 1 (1 blocking)`, the excerpt is marked `6┆` (`return DigestUtils.getMd5Digest().digest(data);`), and there is no finding on lines 10 to 12. Summary line: `Ran 1 rule on 1 file: 1 finding.`
 
-Semgrep may print a warning about LibreSSL on macOS (harmless) and a "Scan Status" box. These are not findings.
+**Check E (the same rule on two more public files, and the shape of Md5Crypt.java).**
+`semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml ../DigestUtils.java ../DigestUtilsTest.java`
+Expected: `Findings: 0 (0 blocking)` and `Ran 1 rule on 2 files: 0 findings.` Then show the three lines of `Md5Crypt.java` that the claims refer to: `sed -n '259p;275p;312p' ../Md5Crypt.java`. Expected: each line assigns `DigestUtils.getMd5Digest()` to a variable (the variable form), at lines 259, 275 and 312. `DigestUtils.java` line 469 holds `getMd5Digest().digest(data)` without the `DigestUtils.` prefix (`sed -n 469p ../DigestUtils.java`), a second shape the rule does not match (claims register L8).
+
+The line `Scanning 1 file tracked by git` can appear even though the files are outside any repository you made; it is Semgrep's wording and not a problem. Semgrep may print a warning about LibreSSL on macOS (harmless) and a "Scan Status" box. These are not findings.
 
 ## 4. Compare the two runs of each check
 
@@ -73,9 +82,11 @@ Save the first and second output of each check to separate files and run `diff` 
 - Check D explains the miss: the rule finds the chained form and not the variable form. `Md5Crypt.java` uses the variable form (lines 259, 275, 312).
 - Check D is one rule and two shapes made for this purpose. It says nothing about how common either shape is, or about other rules.
 
+- Check E shows the 0 findings on the two Apache files and lets you see the two shapes yourself.
+
 ## 6. What to record
 
-For each run: who ran it, the date, the Semgrep version (`semgrep --version`), the operating system, the rules commit, the sha256 values from step 2, the exact command, the output, and any difference from the expected result above. Name files with `REFERENCE` (run by Claude), `PERSONAL` (run by the student) or `REVIEWER` (run by someone else), plus the date, and put them in `analysis/raw/`.
+For each run: who ran it, the date, the Semgrep version (`semgrep --version`), the operating system, the rules commit, the sha256 values from step 2, the exact command, the output, and any difference from the expected result above. Name files with `REFERENCE` (run by Claude), `PERSONAL` (run by the student) or `REVIEWER` (run by someone else), plus the date. The project owner puts them in `analysis/raw/`; a reviewer who cannot write to the repository sends the files to the owner or attaches them to the review.
 
 ## 7. Not reproducible from this repository
 

@@ -2,7 +2,7 @@
 
 A Comparative Benchmark of Cryptographic Discovery Methods for Post-Quantum Migration Readiness.
 
-CISC 699 thesis, Harrisburg University. Student: Nitin Prakash. Supervisor: Dr. Majid Shaalan. This is the research README for the Assignment 10 release candidate (git tag `a10-rc1`, updated 4 November 2026). It is a record of a pilot, not a finished study.
+CISC 699 thesis, Harrisburg University. Student: Nitin Prakash. Supervisor: Dr. Majid Shaalan. This is the research README for the Assignment 10 release candidate (audited commit named in `docs/AUDIT_RECORD_A10.md`; final tag `a10-rc2`; updated 4 November 2026). It is a record of a pilot, not a finished study.
 
 ## 1. Purpose
 
@@ -38,7 +38,7 @@ A Linux or macOS terminal, `git`, `curl`, a SHA-256 tool, Python 3.8 or newer, S
 
 ## 5. Steps
 
-Follow `docs/REPRODUCE.md`. It has the exact commands for checks A, B, C and D, the expected output of each, and what to record. It takes about 15 minutes.
+Follow `docs/REPRODUCE.md`. It has the exact commands for checks A, B, C and D, the expected output of each, and what to record. It has five checks (A to E) and takes about 15 minutes.
 
 ## 6. Expected outputs and argument structure
 
@@ -47,9 +47,9 @@ The argument has four steps. Each has a claim number in `analysis/results/claims
 1. The procedure runs on public inputs, repeatably (K1, K6): checks A, B, C give the same findings on two machines and two Semgrep versions.
 2. The tool is not simply broken (K3): check A, the rule author's own test file, gives 1 finding at line 15.
 3. It does not raise a false alarm on a file with no cryptography (K5): check C gives 0.
-4. It returns 0 on `Md5Crypt.java` (check B), which creates MD5 digests at lines 259, 275 and 312. The same-shape control (K4, K8, check D) shows the one rule built for this call finds the chained form and misses the variable form. So the zero is read as a coverage gap for that rule, not as safety.
+4. It returns 0 on `Md5Crypt.java` (check B), which creates MD5 digests at lines 259, 275 and 312. The same-shape control (K4, K8, checks D and E) shows the one rule built for this call finds the chained form and misses the variable form. So the zero is read as a coverage gap for that rule, not as safety.
 
-Expected outputs: A = 1 finding (line 15); B = 0; C = 0; D = 1 finding (line 6 only).
+Expected outputs: A = 1 finding (line 15); B = 0; C = 0; D = 1 finding (line 6 only); E = 0 on two further Apache files.
 
 ## 7. Restrictions and access
 

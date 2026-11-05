@@ -25,3 +25,10 @@ Response log for the feedback on Assignment 09 (professor feedback, received bef
 - **Change made.** None yet. This is the Assignment 11 task.
 - **Location.** Not applicable.
 - **Unresolved.** The procedure cannot be called frozen while the reference inventory is not frozen (ISSUE-09) and no sample is selected. Fallback Rule 1 (continue with Semgrep and the TLS scanner) is in force; Rule 3 applies if fewer than 15 samples can be selected.
+
+## Audit findings of 4 November 2026 (Assignment 10)
+
+- **Tag did not exist.** Change: docs name the commit hash; I create the tag `a10-rc2`. Location: `docs/AUDIT_RECORD_A10.md` section 4. Unresolved until I push the tag.
+- **K8 part not reproducible.** Change: check E added. Location: `docs/REPRODUCE.md` section 3. Unresolved: the re-test was by the author only.
+- **Vague wording.** Change: placeholders, working folder, output wording and reviewer file delivery clarified. Location: `docs/REPRODUCE.md`. Unresolved: none known.
+- **AI attribution removed from three files on 31 October.** Change: restored. Location: `data/reference_inventory/own_pass/own_pass_1.md`, `docs/PROCEDURE_NOTES.md`, `journal/2026-10-31.md`. Unresolved: none.

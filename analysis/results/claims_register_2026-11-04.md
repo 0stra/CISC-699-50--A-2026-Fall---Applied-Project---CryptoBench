@@ -2,7 +2,7 @@
 
 Version 1 (29 October 2026, Assignment 09) is kept unchanged at `analysis/results/claims_register_2026-10-29.md`. This version adds claim K8, updates K4 and L2 after the same-shape control, and fixes each claim to a stable evidence version.
 
-**Stable evidence version.** Git tag `a10-rc1` in the repository (a file cannot contain its own commit hash; get it with `git rev-parse a10-rc1`, and see the audit record for the value). A claim made later should cite the tag and the claim number, for example "K8 at a10-rc1". Raw records are not edited after they are written, so the file names below are stable. If a record changes, a new tag is made and this line is updated.
+**Stable evidence version.** The audited release candidate is commit `aeec71de620e5d8a000adbd79af4bd50ce929886` (called a10-rc1 in `docs/AUDIT_RECORD_A10.md`). Fixes made after the audit are in later commits; the final commit and its tag `a10-rc2` are named in `docs/AUDIT_RECORD_A10.md`. A file cannot contain its own commit hash, which is why the hashes are recorded in the audit record. A claim made later should cite the tag and the claim number, for example "K8 at a10-rc2". Raw records are not edited after they are written, so the file names below are stable. If a record changes, a new tag is made.
 
 Written by Claude (AI assistant) from the existing records. K8 rests on a new run made by Claude in its container (R3); I did not run it. I have not yet repeated check D myself on my MacBook.
 

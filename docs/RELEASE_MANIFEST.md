@@ -10,7 +10,7 @@ Format of each line: path, SHA-256, role.
   sha256 `7588848f6364e9561d175ff9292e129e90414697f39d4743f1b851524e451c8d`  
   Tool config; still names dead ruleset p/cryptography (ISSUE-06); not used by any run
 - `README.md`  
-  sha256 `b4055d78cd70c1f75caa67c0956895e1657c58eb2cb127f31ee34e10eddb27ba`  
+  sha256 `f52e20863b24da6e17a19f2c027ecd650a0de82faeadfcc4ffedceafd682d323`  
   Research README (purpose, inventory, provenance, steps, restrictions, limits, navigation)
 - `analysis/raw/README.md`  
   sha256 `8d11592f871323aa46944eefcab2757483494757d30e09903dff4b0b7d42dc9b`  
@@ -18,6 +18,9 @@ Format of each line: path, SHA-256, role.
 - `analysis/raw/TC2_template_roundtrip_PERSONAL_2026-10-21.txt`  
   sha256 `3b7ad19b8ec3573d365e93cbc510fe952b597774f72d8bbb31c749c5c9470b3d`  
   Raw run record: my own run on my MacBook
+- `analysis/raw/audit_REVIEWER_freshagent_2026-11-04.md`  
+  sha256 `d9e10dc5bc1e54ad3c7d4f12030b764cf2ed4cb58194d3f744b79c96c02657d5`  
+  Verbatim report of the fresh-agent audit (AI reviewer, low independence)
 - `analysis/raw/semgrep_TC1_Md5Crypt_2026-10-18.txt`  
   sha256 `a92c51c905f57e6936765b49265b4089e2265b5264a461030419ec5387e34b36`  
   Raw run record: run by Claude in container (R1)
@@ -38,12 +41,12 @@ Format of each line: path, SHA-256, role.
   Raw run record: my own run on my MacBook
 - `analysis/raw/semgrep_samshape_control_REFERENCE_2026-11-04.txt`  
   sha256 `adae4e3eee608e03f3312f7729c174044f59affe875235b53122fcf7cb6acfc7`  
-  Raw run record: run by Claude in container
+  Raw run record: control run by Claude in container (R3)
 - `analysis/results/claims_register_2026-10-29.md`  
   sha256 `edfefb65c11d57b3622f95125d3c45ca3c90606081c4d4decfdfc3cac5d0719c`  
   Claims register v1 (kept unchanged)
 - `analysis/results/claims_register_2026-11-04.md`  
-  sha256 `2ff580362c5641b867bfdc75aac55ac4c3bea9cb6e2996d6c8554420a0dbe082`  
+  sha256 `b8564dcc9d9807ad0950cd181a1f0236b403a9e69453a9e3856349d61f45338a`  
   Claims register v2 with stable evidence version
 - `analysis/results/figure_1_proof_map.png`  
   sha256 `115e131ebda343cfdbedb18dbb3ab58ac3327941b00f6fc147eb5ae091530488`  
@@ -82,7 +85,7 @@ Format of each line: path, SHA-256, role.
   sha256 `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539`  
   Synthetic 14-line control (written by Claude); not a sample
 - `docs/AUDIT_RECORD_A10.md`  
-  sha256 `019fb24afd122d9a1f97a7fc48bc97017ca418bd6e114f3e3d2b0b53d79e984b`  
+  sha256 `462fb60bce54718f5bd8b142da3d69d571b5f57c643edf759da7d324496a7664`  
   Audit of this release candidate
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
@@ -94,10 +97,10 @@ Format of each line: path, SHA-256, role.
   sha256 `cd03609e89f9b9c9c599fd912a92aceb14023df65ea820677a03e9a52013c8cd`  
   Status, run labels, protocol rules, fallback rules
 - `docs/REPRODUCE.md`  
-  sha256 `4ffe1b3d076c21236591de2423083c886a7b14bab982055942011add567bb8ec`  
+  sha256 `8c44ea6e2591258284dd2a1cda738cf26e750580152a2513eba817f13ad4e82e`  
   Step-by-step reproduction of checks A, B, C, D
 - `docs/RESPONSE_LOG.md`  
-  sha256 `25523b0c9c70d5e0080ec8a9ea8f0182fd85be93499b6a8ad5bb6ecd813008e7`  
+  sha256 `5ade5479e02bbfa10fd6dacef0e82fc909ad2a40a1c84cc495f3aa71bccb5c44`  
   Feedback item, change, location, unresolved issue
 - `journal/2026-10-04.md`  
   sha256 `06ecf50518df0a89f4c105a29daa53345be056b51aee0349726f4caed6048041`  
