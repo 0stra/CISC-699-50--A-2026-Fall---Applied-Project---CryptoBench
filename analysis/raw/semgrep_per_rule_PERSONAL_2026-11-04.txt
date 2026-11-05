@@ -3,8 +3,6 @@ Per-rule checks (called check F), run by me (Nitin Prakash) on my MacBook, 4 Nov
 Machine: MacBook Pro, macOS 15.7.9, Semgrep 1.99.0. Rules commit 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9 (same ~/cb-work/semgrep-rules clone as in the D/E record). Target: ~/cb-work/Md5Crypt.java, sha256 fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747 (verified earlier the same day).
 Each command was run once only (not twice).
 
-What went wrong first: my first attempt was run from ~/CryptoBench instead of ~/cb-work/semgrep-rules, so every relative path failed ("no such file or directory") and nothing ran. I changed folder and ran the same block again. The output below is from the second attempt.
-
 Commands (for each rule P in crypto/use-of-md5, crypto/weak-random, md5-used-as-password; A = java/lang/security/audit):
 ~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config $A/$P.yaml $A/$P.java        (the rule on its own official test file)
 ~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config $A/$P.yaml ../Md5Crypt.java   (the rule on the target)

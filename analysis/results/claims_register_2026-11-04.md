@@ -134,7 +134,7 @@ Figure files: `analysis/results/figure_1_proof_map.png` (claims to records) and 
 
 **L8.** DigestUtils.java line 469 holds `getMd5Digest().digest(data)` without the `DigestUtils.` prefix and the rule does not match it. This is a second shape the rule misses; it was observed, not explored. Consequence: the shape gap has at least two forms.
 
-**L9.** Check F ran once per rule, my run was not blind, and Claude's earlier container run of the same commands was not saved. Consequence: K9 is a single run on one version.
+**L9.** Check F ran once per rule and my run was not blind; Claude's earlier container run of the same commands was not saved. Consequence: K9 is a single run on one version.
 
 **L6.** The Sonar plugin and the TLS scanner have not been run. Consequence: nothing here is a three-way comparison.
 

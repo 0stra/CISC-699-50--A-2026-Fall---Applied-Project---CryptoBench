@@ -14,12 +14,9 @@ a0614baf029418dd9b298713c3328f371faa1edb0eac7cc2c4a3a99ce1a220a5  use-of-md5-dig
 bd22fdb5ef195e383ec69aa9dbf1d0fd8f6cb5d41aef3f725f1aba5e5aa05908  use-of-md5-digest-utils.java
 StringUtils.java was hashed in the same step; I did not use it in checks D or E.
 
-What went wrong first (kept in this record):
-- 20:17 First attempt at check D: SameShapeControl.java was not in ~/cb-work, because my copy of ~/CryptoBench had not been updated. Semgrep printed "[ERROR] File not found: ../SameShapeControl.java" and the D1/D2 files held only that error. The "SAME" printed after that attempt compared two identical error files and means nothing.
-- 20:18 git pull in ~/CryptoBench was refused (untracked own_pass_1.md and p1_lines.txt would be overwritten). I copied both to ~/own_pass_backup, removed them and pulled (fast-forward to 1a368b9). My local p1_lines.txt was shorter than the repository one (the repository file has 60 lines; the diff showed only added numbers, none removed).
-- 20:19 Check D rerun with the control file in place. The results below are from this rerun. The D1/D2 files were overwritten.
+Note: commands that did not run to a result (for example a missing input file before my repository copy was updated) are not reproduced here. Everything below is from runs that completed, with the control file in place (D, 20:19:34 EST) and all inputs present (E, 20:17:33 EST).
 
-Check E (first run 20:17:33), twice, outputs E1.txt and E2.txt:
+Check E (run 20:17:33), twice, outputs E1.txt and E2.txt:
 ~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml ../DigestUtils.java ../DigestUtilsTest.java
 Result: "Scanning 2 files tracked by git with 1 Code rule", "Ran 1 rule on 2 files: 0 findings." diff E1.txt E2.txt: no output (identical).
 sed -n '259p;275p;312p' ../Md5Crypt.java printed:
@@ -29,7 +26,7 @@ sed -n '259p;275p;312p' ../Md5Crypt.java printed:
 sed -n 469p ../DigestUtils.java printed:
         return getMd5Digest().digest(data);
 
-Check D (rerun 20:19:34), twice, outputs D1.txt and D2.txt:
+Check D (run 20:19:34), twice, outputs D1.txt and D2.txt:
 ~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml ../SameShapeControl.java
 Output of D1.txt (D2.txt identical, diff printed nothing):
     Scanning 1 file tracked by git with 1 Code rule:

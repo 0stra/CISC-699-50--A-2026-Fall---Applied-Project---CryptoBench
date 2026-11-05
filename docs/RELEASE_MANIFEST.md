@@ -31,10 +31,10 @@ Format of each line: path, SHA-256, role.
   sha256 `69393f18b3f3b14aa445a232e3806b2dfebdb83ca537536a8d79c18449e00507`  
   Raw run record: my own run on my MacBook
 - `analysis/raw/semgrep_checks_D_E_PERSONAL_2026-11-04.txt`  
-  sha256 `ab38fde787a75892c6e626be489b5fc6b59b833a11fe28cef5a71de4e4b7d8a0`  
+  sha256 `4d22cd0bdb7b7bf3e3635840d79006741b62ad72bc8d4f28aa688783029cd54f`  
   Raw run record: my own checks D and E on my MacBook (P6)
 - `analysis/raw/semgrep_per_rule_PERSONAL_2026-11-04.txt`  
-  sha256 `71d6477ebb0ff9e139cf5755534d76ea86dac6380e8bcbb22681f0de204e1303`  
+  sha256 `d1025935d69d444039b66b84a28d5daee836b80ca0d42ac8b6faf90fb9bbf6b4`  
   Raw run record: my own check F, the other three rules one at a time (P7)
 - `analysis/raw/semgrep_pilot_official_rules_PERSONAL_2026-10-21.txt`  
   sha256 `1bd15911e40f6fec126ffa063ad0b8a5ead3dd0079f394b10c3ad389ead86702`  
@@ -52,7 +52,7 @@ Format of each line: path, SHA-256, role.
   sha256 `edfefb65c11d57b3622f95125d3c45ca3c90606081c4d4decfdfc3cac5d0719c`  
   Claims register v1 (kept unchanged)
 - `analysis/results/claims_register_2026-11-04.md`  
-  sha256 `56c93b1c9a812defde907cf3c0f8ece9b70413a6c191d535f79201770c154f22`  
+  sha256 `e98906bb13c70de74e75a5eb030a4d2a7a039887139fedad73cf1c0967046dbd`  
   Claims register v2 with stable evidence version
 - `analysis/results/figure_1_proof_map.png`  
   sha256 `115e131ebda343cfdbedb18dbb3ab58ac3327941b00f6fc147eb5ae091530488`  
@@ -91,7 +91,7 @@ Format of each line: path, SHA-256, role.
   sha256 `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539`  
   Synthetic 14-line control (written by Claude); not a sample
 - `docs/AUDIT_RECORD_A10.md`  
-  sha256 `8ab3e64f64691d0ec76008d3d815031d4d6625c93193fbf84a01b0d9e6892df8`  
+  sha256 `f907107bf2511288224fe914b3765c864d0a2ef126d7e943960f53244c8d3cb3`  
   Audit of this release candidate
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
