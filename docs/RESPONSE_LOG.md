@@ -12,7 +12,7 @@ Response log for the feedback on Assignment 09 (professor feedback, received bef
 
 - **Change made.** Added a 14-line control with the same MD5 call in the chained and variable forms, and ran the unmodified official rule on it. Result: the rule finds the chained form (line 6) only.
 - **Location.** `data/test_material/same_shape_control/`; `analysis/raw/semgrep_samshape_control_REFERENCE_2026-11-04.txt`; claim K8 and updated K4 in `analysis/results/claims_register_2026-11-04.md`; ISSUE-08 in `docs/ISSUE_LOG.md`; check D in `docs/REPRODUCE.md`.
-- **Unresolved.** The control was written by Claude and first run by Claude in the container. I repeated checks D and E on my MacBook (P6, `analysis/raw/semgrep_checks_D_E_PERSONAL_2026-11-04.txt`) with the same results; that run was not blind. Only one of the four rules was probed for shape.
+- **Unresolved.** The control was written by Claude and first run by Claude in the container. I repeated checks D and E on my MacBook (P6, `analysis/raw/semgrep_checks_D_E_PERSONAL_2026-11-04.txt`) with the same results; that run was not blind. The other three rules were checked one at a time on 4 November (P7, `analysis/raw/semgrep_per_rule_PERSONAL_2026-11-04.txt`): they have no matching call in `Md5Crypt.java`, a different cause from the shape gap. That run was once per rule.
 
 ## F3. "Attach stable claim records"
 

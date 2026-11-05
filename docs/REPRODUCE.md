@@ -70,6 +70,10 @@ Expected: `Ran 1 rule on 2 files: 0 findings.` Then show the three lines of `Md5
 
 The line `Scanning 1 file tracked by git` can appear even though the files are outside any repository you made; it is Semgrep's wording and not a problem. Semgrep may print a warning about LibreSSL on macOS (harmless) and a "Scan Status" box. These are not findings.
 
+**Check F (the other three rules, one at a time).**
+For each of `crypto/use-of-md5`, `crypto/weak-random` and `md5-used-as-password` (folder `java/lang/security/audit/`): run the rule on its own official test file, then on `../Md5Crypt.java`, with the same options as above, e.g. `semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5.yaml java/lang/security/audit/crypto/use-of-md5.java`. Then run `grep -c getInstance ../Md5Crypt.java`.
+Expected on the rule's own test file: use-of-md5 = 3 findings (lines 7, 15, 29); weak-random = 3 (lines 48, 51, 165); md5-used-as-password = 1 (line 41). Expected on `Md5Crypt.java`: 0 findings for each rule, and the `getInstance` count is 0.
+
 ## 4. Compare the two runs of each check
 
 Save the first and second output of each check to separate files and run `diff` on them. Expected: no differences. Note that Semgrep output may contain a timing or version line in some versions; if `diff` shows only such a line, record it.
@@ -82,6 +86,7 @@ Save the first and second output of each check to separate files and run `diff` 
 - Check D explains the miss: the rule finds the chained form and not the variable form. `Md5Crypt.java` uses the variable form (lines 259, 275, 312).
 - Check D is one rule and two shapes made for this purpose. It says nothing about how common either shape is, or about other rules.
 
+- Check F shows each of the other three rules works on its own test file and has no matching call in `Md5Crypt.java` (it has no `getInstance`, and `Random` appears only as a type). That is a different cause from check D.
 - Check E shows the 0 findings on the two Apache files and lets you see the two shapes yourself.
 
 ## 6. What to record

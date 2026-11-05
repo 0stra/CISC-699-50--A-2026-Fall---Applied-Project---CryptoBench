@@ -10,7 +10,7 @@ Format of each line: path, SHA-256, role.
   sha256 `7588848f6364e9561d175ff9292e129e90414697f39d4743f1b851524e451c8d`  
   Tool config; still names dead ruleset p/cryptography (ISSUE-06); not used by any run
 - `README.md`  
-  sha256 `ab93d344d72e393681b195a3de36986a0b5c58f06f4f9c81d43f2c6d062e3f93`  
+  sha256 `915a57255f29e85d4a2a136a2306a9525e566634ff6c5cdf752c9a393873e0eb`  
   Research README (purpose, inventory, provenance, steps, restrictions, limits, navigation)
 - `analysis/raw/README.md`  
   sha256 `8d11592f871323aa46944eefcab2757483494757d30e09903dff4b0b7d42dc9b`  
@@ -33,6 +33,9 @@ Format of each line: path, SHA-256, role.
 - `analysis/raw/semgrep_checks_D_E_PERSONAL_2026-11-04.txt`  
   sha256 `ab38fde787a75892c6e626be489b5fc6b59b833a11fe28cef5a71de4e4b7d8a0`  
   Raw run record: my own checks D and E on my MacBook (P6)
+- `analysis/raw/semgrep_per_rule_PERSONAL_2026-11-04.txt`  
+  sha256 `71d6477ebb0ff9e139cf5755534d76ea86dac6380e8bcbb22681f0de204e1303`  
+  Raw run record: my own check F, the other three rules one at a time (P7)
 - `analysis/raw/semgrep_pilot_official_rules_PERSONAL_2026-10-21.txt`  
   sha256 `1bd15911e40f6fec126ffa063ad0b8a5ead3dd0079f394b10c3ad389ead86702`  
   Raw run record: my own run on my MacBook
@@ -49,7 +52,7 @@ Format of each line: path, SHA-256, role.
   sha256 `edfefb65c11d57b3622f95125d3c45ca3c90606081c4d4decfdfc3cac5d0719c`  
   Claims register v1 (kept unchanged)
 - `analysis/results/claims_register_2026-11-04.md`  
-  sha256 `ebbe99aa69807d3ef44b98af8c883f6e5fc1d41e45b474d855d3348ea44905fa`  
+  sha256 `56c93b1c9a812defde907cf3c0f8ece9b70413a6c191d535f79201770c154f22`  
   Claims register v2 with stable evidence version
 - `analysis/results/figure_1_proof_map.png`  
   sha256 `115e131ebda343cfdbedb18dbb3ab58ac3327941b00f6fc147eb5ae091530488`  
@@ -88,22 +91,22 @@ Format of each line: path, SHA-256, role.
   sha256 `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539`  
   Synthetic 14-line control (written by Claude); not a sample
 - `docs/AUDIT_RECORD_A10.md`  
-  sha256 `f2e2a0278d183ff2d223e9950e097ca0d1ca717c5c57fcaec924818534ae5caa`  
+  sha256 `8ab3e64f64691d0ec76008d3d815031d4d6625c93193fbf84a01b0d9e6892df8`  
   Audit of this release candidate
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
   Pinned versions, hashes, check results
 - `docs/ISSUE_LOG.md`  
-  sha256 `141864fe4dfccddd521a0cba9ac20cdd7304e8e9acc0843b4bc50e71c8564eeb`  
+  sha256 `889726e840bcce4d7a24e3053121901e3846600e0127c313394c0e7200c48624`  
   Issues and risks
 - `docs/PROCEDURE_NOTES.md`  
   sha256 `cd03609e89f9b9c9c599fd912a92aceb14023df65ea820677a03e9a52013c8cd`  
   Status, run labels, protocol rules, fallback rules
 - `docs/REPRODUCE.md`  
-  sha256 `bc15536224c3379bd7b15fae1eef755117b09ac536bbba6b24c3d38f5b5461cd`  
+  sha256 `fa595a23b4903e47fdebaeabd131bc7c49c3b21b2853a83c70f917911fe90429`  
   Step-by-step reproduction of checks A, B, C, D
 - `docs/RESPONSE_LOG.md`  
-  sha256 `d2d30375b794dcb3f10698ca03c48c1e1c36df2cf3639ceb271983b1f932e17a`  
+  sha256 `3576ac080c506babbd3a18d962c407c3ee7483d81dde20a6be3a61952d288ae1`  
   Feedback item, change, location, unresolved issue
 - `journal/2026-10-04.md`  
   sha256 `06ecf50518df0a89f4c105a29daa53345be056b51aee0349726f4caed6048041`  

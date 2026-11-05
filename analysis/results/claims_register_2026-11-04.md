@@ -2,11 +2,11 @@
 
 Version 1 (29 October 2026, Assignment 09) is kept unchanged at `analysis/results/claims_register_2026-10-29.md`. This version adds claim K8, updates K4 and L2 after the same-shape control, and fixes each claim to a stable evidence version.
 
-**Stable evidence version.** The audited release candidate is commit `aeec71de620e5d8a000adbd79af4bd50ce929886` (called a10-rc1 in `docs/AUDIT_RECORD_A10.md`). Fixes made after the audit are in later commits; the final commit and its tag `a10-rc2` are named in `docs/AUDIT_RECORD_A10.md`. A file cannot contain its own commit hash, which is why the hashes are recorded in the audit record. A claim made later should cite the tag and the claim number, for example "K8 at a10-rc2". Raw records are not edited after they are written, so the file names below are stable. If a record changes, a new tag is made.
+**Stable evidence version.** The audited release candidate is commit `aeec71de620e5d8a000adbd79af4bd50ce929886` (called a10-rc1 in `docs/AUDIT_RECORD_A10.md`). Fixes made after the audit are in later commits; the final commit and its tag `a10-rc3` are named in `docs/AUDIT_RECORD_A10.md`. A file cannot contain its own commit hash, which is why the hashes are recorded in the audit record. A claim made later should cite the tag and the claim number, for example "K8 at a10-rc3". Raw records are not edited after they are written, so the file names below are stable. If a record changes, a new tag is made.
 
 Written by Claude (AI assistant) from the existing records. K8 rests on a new run made by Claude in its container (R3); I did not run it. I repeated checks D and E myself on my MacBook on 4 November (record P6); I had the expected values in front of me.
 
-Run labels: R = reference run by Claude in a cloud container (R3 = the 4 November control run). P6 = my 4 November checks D and E on my MacBook. P = run on my MacBook. P1 was typed by Claude Code at my request; P3 and P4 I typed and ran myself. TC2 = my three attempts at the template round-trip.
+Run labels: R = reference run by Claude in a cloud container (R3 = the 4 November control run). P6 = my 4 November checks D and E on my MacBook. P7 = my 4 November check F (the other three rules). P = run on my MacBook. P1 was typed by Claude Code at my request; P3 and P4 I typed and ran myself. TC2 = my three attempts at the template round-trip.
 
 Figure files: `analysis/results/figure_1_proof_map.png` (claims to records) and `analysis/results/figure_2_zero_classification.png` (how a zero is classified).
 
@@ -46,17 +46,17 @@ Figure files: `analysis/results/figure_1_proof_map.png` (claims to records) and 
 
 **Not claimed.** That the rule fires on the variable form of the same call.
 
-## K4 (O2) - Interpretation, supported for one rule
+## K4 (O2) - Interpretation, supported for all four rules
 
-**Claim.** The zero from four official rules on Md5Crypt.java (reference list: MD5 created at lines 259, 275, 312) is a coverage gap for the variable form, not a broken tool. Checks A and D support this for the rule use-of-md5-digest-utils only.
+**Claim.** The zero from four official rules on Md5Crypt.java (reference list: MD5 created at lines 259, 275, 312) is a coverage gap, not a broken tool, with two different causes. For use-of-md5-digest-utils the call is in the file in a form (stored in a variable) that the rule does not match (check D, K8). For the other three rules (use-of-md5, md5-used-as-password, weak-random) the file has no call they target (no getInstance; Random only as a type), and each rule fires on its own test file (check F, K9).
 
-**Records.** R2 and P3 (checks A and B, 21 October); R3 (check D, 4 November); see K8.
+**Records.** R2 and P3 (checks A and B, 21 October); R3 and P6 (checks D and E, 4 November); P7 (check F, 4 November).
 
-**Files.** `analysis/raw/semgrep_pilot_official_rules_REFERENCE_2026-10-21.txt`, `analysis/raw/semgrep_pilot_official_rules_PERSONAL_2026-10-21.txt`, `analysis/raw/semgrep_samshape_control_REFERENCE_2026-11-04.txt`, `data/reference_inventory/md5crypt_pilot_reference_list_2026-10-21.md`
+**Files.** `analysis/raw/semgrep_pilot_official_rules_REFERENCE_2026-10-21.txt`, `analysis/raw/semgrep_pilot_official_rules_PERSONAL_2026-10-21.txt`, `analysis/raw/semgrep_samshape_control_REFERENCE_2026-11-04.txt`, `analysis/raw/semgrep_checks_D_E_PERSONAL_2026-11-04.txt`, `analysis/raw/semgrep_per_rule_PERSONAL_2026-11-04.txt`, `data/reference_inventory/md5crypt_pilot_reference_list_2026-10-21.md`
 
-**Limits.** L2 (reduced), L3.
+**Limits.** L2 (reduced), L3, L9.
 
-**Not claimed.** That the other three rules also miss the variable form for the same reason (not tested one by one); anything about Semgrep recall in general; the 0 of 3 is an illustration of the calculation.
+**Not claimed.** That any rule would miss other forms of these calls; anything about Semgrep recall in general; the 0 of 3 is an illustration of the calculation.
 
 ## K5 (O2) - Observation recorded
 
@@ -106,6 +106,18 @@ Figure files: `analysis/results/figure_1_proof_map.png` (claims to records) and 
 
 **Not claimed.** How common either shape is in real code; behaviour of any other rule; behaviour of other Semgrep versions.
 
+## K9 (O2) - Observation recorded (new)
+
+**Claim.** Each of the other three official rules finds its expected findings on its own test file (use-of-md5: 3 at lines 7, 15, 29; weak-random: 3 at lines 48, 51, 165; md5-used-as-password: 1 at line 41) and finds 0 on Md5Crypt.java, which contains no getInstance call.
+
+**Records.** P7, 4 November, my own run on my MacBook (Semgrep 1.99.0), one run each. Claude had run the same commands in its container (Semgrep 1.181.0) beforehand and got the same counts; that run was not saved as a record.
+
+**Files.** `analysis/raw/semgrep_per_rule_PERSONAL_2026-11-04.txt`
+
+**Limits.** L9.
+
+**Not claimed.** Behaviour of these rules on other forms of the calls; any statement about other Java files.
+
 ## Limits
 
 **L1.** One file per tool, chosen by convenience (it uses MD5 and is public). Consequence: no claim about rates or about Java code in general.
@@ -121,6 +133,8 @@ Figure files: `analysis/results/figure_1_proof_map.png` (claims to records) and 
 **L7.** The control file is synthetic (written by Claude). It was run by Claude (1.181.0) and by me (1.99.0, P6), one rule, two versions. Consequence: K8 holds for this one rule and these two versions only; my P6 run was not blind to the expected result.
 
 **L8.** DigestUtils.java line 469 holds `getMd5Digest().digest(data)` without the `DigestUtils.` prefix and the rule does not match it. This is a second shape the rule misses; it was observed, not explored. Consequence: the shape gap has at least two forms.
+
+**L9.** Check F ran once per rule, my run was not blind, and Claude's earlier container run of the same commands was not saved. Consequence: K9 is a single run on one version.
 
 **L6.** The Sonar plugin and the TLS scanner have not been run. Consequence: nothing here is a three-way comparison.
 

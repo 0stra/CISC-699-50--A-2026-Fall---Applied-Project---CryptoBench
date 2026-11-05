@@ -1,0 +1,24 @@
+Per-rule checks (called check F), run by me (Nitin Prakash) on my MacBook, 4 November 2026, about 20:28 EST. I typed and ran the commands in the VS Code terminal. Claude supplied the command block in chat and had already run the same checks in its container to know the expected counts; it read the printed output I pasted into chat and copied it here. Claude did not run these checks on my Mac.
+
+Machine: MacBook Pro, macOS 15.7.9, Semgrep 1.99.0. Rules commit 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9 (same ~/cb-work/semgrep-rules clone as in the D/E record). Target: ~/cb-work/Md5Crypt.java, sha256 fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747 (verified earlier the same day).
+Each command was run once only (not twice).
+
+What went wrong first: my first attempt was run from ~/CryptoBench instead of ~/cb-work/semgrep-rules, so every relative path failed ("no such file or directory") and nothing ran. I changed folder and ran the same block again. The output below is from the second attempt.
+
+Commands (for each rule P in crypto/use-of-md5, crypto/weak-random, md5-used-as-password; A = java/lang/security/audit):
+~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config $A/$P.yaml $A/$P.java        (the rule on its own official test file)
+~/.semgrep-venv/bin/semgrep scan --metrics=off --disable-version-check --config $A/$P.yaml ../Md5Crypt.java   (the rule on the target)
+grep -c "getInstance" ../Md5Crypt.java
+
+Output (as printed in my terminal):
+use-of-md5, own test file: Ran 1 rule on 1 file: 3 findings. Lines 7 (MessageDigest md5Digest = MessageDigest.getInstance("MD5");), 15 (... getInstance("md5");), 29 (java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");)
+weak-random, own test file: Ran 1 rule on 1 file: 3 findings. Lines 48 (float rand = new java.util.Random().nextFloat();), 51 (new java.util.Random().nextInt();), 165 (double value = java.lang.Math.random();)
+md5-used-as-password, own test file: Ran 1 rule on 1 file: 1 finding. Line 41 (user.setPassword(md.digest(), salt);)
+use-of-md5 on Md5Crypt.java: Ran 1 rule on 1 file: 0 findings.
+weak-random on Md5Crypt.java: Ran 1 rule on 1 file: 0 findings.
+md5-used-as-password on Md5Crypt.java: Ran 1 rule on 1 file: 0 findings.
+grep -c "getInstance" ../Md5Crypt.java: 0
+date: Wed Nov 4 20:28:34 EST 2026
+
+Reading (mine, with Claude's help in reading the rule files): use-of-md5 and md5-used-as-password match calls to MessageDigest.getInstance("MD5"); weak-random matches new java.util.Random(...).method() and Math.random(). Md5Crypt.java has no getInstance call, and uses Random only as a parameter type. So these three rules have nothing to match in the file. That is a different cause from the shape gap of use-of-md5-digest-utils, whose target call (DigestUtils.getMd5Digest()) is in the file but in a form the rule does not match.
+Limit: one run each, not repeated. I did not test whether other forms of these three rules' calls (for example getInstance in a variable) would match.
