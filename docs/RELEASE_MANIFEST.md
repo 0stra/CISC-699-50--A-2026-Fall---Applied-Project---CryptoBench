@@ -85,7 +85,7 @@ Format of each line: path, SHA-256, role.
   sha256 `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539`  
   Synthetic 14-line control (written by Claude); not a sample
 - `docs/AUDIT_RECORD_A10.md`  
-  sha256 `462fb60bce54718f5bd8b142da3d69d571b5f57c643edf759da7d324496a7664`  
+  sha256 `a93895f7d25a0f950d67815c18c17277e1163a792bdcd4d34f2afe78e3b29288`  
   Audit of this release candidate
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
