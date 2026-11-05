@@ -2,7 +2,7 @@
 
 A Comparative Benchmark of Cryptographic Discovery Methods for Post-Quantum Migration Readiness.
 
-CISC 699 thesis, Harrisburg University. Student: Nitin Prakash. Supervisor: Dr. Majid Shaalan. This is the research README for the Assignment 10 release candidate (audited commit named in `docs/AUDIT_RECORD_A10.md`; final tag `a10-rc4`; updated 4 November 2026). It is a record of a pilot, not a finished study.
+CISC 699 thesis, Harrisburg University. Student: Nitin Prakash. Supervisor: Dr. Majid Shaalan. This is the research README for the Assignment 10 release candidate (audited commit named in `docs/AUDIT_RECORD_A10.md`; final tag `a10-rc5`; updated 4 November 2026). It is a record of a pilot, not a finished study.
 
 ## 1. Purpose
 
@@ -19,7 +19,7 @@ The full list, with a SHA-256 for every file and its role, is `docs/RELEASE_MANI
 - `analysis/results/`: the claims register (`claims_register_2026-11-04.md`, version 2; version 1 is kept) and two figures.
 - `analysis/scored/`: empty. Scoring has not started.
 - `data/test_material/`: the same-shape control. No benchmark sample is selected yet.
-- `data/reference_inventory/`: the inventory template, a provisional nine-entry list for `Md5Crypt.java`, and my own pass 1.
+- `data/reference_inventory/`: the inventory template, a provisional nine-entry list for `Md5Crypt.java`, my own pass 1 and pass 2, the agreed list of 53 lines, and the comparison with the provisional list.
 - `journal/`: dated working entries.
 - `research/`: the submitted Literature and Requirements Brief (`03_literature_requirements_brief.docx`, Assignment 03) and Design Review Package (`04_design_review_package.docx`, Assignment 04), as I submitted them. Copied from my computer on 4 November 2026; not edited since.
 - `.semgrep.yml`, `sonar-project.properties`: tool configuration. `.semgrep.yml` still names the dead ruleset `p/cryptography` (ISSUE-06) and no run uses it.
@@ -30,7 +30,7 @@ The full list, with a SHA-256 for every file and its role, is `docs/RELEASE_MANI
 - **Rules.** Unmodified files from semgrep/semgrep-rules, commit `17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9`. Not stored here either.
 - **Run records.** File names say who ran it. `REFERENCE` = run by Claude (AI assistant) in a cloud container, not on my computer. `PERSONAL` = my own run on my MacBook. Each record states the tool version, rules commit and input hashes. A run that Claude Code typed on my laptop (P1) is described as such in its record.
 - **Authored by Claude.** The provisional reference list, the same-shape control file, the claims registers, the figures, and drafts of the docs were written by Claude from my instructions and the records. I reviewed them but have not checked every line myself. The AI log in each assignment document gives the detail.
-- **Authored by me.** My own pass 1 over `Md5Crypt.java` (`data/reference_inventory/own_pass/`), my runs on the MacBook (P3, P4, P5, test case 2), and the decisions in the journal. Pass 1 is not fully independent because I had seen the provisional list first.
+- **Authored by me.** My own pass 1 and pass 2 over `Md5Crypt.java` (`data/reference_inventory/own_pass/`), my runs on the MacBook (P3, P4, P5, test case 2), and the decisions in the journal. Pass 1 is not fully independent because I had seen the provisional list first. Pass 2 was written after reading the numbered file, with help described in `own_pass_agreed.md`.
 
 ## 4. Prerequisites
 
@@ -62,7 +62,7 @@ Expected outputs: A = 1 finding (line 15); B = 0; C = 0; D = 1 finding (line 6 o
 ## 8. What is not here (known limitations)
 
 - No benchmark sample set and no scored result. `analysis/scored/` is empty. The frozen procedure runs on the planned sample in Assignment 11.
-- The reference inventory is not frozen. The provisional list was drafted by Claude; my pass 1 is not fully independent; pass 2, the agreed list and the comparison are still to do (ISSUE-09). No recall or precision may be computed from it.
+- The reference inventory is not frozen. The provisional list was drafted by Claude. My two passes and an agreed list of 53 lines exist, but the passes disagreed on 39 lines and I reconciled them with three rules, so it is not the full agreement the freeze rule asks for; Dr. Shaalan has not confirmed it (ISSUE-09). No recall or precision may be computed from any of these lists.
 - One file per tool, chosen by convenience (RISK-04).
 - Two Semgrep versions are in use (ISSUE-07). Registry rules drift (ISSUE-02), so only the pinned files are used.
 - The control file is synthetic. Claude ran it first; I repeated it on my MacBook, knowing the expected result (claims register L7).

@@ -40,7 +40,7 @@ All values below are from the fresh agent's report.
 - **Repeatability and sensitivity.** Earlier runs: same findings on two Semgrep versions and two machines, each run twice (R2, P3, P4, P5). Not tested: other versions, other rules, other files. The second runs in two records are summarised ("same as A1") rather than printed in full; the diff results are stated. This is a limit on how much a reader can recheck from those records alone.
 - **Provenance consistency.** Counts and line numbers in the claims register were compared with the raw records by search: line 15 appears in every check-A record (R2, P3, P5), "Ran 4 rules on 1 file: 0 findings" in every check B and C record, line 6 only in the check D record. I also found that on 31 October the attribution to Claude had been removed from `own_pass_1.md`, `docs/PROCEDURE_NOTES.md` and `journal/2026-10-31.md`, which made them understate AI help. These lines were restored in the release commit. Issue numbers (ISSUE-01 to ISSUE-10) were counted across all documents and used consistently.
 - **Unsupported assumptions.** Claim K4 previously read as an explanation for all four rules; now limited to one. Claim K8 states that the control is synthetic and was run once by Claude (L7). Nothing is claimed about recall, precision or Java code in general.
-- **Not checked.** The inventory template against the CycloneDX schema (L5). The provisional reference list against an independent pass (ISSUE-09). The Sonar plugin and the TLS scanner (not installed or scanned).
+- **Not fully checked.** The inventory template against the CycloneDX schema (L5). The reference inventory: my pass 2 and agreed list of 53 lines exist (4 November), but pass 1 was not independent of the provisional list and the agreed list is a rule-based reconciliation of passes that disagreed on 39 lines (ISSUE-09, narrowed not closed). The Sonar plugin and the TLS scanner (not installed or scanned).
 
 ## 6. Access and restrictions during the audit
 
@@ -49,4 +49,4 @@ No restricted data, credentials or third-party endpoints were used. The reviewer
 ## 7. Evidence versions
 
 - Audited: commit `aeec71de620e5d8a000adbd79af4bd50ce929886` ("rc1").
-- Final (after fixes): see `README.md`; tag `a10-rc4`, created by me at the final commit (`a10-rc2` and `a10-rc3` point to earlier commits). The final commit hash is given in the Assignment 10 audit memo.
+- Final (after fixes): see `README.md`; tag `a10-rc5`, created by me at the final commit (`a10-rc2` to `a10-rc4` point to earlier commits). The final commit hash is given in the Assignment 10 audit memo.

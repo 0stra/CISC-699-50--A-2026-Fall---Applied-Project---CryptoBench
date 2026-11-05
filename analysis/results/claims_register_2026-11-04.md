@@ -2,7 +2,7 @@
 
 Version 1 (29 October 2026, Assignment 09) is kept unchanged at `analysis/results/claims_register_2026-10-29.md`. This version adds claim K8, updates K4 and L2 after the same-shape control, and fixes each claim to a stable evidence version.
 
-**Stable evidence version.** The audited release candidate is commit `aeec71de620e5d8a000adbd79af4bd50ce929886` (called a10-rc1 in `docs/AUDIT_RECORD_A10.md`). Fixes made after the audit are in later commits; the final commit and its tag `a10-rc4` are named in `docs/AUDIT_RECORD_A10.md`. A file cannot contain its own commit hash, which is why the hashes are recorded in the audit record. A claim made later should cite the tag and the claim number, for example "K8 at a10-rc4". Raw records are not edited after they are written, so the file names below are stable. If a record changes, a new tag is made.
+**Stable evidence version.** The audited release candidate is commit `aeec71de620e5d8a000adbd79af4bd50ce929886` (called a10-rc1 in `docs/AUDIT_RECORD_A10.md`). Fixes made after the audit are in later commits; the final commit and its tag `a10-rc5` are named in `docs/AUDIT_RECORD_A10.md`. A file cannot contain its own commit hash, which is why the hashes are recorded in the audit record. A claim made later should cite the tag and the claim number, for example "K8 at a10-rc5". Raw records are not edited after they are written, so the file names below are stable. If a record changes, a new tag is made.
 
 Written by Claude (AI assistant) from the existing records. K8 rests on a new run made by Claude in its container (R3); I did not run it. I repeated checks D and E myself on my MacBook on 4 November (record P6); I had the expected values in front of me.
 
@@ -124,7 +124,7 @@ Figure files: `analysis/results/figure_1_proof_map.png` (claims to records) and 
 
 **L2.** The Check A positive control has a different code shape from Md5Crypt.java (ISSUE-08). Check D adds a same-shape pair for one rule. Consequence: the explanation of the zero is now tested for that rule only; the other three rules are not probed one by one.
 
-**L3.** The reference list was drafted by Claude, not built by two independent passes of mine (ISSUE-09). Consequence: any recall figure from it is an illustration only.
+**L3.** The provisional reference list was drafted by Claude. My pass 1 was not independent of it. My pass 2 and agreed list (53 lines, 4 November) exist but are reconciled by my own rules after the passes disagreed on 39 lines (ISSUE-09). Consequence: any recall figure from these lists is an illustration only, and the inventory is not frozen.
 
 **L4.** Self-check on two Semgrep versions and two machines, two checks each. Consequence: repeatability of my execution, not equivalence of versions.
 

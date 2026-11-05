@@ -10,7 +10,7 @@ Format of each line: path, SHA-256, role.
   sha256 `7588848f6364e9561d175ff9292e129e90414697f39d4743f1b851524e451c8d`  
   Tool config; still names dead ruleset p/cryptography (ISSUE-06); not used by any run
 - `README.md`  
-  sha256 `618aa2bbdf826131e41ce8089fd53d548a9830f55b20901a7ee8f0752dc5520f`  
+  sha256 `5eacf06974da4dd4fc8aaa9f8663adbe16584d46cd1ce9413fd6b88228c071d7`  
   Research README (purpose, inventory, provenance, steps, restrictions, limits, navigation)
 - `analysis/raw/README.md`  
   sha256 `8d11592f871323aa46944eefcab2757483494757d30e09903dff4b0b7d42dc9b`  
@@ -52,7 +52,7 @@ Format of each line: path, SHA-256, role.
   sha256 `edfefb65c11d57b3622f95125d3c45ca3c90606081c4d4decfdfc3cac5d0719c`  
   Claims register v1 (kept unchanged)
 - `analysis/results/claims_register_2026-11-04.md`  
-  sha256 `704f92e93d85cb8e45b979cc870a2619d8e7c091be022d21ead85e64007bbf17`  
+  sha256 `1195ae99e7285be7c622afa7589c76f0b20fc8b1c001196dc13f6bd02225b0fd`  
   Claims register v2 with stable evidence version
 - `analysis/results/figure_1_proof_map.png`  
   sha256 `115e131ebda343cfdbedb18dbb3ab58ac3327941b00f6fc147eb5ae091530488`  
@@ -72,12 +72,27 @@ Format of each line: path, SHA-256, role.
 - `data/reference_inventory/md5crypt_pilot_reference_list_2026-10-21.md`  
   sha256 `087e4eef8cbf95ef714f85ea31d457561b1c714cc5967a6f21ac0603bccfec0e`  
   Provisional nine-entry list, drafted by Claude; not independent (ISSUE-09)
+- `data/reference_inventory/own_pass/agreed_lines.txt`  
+  sha256 `731dfca930029e1bc8d4934256037c349a244f0f3b27dad3aa8099d2f0765447`  
+  The 53 agreed line numbers
 - `data/reference_inventory/own_pass/own_pass_1.md`  
   sha256 `70a15ead13c587155f2adf1759ff568bef934d9d2b0ae3b80a0a45572765ed6f`  
   My own pass 1 (not fully independent)
+- `data/reference_inventory/own_pass/own_pass_2.md`  
+  sha256 `8488a8644117c3d61a0a25bd41c0c375987d1f075b7c02973c941aead56f5954`  
+  My own pass 2 (4 November)
+- `data/reference_inventory/own_pass/own_pass_agreed.md`  
+  sha256 `20725010499850f732455d55df74f3e404c8823676bf0d93a31c9f367bceddb9`  
+  My agreed list and the three rules I applied (53 lines)
+- `data/reference_inventory/own_pass/own_pass_vs_claude.md`  
+  sha256 `a1b13737fd2c34d3eda8996a41084018cc626ea76a2cfa112dd2e2af77657a58`  
+  Comparison of the agreed list with the provisional list (prepared by Claude)
 - `data/reference_inventory/own_pass/p1_lines.txt`  
   sha256 `0990fc24885f080cd1e2e031a89793c7e0fd6be18f8fb58b8d455b883ea091f1`  
   Line numbers from pass 1 (60)
+- `data/reference_inventory/own_pass/p2_lines.txt`  
+  sha256 `08aa79c803a58cd6acc5f68e0933f958aef7e1295aa3cccf124eb2cde778e79b`  
+  Line numbers from pass 2 (73, ranges expanded)
 - `data/reference_inventory/reference_inventory_template.json`  
   sha256 `a851ef3d6547c6e75f728144f2e8b9575b0853f4e63a4f9b65c693ad89a2139d`  
   CBOM-style inventory template (JSON validity checked only)
@@ -91,22 +106,22 @@ Format of each line: path, SHA-256, role.
   sha256 `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539`  
   Synthetic 14-line control (written by Claude); not a sample
 - `docs/AUDIT_RECORD_A10.md`  
-  sha256 `e012af171c86add23a4459766bd1905eb506dfd4940d1d50a15eb60e2c95677c`  
+  sha256 `011a640a5f3d899e592a006f639da3aa16bd7f90d98bd89e0e09eab6a60d0e41`  
   Audit of this release candidate
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
   Pinned versions, hashes, check results
 - `docs/ISSUE_LOG.md`  
-  sha256 `889726e840bcce4d7a24e3053121901e3846600e0127c313394c0e7200c48624`  
+  sha256 `a5c497eb42285eef247d09339bf0af3388ea243350beafaa07faefa285243918`  
   Issues and risks
 - `docs/PROCEDURE_NOTES.md`  
-  sha256 `cd03609e89f9b9c9c599fd912a92aceb14023df65ea820677a03e9a52013c8cd`  
+  sha256 `f95afa397619b8bf35eee1dc7f3f9101e44c4ca66148a7f626e50ec9b917068c`  
   Status, run labels, protocol rules, fallback rules
 - `docs/REPRODUCE.md`  
   sha256 `fa595a23b4903e47fdebaeabd131bc7c49c3b21b2853a83c70f917911fe90429`  
   Step-by-step reproduction of checks A, B, C, D
 - `docs/RESPONSE_LOG.md`  
-  sha256 `3576ac080c506babbd3a18d962c407c3ee7483d81dde20a6be3a61952d288ae1`  
+  sha256 `6e755fef7ec2a5752bb16034fc0547c53741fe23ef63ac8f21b7939d4589cf0a`  
   Feedback item, change, location, unresolved issue
 - `journal/2026-10-04.md`  
   sha256 `06ecf50518df0a89f4c105a29daa53345be056b51aee0349726f4caed6048041`  

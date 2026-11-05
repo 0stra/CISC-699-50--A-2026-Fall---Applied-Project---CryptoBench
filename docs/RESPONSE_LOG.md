@@ -4,9 +4,9 @@ Response log for the feedback on Assignment 09 (professor feedback, received bef
 
 ## F1. "Independently check the inventory"
 
-- **Change made.** None that counts as an independent check yet. My own pass 1 over `Md5Crypt.java` (31 October) exists, but I had seen the provisional list first, so it is not independent.
-- **Location.** `data/reference_inventory/own_pass/own_pass_1.md`, `p1_lines.txt`; ISSUE-09 in `docs/ISSUE_LOG.md`.
-- **Unresolved.** Pass 2 (another day, without looking at pass 1), the agreed list and the comparison with the provisional list are not done. ISSUE-09 stays open. No recall figure may be computed from the provisional list.
+- **Change made.** I did a second pass over `Md5Crypt.java` on 4 November (`own_pass_2.md`), compared it with my pass 1 (13 lines only in pass 1, 26 only in pass 2, 43 in both after dropping four brace lines), wrote an agreed list of 53 lines by applying three rules I chose (`own_pass_agreed.md`), and compared it with the provisional list (`own_pass_vs_claude.md`). Ten of the provisional list's 11 line numbers are in the agreed list; the agreed list adds 43 lines.
+- **Location.** `data/reference_inventory/own_pass/`; ISSUE-09 in `docs/ISSUE_LOG.md`.
+- **Unresolved.** Pass 1 was not independent of the provisional list; pass 2 followed my reading of the numbered file with help described in `own_pass_agreed.md`; the agreed list is a rule-based reconciliation, not full agreement of two independent passes. ISSUE-09 is narrowed, not closed. Dr. Shaalan has not been asked to confirm the list. No recall figure may be computed from it.
 
 ## F2. "Create a same-shape control"
 
