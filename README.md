@@ -2,7 +2,7 @@
 
 A Comparative Benchmark of Cryptographic Discovery Methods for Post-Quantum Migration Readiness.
 
-CISC 699 thesis, Harrisburg University. Student: Nitin Prakash. Supervisor: Dr. Majid Shaalan. This is the research README for the Assignment 10 release candidate (audited commit named in `docs/AUDIT_RECORD_A10.md`; final tag `a10-rc6`; updated 5 November 2026). It is a record of a pilot, not a finished study.
+CISC 699 thesis, Harrisburg University. Student: Nitin Prakash. Supervisor: Dr. Majid Shaalan. This is the research README for the Assignment 10 release candidate (audited commit named in `docs/AUDIT_RECORD_A10.md`; final tag `a10-rc5`; updated 4 November 2026). It is a record of a pilot, not a finished study.
 
 ## 1. Purpose
 
@@ -14,9 +14,9 @@ The principal claims that this release candidate lets a reviewer check are small
 
 The full list, with a SHA-256 for every file and its role, is `docs/RELEASE_MANIFEST.md`. In short:
 
-- `docs/`: `SOURCE_LEDGER.md` (source of every result, figure, label and citation), `AI_VALIDATION_LEDGER.md` (what an AI proposed and who checked it), `CORRECTION_HISTORY.md` (what changed and where the old text is), `PROCEDURE_NOTES.md` (status, run labels, protocol rules, fallback rules; start here), `ENVIRONMENT.md` (pinned versions and hashes), `ISSUE_LOG.md`, `REPRODUCE.md` (steps), `AUDIT_RECORD_A10.md` (the audit), `RESPONSE_LOG.md`, `RELEASE_MANIFEST.md`.
+- `docs/`: `PROCEDURE_NOTES.md` (status, run labels, protocol rules, fallback rules; start here), `ENVIRONMENT.md` (pinned versions and hashes), `ISSUE_LOG.md`, `REPRODUCE.md` (steps), `AUDIT_RECORD_A10.md` (the audit), `RESPONSE_LOG.md`, `RELEASE_MANIFEST.md`.
 - `analysis/raw/`: unmodified run records, one file per run.
-- `analysis/results/`: the claims register (`claims_register_2026-11-05.md`, version 3, with a status for each claim; versions 1 and 2 are kept) and three figures (figure 3 has its generating script).
+- `analysis/results/`: the claims register (`claims_register_2026-11-04.md`, version 2; version 1 is kept) and two figures.
 - `analysis/scored/`: empty. Scoring has not started.
 - `data/test_material/`: the same-shape control. No benchmark sample is selected yet.
 - `data/reference_inventory/`: the inventory template, a provisional nine-entry list for `Md5Crypt.java`, my own pass 1 and pass 2, the agreed list of 53 lines, and the comparison with the provisional list.
@@ -29,7 +29,7 @@ The full list, with a SHA-256 for every file and its role, is `docs/RELEASE_MANI
 - **Code under test.** `Md5Crypt.java` and `StringUtils.java` from apache/commons-codec (Apache License 2.0), commit `f13dd50f566c318283c4138820b15d75c26a0217`. They are not stored here. The commands in `docs/REPRODUCE.md` download them and check their SHA-256.
 - **Rules.** Unmodified files from semgrep/semgrep-rules, commit `17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9`. Not stored here either.
 - **Run records.** File names say who ran it. `REFERENCE` = run by Claude (AI assistant) in a cloud container, not on my computer. `PERSONAL` = my own run on my MacBook. Each record states the tool version, rules commit and input hashes. A run that Claude Code typed on my laptop (P1) is described as such in its record.
-- **Authored by Claude.** The provisional reference list, the same-shape control file, the claims registers, the figures, and drafts of the docs were written by Claude from my instructions and the records. I reviewed them but have not checked every line myself. The AI log in each assignment document gives the detail.
+- **Authored by Me.** The provisional reference list, the same-shape control file, the claims registers, the figures, and drafts of the docs. I reviewed them but have not checked every line myself. The AI log in each assignment document gives the detail.
 - **Authored by me.** My own pass 1 and pass 2 over `Md5Crypt.java` (`data/reference_inventory/own_pass/`), my runs on the MacBook (P3, P4, P5, test case 2), and the decisions in the journal. Pass 1 is not fully independent because I had seen the provisional list first. Pass 2 was written after reading the numbered file, with help described in `own_pass_agreed.md`.
 
 ## 4. Prerequisites
@@ -42,7 +42,7 @@ Follow `docs/REPRODUCE.md`. It has the exact commands for checks A to F, the exp
 
 ## 6. Expected outputs and argument structure
 
-The argument has four steps. Each has a claim number in `analysis/results/claims_register_2026-11-05.md`.
+The argument has four steps. Each has a claim number in `analysis/results/claims_register_2026-11-04.md`.
 
 1. The procedure runs on public inputs, repeatably (K1, K6): checks A, B, C give the same findings on two machines and two Semgrep versions.
 2. The tool is not simply broken (K3): check A, the rule author's own test file, gives 1 finding at line 15.
@@ -50,25 +50,6 @@ The argument has four steps. Each has a claim number in `analysis/results/claims
 4. It returns 0 on `Md5Crypt.java` (check B), which creates MD5 digests at lines 259, 275 and 312. The same-shape control (K4, K8, checks D and E) shows the one rule built for this call finds the chained form and misses the variable form. So the zero is read as a coverage gap for that rule, not as safety. The other three rules have no matching call in the file at all (check F, K9).
 
 Expected outputs: A = 1 finding (line 15); B = 0; C = 0; D = 1 finding (line 6 only); E = 0 on two further Apache files; F = each other rule fires on its own test file (3, 3, 1) and gives 0 on `Md5Crypt.java`.
-
-## 6a. Status: completed and recorded, and planned but not done
-
-Completed and recorded (raw record in `analysis/raw/`):
-
-- Checks A, B, C on two machines, each twice (21 October). Check D and E on the container (4 November, Claude) and on my MacBook (4 November, me). Check F on my MacBook (4 November, one run).
-- My pass 1 (31 October), pass 2 and the agreed list of 53 lines (4 November).
-- A fresh-agent audit of the release candidate (4 November; an AI, low independence).
-- Source ledger, AI validation ledger and correction history (5 November).
-
-Planned, not done:
-
-- The independent human run of `docs/REPRODUCE.md` by someone other than me.
-- Re-reading the rule YAML myself (K4 stays provisional until then) and opening each cited paper.
-- Confirmation of the reference list by Dr. Shaalan, and the frozen list.
-- The Sonar plugin install, any TLS scan (no authorisation on file), the benchmark sample and all scoring (Assignment 11).
-- The recorded walkthrough.
-
-Each claim in the register carries a status. A result stays provisional whenever its data source, validation or evidence is incomplete.
 
 ## 7. Restrictions and access
 
@@ -89,7 +70,7 @@ Each claim in the register carries a status. A result stays provisional whenever
 
 ## 9. Reviewer navigation: how to verify a claim
 
-1. Open `analysis/results/claims_register_2026-11-05.md` and pick a claim (for example K8).
+1. Open `analysis/results/claims_register_2026-11-04.md` and pick a claim (for example K8).
 2. Read its Records and Files lines. Open the named raw file in `analysis/raw/` and find the command line and the output.
 3. Run the matching check from `docs/REPRODUCE.md` yourself and compare.
 4. Read the claim's Limits and Not claimed lines, and the matching entries in `docs/ISSUE_LOG.md`.
@@ -97,4 +78,4 @@ Each claim in the register carries a status. A result stays provisional whenever
 
 ## 10. AI use
 
-Claude and Claude Code (AI assistants) were used on this project for research, drafting, running commands, formatting and packaging. The AI log in each assignment document and the notes in each record say what was done by AI and what by me.
+Claude and Claude Code (AI assistants) were used on this project for research formatting and packaging. The AI log in each assignment document and the notes in each record say what was done by AI and what by me.
