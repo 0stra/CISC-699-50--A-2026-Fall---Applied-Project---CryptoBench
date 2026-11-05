@@ -16,6 +16,4 @@ the Design Review Package:
   authorisation before they are added here, confirmed and recorded in
   writing (NFR-7; see RISK-05 in the risk log).
 
-This folder is empty as of this check-in. No material has been selected
-yet — see the sprint reflection for why, and the next-sprint plan for when
-selection happens.
+As of 4 November 2026 this folder holds only the same-shape control (`same_shape_control/`), which is a control input and not a sample. No benchmark sample has been selected yet (Assignment 11).

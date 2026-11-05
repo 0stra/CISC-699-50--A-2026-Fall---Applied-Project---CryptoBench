@@ -2,9 +2,9 @@
 
 Written by me (Nitin Prakash) on 31 October 2026 from my own reading of the file (361 lines, sha256 fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747). Started: not recorded. Finished: before 16:31 EDT on 31 October 2026.
 
-Limitation: I had seen the Hard Stop 4 list and a grep output before this pass, so it is not fully independent. This is pass 1 of 2. Pass 2 and the agreed list are still to do, so the reference inventory is not frozen and ISSUE-09 stays open.
+Limitation: I had seen the Hard Stop 4 list (drafted by Claude) and a grep output before this pass, so it is not fully independent. This is pass 1 of 2. Pass 2 and the agreed list are still to do, so the reference inventory is not frozen and ISSUE-09 stays open.
 
-Help received: Checked that each of my line numbers points at the code I described, and told me when numbers pointed at comments or braces so that I could correct them. It formatted my first six entries into this layout from my notes. It did not choose which lines to include.
+Help received: Claude supplied the commands to view the file with line numbers, checked that each of my line numbers points at the code I described, and told me when numbers pointed at comments or braces so that I could correct them. It formatted my first six entries into this layout from my notes. It did not choose which lines to include.
 
 Line numbers refer to the file as printed by `cat -n` (the numbers in `p1_lines.txt`, one per line, with ranges expanded).
 

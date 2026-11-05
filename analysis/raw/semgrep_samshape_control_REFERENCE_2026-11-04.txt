@@ -1,0 +1,105 @@
+# Same-shape control (A10). Executed by Claude in its cloud container, NOT by the student.
+# Date: 2026-11-05 00:58Z (container clock, UTC; 4 Nov 2026 about 20:58 EDT). Label: R3 (Claude-run reference class).
+# Semgrep: 1.181.0 ; Ubuntu 24.04.5 LTS; python Python 3.13.16
+# semgrep-rules commit: 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9
+# rule file sha256: a0614baf029418dd9b298713c3328f371faa1edb0eac7cc2c4a3a99ce1a220a5
+# fixture sha256 (SameShapeControl.java): 657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539
+# pinned public files (commons-codec f13dd50f...): 427fa77411e7a0ea7798151b199aa17892b7f1043ad7d26baf566d2d97e36347  DigestUtils.java b886f74b8450318218366af7d486666de1e1a94945e81f3ba191ef36cbbda426  DigestUtilsTest.java fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747  Md5Crypt.java 
+# Paths: the fixture and the three public files were scanned from a sibling folder of the rules clone (shown as ctl/ and pub/ below). Output is unedited.
+
+## fixture (cat -n)
+     1	import java.security.MessageDigest;
+     2	import org.apache.commons.codec.digest.DigestUtils;
+     3	
+     4	public class SameShapeControl {
+     5	  public byte[] chainedForm(byte[] data) {
+     6	    return DigestUtils.getMd5Digest().digest(data);
+     7	  }
+     8	
+     9	  public byte[] variableForm(byte[] data) {
+    10	    final MessageDigest ctx = DigestUtils.getMd5Digest();
+    11	    ctx.update(data);
+    12	    return ctx.digest();
+    13	  }
+    14	}
+
+## semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml ctl/SameShapeControl.java
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+    ../ctl/SameShapeControl.java
+    ❯❱ java.lang.security.audit.crypto.use-of-md5-digest-utils
+          ❰❰ Blocking ❱❱
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
+          therefore not suitable as a cryptographic signature. Use HMAC instead.                         
+           ▶▶┆ Autofix ▶ getSha512Digest
+            6┆ return DigestUtils.getMd5Digest().digest(data);
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 1 (1 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 1 finding.
+
+## semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml pub/DigestUtils.java
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+
+## semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml pub/DigestUtilsTest.java
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+
+## semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml pub/Md5Crypt.java
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+
+## JSON findings on fixture
+[('use-of-md5-digest-utils', 6)]
