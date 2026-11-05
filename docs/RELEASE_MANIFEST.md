@@ -10,7 +10,7 @@ Format of each line: path, SHA-256, role.
   sha256 `7588848f6364e9561d175ff9292e129e90414697f39d4743f1b851524e451c8d`  
   Tool config; still names dead ruleset p/cryptography (ISSUE-06); not used by any run
 - `README.md`  
-  sha256 `5eacf06974da4dd4fc8aaa9f8663adbe16584d46cd1ce9413fd6b88228c071d7`  
+  sha256 `015f185bdec92d4983d44d980f99cd018a00ff8d583453268db90dceecba5bd0`  
   Research README (purpose, inventory, provenance, steps, restrictions, limits, navigation)
 - `analysis/raw/README.md`  
   sha256 `8d11592f871323aa46944eefcab2757483494757d30e09903dff4b0b7d42dc9b`  
@@ -53,7 +53,7 @@ Format of each line: path, SHA-256, role.
   Claims register v1 (kept unchanged)
 - `analysis/results/claims_register_2026-11-04.md`  
   sha256 `1195ae99e7285be7c622afa7589c76f0b20fc8b1c001196dc13f6bd02225b0fd`  
-  Claims register v2 with stable evidence version
+  Claims register v2 (kept unchanged)
 - `analysis/results/figure_1_proof_map.png`  
   sha256 `115e131ebda343cfdbedb18dbb3ab58ac3327941b00f6fc147eb5ae091530488`  
   Figure: claims to records
@@ -106,7 +106,7 @@ Format of each line: path, SHA-256, role.
   sha256 `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539`  
   Synthetic 14-line control (written by Claude); not a sample
 - `docs/AUDIT_RECORD_A10.md`  
-  sha256 `011a640a5f3d899e592a006f639da3aa16bd7f90d98bd89e0e09eab6a60d0e41`  
+  sha256 `3a6e0a4f4562b8b0831d8dfc585c5ee2f6e6303613dd79e2337c4eca8ede1c00`  
   Audit of this release candidate
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
@@ -121,7 +121,7 @@ Format of each line: path, SHA-256, role.
   sha256 `fa595a23b4903e47fdebaeabd131bc7c49c3b21b2853a83c70f917911fe90429`  
   Step-by-step reproduction of checks A, B, C, D
 - `docs/RESPONSE_LOG.md`  
-  sha256 `6e755fef7ec2a5752bb16034fc0547c53741fe23ef63ac8f21b7939d4589cf0a`  
+  sha256 `155c0bc5610dee3502d1ac6cd99d8b8ca8d558369c00c73e589fbc3937ad1469`  
   Feedback item, change, location, unresolved issue
 - `journal/2026-10-04.md`  
   sha256 `06ecf50518df0a89f4c105a29daa53345be056b51aee0349726f4caed6048041`  

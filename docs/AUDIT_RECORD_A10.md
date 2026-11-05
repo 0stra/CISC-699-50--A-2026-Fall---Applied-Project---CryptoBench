@@ -49,4 +49,4 @@ No restricted data, credentials or third-party endpoints were used. The reviewer
 ## 7. Evidence versions
 
 - Audited: commit `aeec71de620e5d8a000adbd79af4bd50ce929886` ("rc1").
-- Final (after fixes): see `README.md`; tag `a10-rc5`, created by me at the final commit (`a10-rc2` to `a10-rc4` point to earlier commits). The final commit hash is given in the Assignment 10 audit memo.
+- Final (after fixes): see `README.md`; tag `a10-rc6`, to be created by me at the final commit (`a10-rc2` to `a10-rc4` point to earlier commits). The final commit hash is given in the Assignment 10 audit memo.

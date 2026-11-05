@@ -17,7 +17,7 @@ Response log for the feedback on Assignment 09 (professor feedback, received bef
 ## F3. "Attach stable claim records"
 
 - **Change made.** Claims register version 2 with a stable evidence version (git tag), records, files, limits and "not claimed" lines for K1 to K8. Release manifest with SHA-256 for every file.
-- **Location.** `analysis/results/claims_register_2026-11-04.md`; `docs/RELEASE_MANIFEST.md`.
+- **Location.** `analysis/results/claims_register_2026-11-05.md` (version 3; version 2 kept); `docs/RELEASE_MANIFEST.md`.
 - **Unresolved.** The register was written by Claude from the records; I have not yet checked every line against the raw files myself.
 
 ## F4. "Run the frozen procedure on the planned sample for Assignment 11"
