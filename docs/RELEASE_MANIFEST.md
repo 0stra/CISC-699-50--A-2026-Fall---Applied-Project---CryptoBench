@@ -2,7 +2,7 @@
 
 Release candidate inventory, generated 4 November 2026 for Assignment 10 (generator output, then reviewed). Every tracked file except this one, with its SHA-256 and role. The stable evidence version is the git tag named in `README.md`. Files that are not in this list are not part of the release candidate. No restricted data, credentials or third-party code is stored in this repository.
 
-Not in the repository on purpose: `Md5Crypt.java`, `StringUtils.java` and the Semgrep rules (public; fetched and hash-checked by `docs/REPRODUCE.md`). Not yet in the repository: `research/03_...` and `research/04_...` (Assignments 03 and 04).
+Not in the repository on purpose: `Md5Crypt.java`, `StringUtils.java` and the Semgrep rules (public; fetched and hash-checked by `docs/REPRODUCE.md`).
 
 Format of each line: path, SHA-256, role.
 
@@ -10,7 +10,7 @@ Format of each line: path, SHA-256, role.
   sha256 `7588848f6364e9561d175ff9292e129e90414697f39d4743f1b851524e451c8d`  
   Tool config; still names dead ruleset p/cryptography (ISSUE-06); not used by any run
 - `README.md`  
-  sha256 `915a57255f29e85d4a2a136a2306a9525e566634ff6c5cdf752c9a393873e0eb`  
+  sha256 `618aa2bbdf826131e41ce8089fd53d548a9830f55b20901a7ee8f0752dc5520f`  
   Research README (purpose, inventory, provenance, steps, restrictions, limits, navigation)
 - `analysis/raw/README.md`  
   sha256 `8d11592f871323aa46944eefcab2757483494757d30e09903dff4b0b7d42dc9b`  
@@ -52,7 +52,7 @@ Format of each line: path, SHA-256, role.
   sha256 `edfefb65c11d57b3622f95125d3c45ca3c90606081c4d4decfdfc3cac5d0719c`  
   Claims register v1 (kept unchanged)
 - `analysis/results/claims_register_2026-11-04.md`  
-  sha256 `e98906bb13c70de74e75a5eb030a4d2a7a039887139fedad73cf1c0967046dbd`  
+  sha256 `704f92e93d85cb8e45b979cc870a2619d8e7c091be022d21ead85e64007bbf17`  
   Claims register v2 with stable evidence version
 - `analysis/results/figure_1_proof_map.png`  
   sha256 `115e131ebda343cfdbedb18dbb3ab58ac3327941b00f6fc147eb5ae091530488`  
@@ -91,7 +91,7 @@ Format of each line: path, SHA-256, role.
   sha256 `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539`  
   Synthetic 14-line control (written by Claude); not a sample
 - `docs/AUDIT_RECORD_A10.md`  
-  sha256 `f907107bf2511288224fe914b3765c864d0a2ef126d7e943960f53244c8d3cb3`  
+  sha256 `e012af171c86add23a4459766bd1905eb506dfd4940d1d50a15eb60e2c95677c`  
   Audit of this release candidate
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
@@ -132,6 +132,12 @@ Format of each line: path, SHA-256, role.
 - `journal/README.md`  
   sha256 `1b819658a7d86afe71c422e8e9c7c10dc27ed6f101dd115b152a911cccbc0359`  
   Dated working entry
+- `research/03_literature_requirements_brief.docx`  
+  sha256 `079d31c0775f35bc1be8a20d08c799a707cd95cad8ea804d064c87a88bbedd6f`  
+  Assignment 03 Literature and Requirements Brief, as submitted (copied from my computer, unedited)
+- `research/04_design_review_package.docx`  
+  sha256 `fcaa35e9fc9c66d3e077990d769e53e6dc97102db861f9aaf2a0dc6f488c9f50`  
+  Assignment 04 Design Review Package, as submitted (copied from my computer, unedited)
 - `sonar-project.properties`  
   sha256 `025dc6e6a69c0ecfc5f0b0e1b860e86db04c833e3822cb2b7746a4d174cf8d64`  
   SonarQube config; plugin not installed (ISSUE-01); nothing run

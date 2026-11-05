@@ -2,7 +2,7 @@
 
 A Comparative Benchmark of Cryptographic Discovery Methods for Post-Quantum Migration Readiness.
 
-CISC 699 thesis, Harrisburg University. Student: Nitin Prakash. Supervisor: Dr. Majid Shaalan. This is the research README for the Assignment 10 release candidate (audited commit named in `docs/AUDIT_RECORD_A10.md`; final tag `a10-rc3`; updated 4 November 2026). It is a record of a pilot, not a finished study.
+CISC 699 thesis, Harrisburg University. Student: Nitin Prakash. Supervisor: Dr. Majid Shaalan. This is the research README for the Assignment 10 release candidate (audited commit named in `docs/AUDIT_RECORD_A10.md`; final tag `a10-rc4`; updated 4 November 2026). It is a record of a pilot, not a finished study.
 
 ## 1. Purpose
 
@@ -21,7 +21,7 @@ The full list, with a SHA-256 for every file and its role, is `docs/RELEASE_MANI
 - `data/test_material/`: the same-shape control. No benchmark sample is selected yet.
 - `data/reference_inventory/`: the inventory template, a provisional nine-entry list for `Md5Crypt.java`, and my own pass 1.
 - `journal/`: dated working entries.
-- `research/`: Assignments 03 and 04, where uploaded (not yet in this repository).
+- `research/`: the submitted Literature and Requirements Brief (`03_literature_requirements_brief.docx`, Assignment 03) and Design Review Package (`04_design_review_package.docx`, Assignment 04), as I submitted them. Copied from my computer on 4 November 2026; not edited since.
 - `.semgrep.yml`, `sonar-project.properties`: tool configuration. `.semgrep.yml` still names the dead ruleset `p/cryptography` (ISSUE-06) and no run uses it.
 
 ## 3. Provenance
