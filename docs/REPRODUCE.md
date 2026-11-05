@@ -91,7 +91,7 @@ Save the first and second output of each check to separate files and run `diff` 
 
 ## 6. What to record
 
-For each run: who ran it, the date, the Semgrep version (`semgrep --version`), the operating system, the rules commit, the sha256 values from step 2, the exact command, the output, and any difference from the expected result above. Name files with `REFERENCE` (run by Claude), `PERSONAL` (run by the student) or `REVIEWER` (run by someone else), plus the date. The project owner puts them in `analysis/raw/`; a reviewer who cannot write to the repository sends the files to the owner or attaches them to the review.
+For each run: who ran it, the date, the Semgrep version (`semgrep --version`), the operating system, the rules commit, the sha256 values from step 2, the exact command, the output, and any difference from the expected result above. Name files with `REFERENCE`, `PERSONAL` (run by the student) or `REVIEWER` (run by someone else), plus the date. The project owner puts them in `analysis/raw/`; a reviewer who cannot write to the repository sends the files to the owner or attaches them to the review.
 
 ## 7. Not reproducible from this repository
 
