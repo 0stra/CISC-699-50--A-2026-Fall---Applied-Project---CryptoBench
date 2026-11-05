@@ -54,12 +54,21 @@ Format of each line: path, SHA-256, role.
 - `analysis/results/claims_register_2026-11-04.md`  
   sha256 `1195ae99e7285be7c622afa7589c76f0b20fc8b1c001196dc13f6bd02225b0fd`  
   Claims register v2 (kept unchanged)
+- `analysis/results/claims_register_2026-11-05.md`  
+  sha256 `e3466ec913a48c6b598e29099aa0895c8b0f115903cde08a3cc0367ec6386aeb`  
+  Claims register v3: statuses added, L2 corrected
 - `analysis/results/figure_1_proof_map.png`  
   sha256 `115e131ebda343cfdbedb18dbb3ab58ac3327941b00f6fc147eb5ae091530488`  
   Figure: claims to records
 - `analysis/results/figure_2_zero_classification.png`  
   sha256 `50ac37f918f6e4b9963e7a061db79a92fc5e6d3a52636f749a1de16dfbbe1e97`  
   Figure: how a zero is classified
+- `analysis/results/figure_3_rule_results_2026-11-05.png`  
+  sha256 `d55260461dc1a62c09d85549bd37b2594dc55a7a09d2a2679d9bf66eefc3ef30`  
+  Figure: findings per rule, own test file against Md5Crypt.java
+- `analysis/results/figure_3_source.py`  
+  sha256 `8a5c0590d3d3c9180b7bea24f762933a655fac4a3e2eac8214a00900aed4459f`  
+  Script that draws figure 3 (numbers from P6 and P7)
 - `analysis/scored/README.md`  
   sha256 `975fa9cc5d17847138b6595daaef1f6a6bc2889623f12fb804acdf6da2f74d8a`  
   Placeholder; no scoring yet
@@ -105,9 +114,15 @@ Format of each line: path, SHA-256, role.
 - `data/test_material/same_shape_control/SameShapeControl.java`  
   sha256 `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539`  
   Synthetic 14-line control (written by Claude); not a sample
+- `docs/AI_VALIDATION_LEDGER.md`  
+  sha256 `fbf7e9fd00832d6b69d80efd84c9ea38b4b5ce2ccb5fc6e16e9e0295024f1b5b`  
+  What AI tools proposed, who checked it and how
 - `docs/AUDIT_RECORD_A10.md`  
   sha256 `3a6e0a4f4562b8b0831d8dfc585c5ee2f6e6303613dd79e2337c4eca8ede1c00`  
   Audit of this release candidate
+- `docs/CORRECTION_HISTORY.md`  
+  sha256 `231673caa4607089132d3b215df3e83d6d407e54a8c2e79730764a2c3b081bc2`  
+  Corrections with commit hashes; pointer to earlier text
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
   Pinned versions, hashes, check results
@@ -123,6 +138,9 @@ Format of each line: path, SHA-256, role.
 - `docs/RESPONSE_LOG.md`  
   sha256 `155c0bc5610dee3502d1ac6cd99d8b8ca8d558369c00c73e589fbc3937ad1469`  
   Feedback item, change, location, unresolved issue
+- `docs/SOURCE_LEDGER.md`  
+  sha256 `b3b60e3d1cb480830bd80fb88c55f170176bfd7a35ba825b781faf128793b6a9`  
+  Source of every result, figure, label, interpretation and citation, with verification status
 - `journal/2026-10-04.md`  
   sha256 `06ecf50518df0a89f4c105a29daa53345be056b51aee0349726f4caed6048041`  
   Dated working entry
