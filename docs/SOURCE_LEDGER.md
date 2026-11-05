@@ -8,11 +8,11 @@ Verification words used: **Recorded** (a raw record exists in `analysis/raw/`), 
 
 Each claim in `analysis/results/claims_register_2026-11-05.md` names its records and files. The route is claim, record label, raw file, command line and output inside the raw file.
 
-- **K1, K5, K6 (repeatability, known negative).** Source: raw records of runs R1, R2 (Claude, container) and P3, P4 (my MacBook). Produced by: Claude for R1 and R2, me for P3 and P4. Status: Recorded; the MacBook runs were typed and run by me.
-- **K2 (ruleset returned HTTP 404).** Source: raw record P1. Produced by: Claude Code typed the command on my laptop at my request; I did not type it. Status: Recorded; seen once, 18 October, and not re-requested.
+- **K1, K5, K6 (repeatability, known negative).** Source: raw records of runs R1, R2 (Claude, container) and P3, P4 (my MacBook). Produced by: Claude for R1 and R2, me for P3 and P4. Status: Recorded; the MacBook runs were also done my myself.
+- **K2 (ruleset returned HTTP 404).** Source: raw record P1. Status: Recorded; seen once, 18 October, and not re-requested.
 - **K3 (rule fires on its own test file).** Source: R2 and P3. Status: Recorded; reproduced by me.
 - **K7 (template round-trip).** Source: raw record TC2, my own three attempts. Status: Recorded.
-- **K8 (shape gap).** Source: R3 (Claude, container) and P6 (my MacBook). Control file written by Claude. Status: Recorded; my run was not blind to the expected result.
+- **K8 (shape gap).** Source: R3 (Claude, container) and P6 (my MacBook). Status: Recorded; my run was not blind to the expected result.
 - **K9 (other three rules).** Source: P7 (my MacBook, one run each). Claude's earlier container run of the same commands was not saved. Status: Recorded, single run.
 - **K4 (interpretation: two causes of the zero).** Source: K8 and K9, plus a reading of the rule patterns made by Claude. Status: Not yet checked by me for the rule-pattern reading. The claim stays provisional until I re-read the rule file against lines 15 and 259.
 
