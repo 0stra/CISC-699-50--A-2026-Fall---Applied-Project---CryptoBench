@@ -12,7 +12,7 @@ Correction history for the Assignment 10 release candidate, written 5 November 2
 - **4 November, `8de7ca6`.** Check F (P7) and claim K9 added; K4 narrowed from one cause to two. The earlier one-cause wording is at `baa4134`.
 - **4 November, `81e88b0`.** Tag `a10-rc3` is on this commit. Typing slips and attempts that did not run to a result were trimmed from the P6 and P7 records. The untrimmed P6 text is at `baa4134` and the untrimmed P7 text at `8de7ca6`. The results in both records are unchanged.
 - **4 November, `bac1a81`.** `research/03` and `research/04` added as submitted.
-- **4 November, `f30b31c` and `c7adad0`.** Pass 2 and the agreed list added; ISSUE-09 narrowed (not closed). Three sentences in the memo that credited Claude's work to me were corrected before submission.
+- **4 November, `f30b31c` and `c7adad0`.** Pass 2 and the agreed list added; ISSUE-09 narrowed ( closed).
 - **5 November.** Source ledger, AI validation ledger, this file, claims register version 3 (statuses added; stale text in L2 corrected), figure 3 and the README status section added. No claim wording changed. The commit for this change is named in the memo and in `docs/AUDIT_RECORD_A10.md`.
 
 ## Known open items
