@@ -8,11 +8,11 @@ Verification words used: **Recorded** (a raw record exists in `analysis/raw/`), 
 
 Each claim in `analysis/results/claims_register_2026-11-05.md` names its records and files. The route is claim, record label, raw file, command line and output inside the raw file.
 
-- **K1, K5, K6 (repeatability, known negative).** Source: raw records of runs R1, R2 (Claude, container) and P3, P4 (my MacBook). Produced by: Claude for R1 and R2, me for P3 and P4. Status: Recorded; the MacBook runs were also done my myself.
-- **K2 (ruleset returned HTTP 404).** Source: raw record P1. Status: Recorded; seen once, 18 October, and not re-requested.
+- **K1, K5, K6 (repeatability, known negative).** Source: raw records of runs R1, R2 (Claude, container) and P3, P4 (my MacBook). Produced by: Claude for R1 and R2, me for P3 and P4. Status: Recorded; the MacBook runs were typed and run by me.
+- **K2 (ruleset returned HTTP 404).** Source: raw record P1. Produced by: Claude Code typed the command on my laptop at my request; I did not type it. Status: Recorded; seen once, 18 October, and not re-requested.
 - **K3 (rule fires on its own test file).** Source: R2 and P3. Status: Recorded; reproduced by me.
 - **K7 (template round-trip).** Source: raw record TC2, my own three attempts. Status: Recorded.
-- **K8 (shape gap).** Source: R3 (Claude, container) and P6 (my MacBook). Status: Recorded; my run was not blind to the expected result.
+- **K8 (shape gap).** Source: R3 (Claude, container) and P6 (my MacBook). Control file written by Claude. Status: Recorded; my run was not blind to the expected result.
 - **K9 (other three rules).** Source: P7 (my MacBook, one run each). Claude's earlier container run of the same commands was not saved. Status: Recorded, single run.
 - **K4 (interpretation: two causes of the zero).** Source: K8 and K9, plus a reading of the rule patterns made by Claude. Status: Not yet checked by me for the rule-pattern reading. The claim stays provisional until I re-read the rule file against lines 15 and 259.
 
@@ -41,15 +41,16 @@ The package contains no tables of results. The reference-list tables and the inv
 
 ## 6. Citations
 
-The references below come from my Literature and Requirements Brief (`research/03`) and Design Review Package (`research/04`), which Claude helped find and write.
+The references come from my Literature and Requirements Brief (`research/03`) and Design Review Package (`research/04`), which Claude helped find and write, and from the Assignment 11 thesis draft. On 14 November 2026 Claude checked each one used in the thesis draft against a source page (`docs/CITATION_CHECK_2026-11-14.md`). That is an AI check. I have not opened the papers, so none of these is validated by me.
 
-- Amann et al. 2019, IEEE Transactions on Software Engineering 45(12), doi 10.1109/TSE.2018.2827384. Status: Not yet checked by me; I have not opened the paper.
-- Ami et al. 2026, ACM Transactions on Privacy and Security, doi 10.1145/3796221, "Mutation-based Evaluation of Cryptographic API Misuse Detectors". Status: Not yet checked by me; the venue and year are still to be confirmed against the paper.
-- arXiv:2608.04857 and arXiv:2503.19531 (Cryptoscope). Status: Not yet checked by me.
-- Cronbach and Meehl 1955 (construct validity). Status: Unverified.
-- Pilot-study references (Lancaster 2004, Thabane 2010, Eldridge 2016). Status: Not rechecked in this audit.
+- Amann et al. 2019 (IEEE TSE 45(12)). Status: authors, title and finding confirmed from the arXiv abstract by Claude; IEEE page not reachable; not yet read by me. The quotation "collapse dramatically" in my Assignment 04 could not be found and is not used.
+- Ami et al. (ACM TOPS). Status: title, venue and abstract confirmed by Claude; year, authors and DOI not confirmed; not yet read by me.
+- arXiv:2608.04857 (Näther and Hirsch, 2026) and arXiv:2503.19531 (Moffie et al., Cryptoscope). Status: confirmed by Claude; preprints; not yet read by me.
+- Cronbach and Meehl 1955. Status: confirmed by Claude from the reprint; not yet read by me.
+- Pilot-study references (Lancaster 2004, Thabane 2010, Eldridge 2016). Status: confirmed by Claude from catalogue records; not yet read by me.
+- Standards (NIST IR 8610, ECMA-424, SP 1800-38 draft). Status: confirmed by Claude. Policy documents, FIPS dates, HQC selection and NCCoE pages: not rechecked.
 
-No citation in this package should be treated as verified until I have opened it and confirmed that it says what the text says it says.
+No citation should be treated as validated until I have opened it and confirmed that it says what the text says.
 
 ## 7. Where a source could not be fully traced
 

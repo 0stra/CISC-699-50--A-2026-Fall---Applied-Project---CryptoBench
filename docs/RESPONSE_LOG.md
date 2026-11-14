@@ -1,7 +1,6 @@
-
 # RESPONSE_LOG.md
 
-Response log for the feedback on Assignment 09 (professor feedback, received before 4 November 2026). Each item: what was asked, the change made, where it is, and what is still unresolved. Updated 4 November 2026 (Assignment 10).
+Response log for the feedback on Assignment 09 (professor feedback, received before 4 November 2026). Each item: what was asked, the change made, where it is, and what is still unresolved. Updated 4 November 2026 (Assignment 10) and 14 November 2026 (Assignment 11: feedback on Assignment 10 added at the end).
 
 ## F1. "Independently check the inventory"
 
@@ -18,8 +17,8 @@ Response log for the feedback on Assignment 09 (professor feedback, received bef
 ## F3. "Attach stable claim records"
 
 - **Change made.** Claims register version 2 with a stable evidence version (git tag), records, files, limits and "not claimed" lines for K1 to K8. Release manifest with SHA-256 for every file.
-- **Location.** `analysis/results/claims_register_2026-11-04.md`; `docs/RELEASE_MANIFEST.md`.
-- **Unresolved.** The register was written by Claude from the records.
+- **Location.** `analysis/results/claims_register_2026-11-05.md` (version 3; version 2 kept); `docs/RELEASE_MANIFEST.md`.
+- **Unresolved.** The register was written by Claude from the records; I have not yet checked every line against the raw files myself.
 
 ## F4. "Run the frozen procedure on the planned sample for Assignment 11"
 
@@ -34,3 +33,37 @@ Response log for the feedback on Assignment 09 (professor feedback, received bef
 - **Vague wording.** Change: placeholders, working folder, output wording and reviewer file delivery clarified. Location: `docs/REPRODUCE.md`. Unresolved: none known.
 - **AI attribution removed from three files on 31 October.** Change: restored. Location: `data/reference_inventory/own_pass/own_pass_1.md`, `docs/PROCEDURE_NOTES.md`, `journal/2026-10-31.md`. Unresolved: none.
 - **Check D wording on Semgrep 1.99.0.** My P6 run showed that 1.99.0 prints no `Findings: N` line. Change: expected outputs now rely on the `Ran ...` line. Location: `docs/REPRODUCE.md`. Unresolved: none.
+
+## Feedback on Assignment 10 (received after the 8 November submission; answered 14 November 2026, Assignment 11)
+
+The feedback said the release makes a limited procedural finding examinable and praised the candid treatment of the unfrozen inventory and provisional interpretations. It asked, before Assignment 11, for: (1) a genuine independent human run; (2) a frozen reference inventory; (3) validation of the remaining citations; (4) a stable final tag and manifest relationship. It added that these actions prepare the evidence base and do not imply thesis completion.
+
+## G1. "Obtain a genuine independent human run"
+
+- **Change made.** None yet. No person other than me has run `docs/REPRODUCE.md`; no one was available between 5 and 14 November. I prepared the request text and the record template in `docs/INDEPENDENT_RUN_PACKAGE.md`.
+- **Location.** `docs/INDEPENDENT_RUN_PACKAGE.md`; the gate is shown as NOT DONE in Figure 1 of the thesis draft.
+- **Unresolved.** The run itself. The only reviewer runs on record are a fresh AI agent (low independence) and my own self-check (P6, P7). Planned: ask a classmate or Dr. Shaalan's nominee; record the output unedited as a `REVIEWER` file.
+
+## G2. "Freeze the reference inventory"
+
+- **Change made.** None, by my decision on 14 November: the freeze rule (two independent passes agree) is not met, and Dr. Shaalan has not confirmed the reconciled list of 53 lines. Freezing it anyway would have meant a deviation from my own rule without his agreement, so every inventory-related result stays provisional. The thesis draft states this in sections 3.3, 4.4 and 6.
+- **Location.** `docs/ISSUE_LOG.md` (ISSUE-09, narrowed, not closed); `data/reference_inventory/own_pass/`.
+- **Unresolved.** The freeze. Planned: ask Dr. Shaalan to confirm the reconciled list or to say what a further independent pass must look like; if he cannot reply in time, record a deviation with the list's hash and its limits before any scoring.
+
+## G3. "Validate the remaining citations"
+
+- **Change made.** Claude checked each citation used in the thesis draft against the publisher, repository or standards-body page on 14 November (`docs/CITATION_CHECK_2026-11-14.md`). Four statements in my earlier work could not be confirmed and are not used in the draft: the quoted "collapse dramatically" attributed to Amann et al., the "MUBench on fifteen detectors [Ami et al., 2024]" sentence, the HAWK withdrawal date, and the author line "withheld" for arXiv:2608.04857 (the authors are Näther and Hirsch). One author list was wrong (NIST IR 8610 begins with Alagic).
+- **Location.** `docs/CITATION_CHECK_2026-11-14.md`; `docs/SOURCE_LEDGER.md` section 6; reference list of the thesis draft (marks † and ‡).
+- **Unresolved.** I have not opened the papers myself, so no citation is validated by me. The year, authors and DOI of Ami et al. (TOPS) are unconfirmed. Planned: I open each † item and record one line per item in the citation check.
+
+## G4. "Stabilize the final tag/manifest relationship"
+
+- **Change made.** Rules for the relationship and a check of every manifest against its tag are in `docs/TAG_AND_MANIFEST.md`. At `a10-rc6` all 56 manifest entries match the files. The check found one problem: nine files had been edited in the web editor after the tag; they were restored to the tagged text on 14 November and the edited versions stay in history (`docs/CORRECTION_HISTORY.md`).
+- **Location.** `docs/TAG_AND_MANIFEST.md`; `docs/CORRECTION_HISTORY.md`.
+- **Unresolved.** The Assignment 11 record tag (`a11-draft1`) is created by me after the commit named in the cover note.
+
+## G5. "Record substantive feedback and how it was answered" (instructor priority 7 for the Assignment 10 submission)
+
+- **Change made.** This log is the record: F1 to F4 answer the Assignment 09 feedback; G1 to G4 answer the Assignment 10 feedback. The first set of Assignment 10 priorities (items 1 to 6) was answered by `docs/SOURCE_LEDGER.md`, `docs/AI_VALIDATION_LEDGER.md`, `docs/CORRECTION_HISTORY.md`, claims register v3, Figure 3 and the README status section.
+- **Location.** This file.
+- **Unresolved.** No supervisor feedback is on record for either set. Nothing here is supervisor-approved.

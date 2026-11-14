@@ -26,7 +26,7 @@ Status words: **Validated** (checked against the source by me or by a separate p
 ## 4. The claims register and its mapping from claims to records
 
 - Proposed by: Claude (all versions).
-- Checked by: Claude compared each claim with the raw records by search before submitting; the fresh-agent audit re-checked the mapping on the audited commit and found defects, since fixed (`docs/CORRECTION_HISTORY.md`). I have not compared every line myself.
+- Checked by: Claude compared each claim with the raw records by search before submitting; the fresh-agent audit (a separate AI process with low independence) re-checked the mapping on the audited commit and found defects, since fixed (`docs/CORRECTION_HISTORY.md`). I have not compared every line myself.
 - Status: **Partly validated.** The check was made by AI processes, not by me.
 
 ## 5. The classification of the zero (coverage gap, two causes)
@@ -38,8 +38,8 @@ Status words: **Validated** (checked against the source by me or by a separate p
 ## 6. Citations
 
 - Found or stated by: Claude, for the Literature and Requirements Brief and the Design Review Package.
-- Checked by: nobody independently. I have not opened Amann et al. 2019, Ami et al. 2026, arXiv:2608.04857, arXiv:2503.19531 or Cronbach and Meehl 1955.
-- Status: **Not yet validated.** See `docs/SOURCE_LEDGER.md`, section 6. My next step is to open each one and record whether it says what the text says.
+- Checked by: Claude, on 14 November 2026, against publisher, repository or standards-body pages (`docs/CITATION_CHECK_2026-11-14.md`). That check found four statements in my earlier work that could not be confirmed (they are not used in the thesis draft) and corrected one author list. Nobody independent of the AI has checked them. I have not opened Amann et al. 2019, Ami et al., arXiv:2608.04857, arXiv:2503.19531 or Cronbach and Meehl 1955.
+- Status: **Partly validated** (AI check against source pages only). My next step is to open each † item and record whether it says what the text says.
 
 ## 7. Issue numbers and cross-references
 
