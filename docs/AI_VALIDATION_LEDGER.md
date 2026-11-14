@@ -57,6 +57,12 @@ Status words: **Validated** (checked against the source by me or by a separate p
 - Performed by: a fresh AI agent that had not seen the work. Its report is `analysis/raw/audit_REVIEWER_freshagent_2026-11-04.md`, verbatim.
 - Status: it is an AI checking AI-assisted work with a low independence level. It is not a replication by a person who is not me and it is not described as one.
 
+## 9b. The fresh-environment re-run (14 November)
+
+- Claude wrote the commands as paste-ready blocks from `docs/REPRODUCE.md`; I ran them in a fresh Docker container. Claude's first set of commands was faulty (two faults named in the record) and produced only error output; Claude corrected them and I ran the corrected set.
+- Verification: I compared each result with the expected value in `docs/REPRODUCE.md`, and Claude compared the pasted output again line by line. All matched.
+- Status: an author re-run, not an independent one (ISSUE-11 stays open). The file written by the `script` command is not yet in the record; the record uses the text I copied from the terminal.
+
 ## 10. What I will do next
 
 I will re-read the rule YAML against lines 15 and 259 (item 2), open the cited papers (item 6) and ask for an independent human run of `docs/REPRODUCE.md`. These are planned, not done.

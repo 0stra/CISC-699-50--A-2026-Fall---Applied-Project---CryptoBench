@@ -14,7 +14,7 @@ The principal claims that this release candidate lets a reviewer check are small
 
 The full list, with a SHA-256 for every file and its role, is `docs/RELEASE_MANIFEST.md`. In short:
 
-- `docs/`: `TAG_AND_MANIFEST.md` (how tags and the manifest relate; drift check), `CITATION_CHECK_2026-11-14.md` (AI check of every citation used in the thesis draft), `INDEPENDENT_RUN_PACKAGE.md` (request and record template for the independent human run; not yet done), `SOURCE_LEDGER.md` (source of every result, figure, label and citation), `AI_VALIDATION_LEDGER.md` (what an AI proposed and who checked it), `CORRECTION_HISTORY.md` (what changed and where the old text is), `PROCEDURE_NOTES.md` (status, run labels, protocol rules, fallback rules; start here), `ENVIRONMENT.md` (pinned versions and hashes), `ISSUE_LOG.md`, `REPRODUCE.md` (steps), `AUDIT_RECORD_A10.md` (the audit), `RESPONSE_LOG.md`, `RELEASE_MANIFEST.md`.
+- `docs/`: `TAG_AND_MANIFEST.md` (how tags and the manifest relate; drift check), `CITATION_CHECK_2026-11-14.md` (AI check of every citation used in the thesis draft), `INDEPENDENT_RUN_PACKAGE.md` (request and record template for the independent human run; not yet done; a non-independent author re-run in a fresh Docker container is in `analysis/raw/semgrep_checks_A_to_F_PERSONAL_FRESHENV_2026-11-14.txt`), `SOURCE_LEDGER.md` (source of every result, figure, label and citation), `AI_VALIDATION_LEDGER.md` (what an AI proposed and who checked it), `CORRECTION_HISTORY.md` (what changed and where the old text is), `PROCEDURE_NOTES.md` (status, run labels, protocol rules, fallback rules; start here), `ENVIRONMENT.md` (pinned versions and hashes), `ISSUE_LOG.md`, `REPRODUCE.md` (steps), `AUDIT_RECORD_A10.md` (the audit), `RESPONSE_LOG.md`, `RELEASE_MANIFEST.md`.
 - `analysis/raw/`: unmodified run records, one file per run.
 - `analysis/results/`: the claims register (`claims_register_2026-11-05.md`, version 3, with a status for each claim; versions 1 and 2 are kept) and six figures (figures 1 and 2 are the 29 October originals, superseded by figures 4 to 6 of 14 November; figures 3 to 6 have their generating scripts).
 - `analysis/scored/`: empty. Scoring has not started.
@@ -63,7 +63,7 @@ Completed and recorded (raw record in `analysis/raw/`):
 
 Planned, not done:
 
-- The independent human run of `docs/REPRODUCE.md` by someone other than me (request and template in `docs/INDEPENDENT_RUN_PACKAGE.md`; nobody has run it yet).
+- The independent human run of `docs/REPRODUCE.md` by someone other than me (request and template in `docs/INDEPENDENT_RUN_PACKAGE.md`; nobody else has run it yet; my own fresh-environment re-run on 14 November is not independent).
 - Re-reading the rule YAML myself (K4 stays provisional until then) and opening each cited paper.
 - Confirmation of the reference list by Dr. Shaalan, and the frozen list.
 - The Sonar plugin install, any TLS scan (no authorisation on file), the benchmark sample and all scoring (Assignment 11).

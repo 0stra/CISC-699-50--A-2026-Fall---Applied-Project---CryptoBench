@@ -10,7 +10,7 @@ Format of each line: path, SHA-256, role.
   sha256 `7588848f6364e9561d175ff9292e129e90414697f39d4743f1b851524e451c8d`  
   Tool config; still names dead ruleset p/cryptography (ISSUE-06); not used by any run
 - `README.md`  
-  sha256 `baa539a68740fe100f6e459fe6c4fdfe0bf00d75bcf0c90268ffdd254190bf69`  
+  sha256 `757e62c3d2288afb7b5abde4a6d9f1a06eadffbd043e67d7d46c6b11fa4211b2`  
   Research README (purpose, inventory, provenance, steps, restrictions, limits, navigation)
 - `analysis/raw/README.md`  
   sha256 `8d11592f871323aa46944eefcab2757483494757d30e09903dff4b0b7d42dc9b`  
@@ -30,6 +30,9 @@ Format of each line: path, SHA-256, role.
 - `analysis/raw/semgrep_TC5_known_negative_PERSONAL_2026-10-21.txt`  
   sha256 `69393f18b3f3b14aa445a232e3806b2dfebdb83ca537536a8d79c18449e00507`  
   Raw run record: my own run on my MacBook
+- `analysis/raw/semgrep_checks_A_to_F_PERSONAL_FRESHENV_2026-11-14.txt`  
+  sha256 `edc5ac7e38f44d15e82148322480a6b9a5fa6f6e367cb96fac91eb4499d28884`  
+  Raw run record: my own fresh-environment re-run of checks A to F in a Docker container, Semgrep 1.185.0 (P8); author re-run, not independent; includes the invalid first attempt
 - `analysis/raw/semgrep_checks_D_E_PERSONAL_2026-11-04.txt`  
   sha256 `4d22cd0bdb7b7bf3e3635840d79006741b62ad72bc8d4f28aa688783029cd54f`  
   Raw run record: my own checks D and E on my MacBook (P6)
@@ -127,7 +130,7 @@ Format of each line: path, SHA-256, role.
   sha256 `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539`  
   Synthetic 14-line control (written by Claude); not a sample
 - `docs/AI_VALIDATION_LEDGER.md`  
-  sha256 `cc03802ece614ff4a3de55a0f820ed151085e663ef1b6d16bed53aec931b85ec`  
+  sha256 `900551f5f72acbcf60ef6468d651ae7466030531af9627c806812b10ba176348`  
   What AI tools proposed, who checked it and how
 - `docs/AUDIT_RECORD_A10.md`  
   sha256 `3a6e0a4f4562b8b0831d8dfc585c5ee2f6e6303613dd79e2337c4eca8ede1c00`  
@@ -136,16 +139,16 @@ Format of each line: path, SHA-256, role.
   sha256 `8fbf74705285357abd3996bad755fda5da18421bb0ee32f691702757bb5e4a6a`  
   AI check of each citation used in the thesis draft (not my own reading)
 - `docs/CORRECTION_HISTORY.md`  
-  sha256 `806186c17f64a69bebfabe5f0620a92519b19045274a6448b5a2f6007df3c81f`  
+  sha256 `ada299145fe407321ea2a24c28a1dfe841ecd89b8747b1a0a74b502ee3f8a276`  
   Corrections with commit hashes; pointer to earlier text
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
   Pinned versions, hashes, check results
 - `docs/INDEPENDENT_RUN_PACKAGE.md`  
-  sha256 `26cfa628d4903600f8fe87da8cae96be709acc3f90bc0f46474dabaa7efad48c`  
+  sha256 `1d8bbf28db99d9526e8beaa87fd08bf376c65e93a4750b233bda8cfb14dc43da`  
   Request text and record template for an independent human run (not yet done)
 - `docs/ISSUE_LOG.md`  
-  sha256 `c89e5871df28097da51535d2709ba973324a14c39875a9d183b8d51e1f2abbeb`  
+  sha256 `b2a8843cf28ea66bed21d9cf2b7a39f2703d8873266639f86c4d2250dc89832d`  
   Issues and risks
 - `docs/PROCEDURE_NOTES.md`  
   sha256 `f95afa397619b8bf35eee1dc7f3f9101e44c4ca66148a7f626e50ec9b917068c`  
@@ -154,7 +157,7 @@ Format of each line: path, SHA-256, role.
   sha256 `fa595a23b4903e47fdebaeabd131bc7c49c3b21b2853a83c70f917911fe90429`  
   Step-by-step reproduction of checks A, B, C, D
 - `docs/RESPONSE_LOG.md`  
-  sha256 `6641b471c370cda55c7e7515558ef0f771d25ba9d396371e38647ad351496f46`  
+  sha256 `56bd07e622b90f49f2b6066b90170cb048c9da168211308252b8b2eb398fbf7f`  
   Feedback item, change, location, unresolved issue
 - `docs/SOURCE_LEDGER.md`  
   sha256 `429c9f6a772e9988d45cc5a9462544527ab88cadc12b53e7c37d38139f7381bc`  
@@ -184,7 +187,7 @@ Format of each line: path, SHA-256, role.
   sha256 `1128a98e69ff26c14c81cbc9973e7a662feb5935c6020c2bebc7415a8641e09d`  
   Dated working entry
 - `journal/2026-11-14.md`  
-  sha256 `18335f3848c52a02de9e0a9030e5a5b8f3539e38fc6a3a8f082ee7d9f99414d1`  
+  sha256 `839e7fc289828c287efbf3bdd4e61b9d8676956b3616581ae171e61f7c4640a7`  
   Dated working entry
 - `journal/README.md`  
   sha256 `1b819658a7d86afe71c422e8e9c7c10dc27ed6f101dd115b152a911cccbc0359`  

@@ -42,7 +42,8 @@ The feedback said the release makes a limited procedural finding examinable and 
 
 - **Change made.** None yet. No person other than me has run `docs/REPRODUCE.md`; no one was available between 5 and 14 November. I prepared the request text and the record template in `docs/INDEPENDENT_RUN_PACKAGE.md`.
 - **Location.** `docs/INDEPENDENT_RUN_PACKAGE.md`; the gate is shown as NOT DONE in Figure 1 of the thesis draft.
-- **Unresolved.** The run itself. The only reviewer runs on record are a fresh AI agent (low independence) and my own self-check (P6, P7). Planned: ask a classmate or Dr. Shaalan's nominee; record the output unedited as a `REVIEWER` file.
+- **Added later on 14 November.** Because no one was available, I repeated checks A to F myself in a fresh Ubuntu 24.04 Docker container on my MacBook (Semgrep 1.185.0, a third version). Every result matched `docs/REPRODUCE.md`. This is a fresh-environment author re-run, not an independent run: I am the author and Claude wrote the commands. The first attempt failed because Claude's commands were faulty and is kept in the record. Evidence: `analysis/raw/semgrep_checks_A_to_F_PERSONAL_FRESHENV_2026-11-14.txt`.
+- **Unresolved.** The independent run itself. The reviewer runs on record are a fresh AI agent (low independence), my own checks (P6, P7) and now the fresh-environment re-run (P8). None is a run by another person. Planned: ask a classmate or Dr. Shaalan's nominee; record the output unedited as a `REVIEWER` file.
 
 ## G2. "Freeze the reference inventory"
 

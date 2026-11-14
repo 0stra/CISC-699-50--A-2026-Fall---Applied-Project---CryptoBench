@@ -1,0 +1,1449 @@
+Checks A to F, repeated by me (Nitin Prakash) in a fresh Docker container on my MacBook, 14 November 2026, checks run 17:18 to 17:20 EST (last output 17:20:50).
+
+WHY THIS RUN EXISTS. The Assignment 10 feedback asked for a genuine independent human run of docs/REPRODUCE.md. No one was available to do it. As a substitute that is NOT independent, I installed Docker Desktop on my MacBook (Docker 29.9.3, Intel/amd64), started a clean Ubuntu 24.04 container and followed the reproduction steps there, in a different operating system, Python and Semgrep version from my earlier runs. I am the author, and the person who built the project. This file is therefore a "fresh-environment author re-run". It does not close ISSUE-11 and does not change the status of the independence gate.
+
+WHO DID WHAT. I typed and ran every command in the Mac Terminal, inside the container. Claude wrote the commands as paste-ready blocks taken from docs/REPRODUCE.md and helped me read the output. The first attempt at checks A to F failed because Claude's blocks were faulty (see "First attempt" below); Claude wrote corrected blocks and I ran them.
+
+ENVIRONMENT. Container ubuntu:24.04 (amd64), container id e581c1e4cd9d, started with: docker run -it --rm -v ~/cb-fresh-run:/out ubuntu:24.04 bash. Python 3.12 (Ubuntu package), venv ~/sg, Semgrep 1.185.0 (pip). This is a third Semgrep version; the earlier records use 1.99.0 (macOS) and 1.181.0 (Ubuntu). Repository clone at tag a10-rc6, git rev-parse HEAD = e4c46874f17ebc6c05c501e4ef48fe9ea2ee4d8c. Rules: semgrep/semgrep-rules commit 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9 (git rev-parse HEAD printed exactly this). Input hashes: sha256sum -c printed OK for all seven files (Md5Crypt.java fa779456..., StringUtils.java 6c44ebc7..., DigestUtils.java 427fa774..., DigestUtilsTest.java b886f74b..., SameShapeControl.java 657e8eb1..., use-of-md5-digest-utils.java bd22fdb5..., use-of-md5-digest-utils.yaml a0614baf...). Line counts 361, 425 and 14.
+
+FIRST ATTEMPT (kept, not deleted). The first set of commands ran in the container's default sh. Two faults, both in the commands Claude gave me: a block ended without a line break so the next block's first line ran together with it (the variable A was never set and the hash check did not run), and a bash-only string substitution failed in sh ("Bad substitution"). Every Semgrep command in that attempt printed "[ERROR] unable to find a config; path /crypto/... does not exist". The "identical" results in that attempt compared two identical error files and are not evidence of anything. The output files of that attempt were moved to ~/cb-work/failed_attempt. The sed lines (259, 275, 312 of Md5Crypt.java; 469 of DigestUtils.java) and grep -c getInstance (0) in that attempt did run correctly and are valid.
+SECOND ATTEMPT. In bash, with corrected commands. All hash checks OK; checks A to E and F ran; the paired outputs for A to E compared with diff. Results match docs/REPRODUCE.md on every check:
+  A: 1 finding, line 15.   B: 0 findings (4 rules, 1 file).   C: 0 findings (4 rules, 1 file).   D: 1 finding, line 6 (none on lines 10 to 12).   E: 0 findings (1 rule, 2 files).
+  F: use-of-md5 3 findings (lines 7, 15, 29); weak-random 3 (48, 51, 165); md5-used-as-password 1 (41); each 0 on Md5Crypt.java; grep -c getInstance = 0.
+  diff of run 1 and run 2: identical for A, B, C, D and E. Check F was run once per rule. The "grep -c finding" line in the last block counts lines of text and is not a finding count.
+Semgrep 1.185.0 prints a "Findings: N (N blocking)" line, as 1.181.0 does and 1.99.0 does not.
+
+LIMITS. One person (the author), one extra environment, one day. Not an independent run. The commands were written by Claude. The text below is what I copied from my terminal window, in two pastes: the setup and the start of the steps, then the rest of the session, joined at the heading "6. What to record". It is not the file written by the script command (~/cb-fresh-run/session_transcript.txt on my Mac); when I send that file it will be filed next to this one. An earlier container (id e3e2cbcdbc32) was started and left after the repository clone, before any check ran; its output is not part of this file. I added the lines above; everything from the next line on is unedited terminal text.
+
+======================= TERMINAL TEXT, PART 1 (container e581c1e4cd9d, setup) =======================
+nitinprakash@Nitins-MacBook-Pro ~ % mkdir -p ~/cb-fresh-run
+docker run -it --rm -v ~/cb-fresh-run:/out ubuntu:24.04 bash
+root@e581c1e4cd9d:/# apt update && apt install -y git curl python3 python3-venv bsdutils
+script -f /out/session_transcript.txt
+Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]                      
+Get:3 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1557 kB]
+Get:4 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [55.6 kB]
+Get:5 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2211 kB]
+Get:6 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1471 kB]      
+Get:7 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]                  
+Get:8 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:9 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+Get:10 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+Get:11 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+Get:12 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+Get:13 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2179 kB]
+Get:14 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [61.7 kB]
+Get:15 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1792 kB]
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2324 kB]
+Get:17 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [36.0 kB]
+Get:18 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [669 B]
+Get:19 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.0 kB]
+Fetched 33.9 MB in 4s (8916 kB/s)                            
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+3 packages can be upgraded. Run 'apt list --upgradable' to see them.
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+bsdutils is already the newest version (1:2.39.3-9ubuntu6.6).
+The following additional packages will be installed:
+  adduser ca-certificates git-man krb5-locales less libbrotli1 libbsd0 libcbor0.10 libcurl3t64-gnutls libcurl4t64 libedit2 liberror-perl libexpat1 libfido2-1 libgdbm-compat4t64 libgdbm6t64
+  libgssapi-krb5-2 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-common libldap2 libnghttp2-14 libperl5.38t64 libpsl5t64 libpython3-stdlib libpython3.12-minimal
+  libpython3.12-stdlib libreadline8t64 librtmp1 libsasl2-2 libsasl2-modules libsasl2-modules-db libsqlite3-0 libssh-4 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6 libxext6 libxmuu1
+  media-types netbase openssh-client openssl patch perl perl-base perl-modules-5.38 publicsuffix python3-minimal python3-pip-whl python3-setuptools-whl python3.12 python3.12-minimal
+  python3.12-venv readline-common tzdata xauth
+Suggested packages:
+  liblocale-gettext-perl cron quota ecryptfs-utils gettext-base git-daemon-run | git-daemon-sysvinit git-doc git-email git-gui gitk gitweb git-cvs git-mediawiki git-svn gdbm-l10n krb5-doc
+  krb5-user libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql keychain libpam-ssh monkeysphere ssh-askpass ed
+  diffutils-doc perl-doc libterm-readline-gnu-perl | libterm-readline-perl-perl make libtap-harness-archive-perl python3-doc python3-tk python3.12-doc binutils binfmt-support readline-doc
+The following NEW packages will be installed:
+  adduser ca-certificates curl git git-man krb5-locales less libbrotli1 libbsd0 libcbor0.10 libcurl3t64-gnutls libcurl4t64 libedit2 liberror-perl libexpat1 libfido2-1 libgdbm-compat4t64
+  libgdbm6t64 libgssapi-krb5-2 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-common libldap2 libnghttp2-14 libperl5.38t64 libpsl5t64 libpython3-stdlib libpython3.12-minimal
+  libpython3.12-stdlib libreadline8t64 librtmp1 libsasl2-2 libsasl2-modules libsasl2-modules-db libsqlite3-0 libssh-4 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6 libxext6 libxmuu1
+  media-types netbase openssh-client openssl patch perl perl-modules-5.38 publicsuffix python3 python3-minimal python3-pip-whl python3-setuptools-whl python3-venv python3.12
+  python3.12-minimal python3.12-venv readline-common tzdata xauth
+The following packages will be upgraded:
+  perl-base
+1 upgraded, 64 newly installed, 0 to remove and 2 not upgraded.
+Need to get 30.9 MB of archives.
+After this operation, 124 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 perl-base amd64 5.38.2-3.2ubuntu0.7 [1828 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3.12-minimal amd64 3.12.3-1ubuntu0.17 [839 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libexpat1 amd64 2.6.1-2ubuntu0.6 [98.9 kB]
+Get:4 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12-minimal amd64 3.12.3-1ubuntu0.17 [2335 kB]
+Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3-minimal amd64 3.12.3-0ubuntu2.1 [27.4 kB]
+Get:6 http://archive.ubuntu.com/ubuntu noble/main amd64 media-types all 10.1.0 [27.5 kB]
+Get:7 http://archive.ubuntu.com/ubuntu noble/main amd64 netbase all 6.4 [13.1 kB]
+Get:8 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 tzdata all 2026e-0ubuntu0.24.04.1 [282 kB]
+Get:9 http://archive.ubuntu.com/ubuntu noble/main amd64 readline-common all 8.2-4build1 [56.5 kB]
+Get:10 http://archive.ubuntu.com/ubuntu noble/main amd64 libreadline8t64 amd64 8.2-4build1 [153 kB]
+Get:11 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libsqlite3-0 amd64 3.45.1-1ubuntu2.9 [702 kB]
+Get:12 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3.12-stdlib amd64 3.12.3-1ubuntu0.17 [2071 kB]
+Get:13 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12 amd64 3.12.3-1ubuntu0.17 [651 kB]
+Get:14 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3-stdlib amd64 3.12.3-0ubuntu2.1 [10.1 kB]
+Get:15 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3 amd64 3.12.3-0ubuntu2.1 [23.0 kB]
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 perl-modules-5.38 all 5.38.2-3.2ubuntu0.7 [3110 kB]
+Get:17 http://archive.ubuntu.com/ubuntu noble/main amd64 libgdbm6t64 amd64 1.23-5.1build1 [34.4 kB]
+Get:18 http://archive.ubuntu.com/ubuntu noble/main amd64 libgdbm-compat4t64 amd64 1.23-5.1build1 [6710 B]
+Get:19 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libperl5.38t64 amd64 5.38.2-3.2ubuntu0.7 [4864 kB]
+Get:20 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 perl amd64 5.38.2-3.2ubuntu0.7 [231 kB]
+Get:21 http://archive.ubuntu.com/ubuntu noble/main amd64 adduser all 3.137ubuntu1 [101 kB]
+Get:22 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 openssl amd64 3.0.13-0ubuntu3.16 [1004 kB]
+Get:23 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 ca-certificates all 20260816ubuntu0.24.04.2 [140 kB]
+Get:24 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 krb5-locales all 1.20.1-6ubuntu2.10 [15.3 kB]
+Get:25 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 less amd64 590-2ubuntu2.1 [142 kB]
+Get:26 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libbsd0 amd64 0.12.1-1build1.1 [41.2 kB]
+Get:27 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libkrb5support0 amd64 1.20.1-6ubuntu2.10 [34.9 kB]
+Get:28 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libk5crypto3 amd64 1.20.1-6ubuntu2.10 [81.9 kB]
+Get:29 http://archive.ubuntu.com/ubuntu noble/main amd64 libkeyutils1 amd64 1.6.3-3build1 [9490 B]
+Get:30 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libkrb5-3 amd64 1.20.1-6ubuntu2.10 [348 kB]
+Get:31 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libgssapi-krb5-2 amd64 1.20.1-6ubuntu2.10 [143 kB]
+Get:32 http://archive.ubuntu.com/ubuntu noble/main amd64 libcbor0.10 amd64 0.10.2-1.2ubuntu2 [25.8 kB]
+Get:33 http://archive.ubuntu.com/ubuntu noble/main amd64 libedit2 amd64 3.1-20230828-1build1 [97.6 kB]
+Get:34 http://archive.ubuntu.com/ubuntu noble/main amd64 libfido2-1 amd64 1.14.0-1build3 [83.5 kB]
+Get:35 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libnghttp2-14 amd64 1.59.0-1ubuntu0.4 [74.6 kB]
+Get:36 http://archive.ubuntu.com/ubuntu noble/main amd64 libpsl5t64 amd64 0.21.2-1.1build1 [57.1 kB]
+Get:37 http://archive.ubuntu.com/ubuntu noble/main amd64 libxau6 amd64 1:1.0.9-1build6 [7160 B]
+Get:38 http://archive.ubuntu.com/ubuntu noble/main amd64 libxdmcp6 amd64 1:1.1.3-0ubuntu6 [10.3 kB]
+Get:39 http://archive.ubuntu.com/ubuntu noble/main amd64 libxcb1 amd64 1.15-1ubuntu2 [47.7 kB]
+Get:40 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libx11-data all 2:1.8.7-1ubuntu0.1 [116 kB]
+Get:41 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libx11-6 amd64 2:1.8.7-1ubuntu0.1 [653 kB]
+Get:42 http://archive.ubuntu.com/ubuntu noble/main amd64 libxext6 amd64 2:1.3.4-1build2 [30.4 kB]
+Get:43 http://archive.ubuntu.com/ubuntu noble/main amd64 libxmuu1 amd64 2:1.1.3-3build2 [8958 B]
+Get:44 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 openssh-client amd64 1:9.6p1-3ubuntu13.20 [909 kB]
+Get:45 http://archive.ubuntu.com/ubuntu noble/main amd64 publicsuffix all 20231001.0357-0.1 [129 kB]
+Get:46 http://archive.ubuntu.com/ubuntu noble/main amd64 xauth amd64 1:1.1.2-1build1 [25.6 kB]
+Get:47 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libbrotli1 amd64 1.1.0-2ubuntu0.1 [331 kB]
+Get:48 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg1-5ubuntu3.1 [20.4 kB]
+Get:49 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libsasl2-2 amd64 2.1.28+dfsg1-5ubuntu3.1 [53.2 kB]
+Get:50 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libldap2 amd64 2.6.10+dfsg-0ubuntu0.24.04.1 [198 kB]
+Get:51 http://archive.ubuntu.com/ubuntu noble/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build7 [56.3 kB]
+Get:52 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libssh-4 amd64 0.10.6-2ubuntu0.5 [191 kB]
+Get:53 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcurl4t64 amd64 8.5.0-2ubuntu10.16 [344 kB]
+Get:54 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 curl amd64 8.5.0-2ubuntu10.16 [226 kB]
+Get:55 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcurl3t64-gnutls amd64 8.5.0-2ubuntu10.16 [337 kB]
+Get:56 http://archive.ubuntu.com/ubuntu noble/main amd64 liberror-perl all 0.17029-2 [25.6 kB]
+Get:57 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 git-man all 1:2.43.0-1ubuntu7.4 [1101 kB]
+Get:58 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 git amd64 1:2.43.0-1ubuntu7.4 [3681 kB]
+Get:59 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libldap-common all 2.6.10+dfsg-0ubuntu0.24.04.1 [32.9 kB]
+Get:60 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libsasl2-modules amd64 2.1.28+dfsg1-5ubuntu3.1 [69.9 kB]
+Get:61 http://archive.ubuntu.com/ubuntu noble/main amd64 patch amd64 2.7.6-7build3 [104 kB]
+Get:62 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 python3-pip-whl all 24.0+dfsg-1ubuntu1.3 [1707 kB]
+Get:63 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 python3-setuptools-whl all 68.1.2-2ubuntu1.2 [716 kB]
+Get:64 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 python3.12-venv amd64 3.12.3-1ubuntu0.17 [5684 B]
+Get:65 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 python3-venv amd64 3.12.3-0ubuntu2.1 [1032 B]
+Fetched 30.9 MB in 2s (14.2 MB/s)
+debconf: delaying package configuration, since apt-utils is not installed
+(Reading database ... 4381 files and directories currently installed.)
+Preparing to unpack .../perl-base_5.38.2-3.2ubuntu0.7_amd64.deb ...
+Unpacking perl-base (5.38.2-3.2ubuntu0.7) over (5.38.2-3.2ubuntu0.6) ...
+Setting up perl-base (5.38.2-3.2ubuntu0.7) ...
+Selecting previously unselected package libpython3.12-minimal:amd64.
+(Reading database ... 4381 files and directories currently installed.)
+Preparing to unpack .../libpython3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb ...
+Unpacking libpython3.12-minimal:amd64 (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../libexpat1_2.6.1-2ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.6.1-2ubuntu0.6) ...
+Selecting previously unselected package python3.12-minimal.
+Preparing to unpack .../python3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb ...
+Unpacking python3.12-minimal (3.12.3-1ubuntu0.17) ...
+Setting up libpython3.12-minimal:amd64 (3.12.3-1ubuntu0.17) ...
+Setting up libexpat1:amd64 (2.6.1-2ubuntu0.6) ...
+Setting up python3.12-minimal (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package python3-minimal.
+(Reading database ... 4700 files and directories currently installed.)
+Preparing to unpack .../0-python3-minimal_3.12.3-0ubuntu2.1_amd64.deb ...
+Unpacking python3-minimal (3.12.3-0ubuntu2.1) ...
+Selecting previously unselected package media-types.
+Preparing to unpack .../1-media-types_10.1.0_all.deb ...
+Unpacking media-types (10.1.0) ...
+Selecting previously unselected package netbase.
+Preparing to unpack .../2-netbase_6.4_all.deb ...
+Unpacking netbase (6.4) ...
+Selecting previously unselected package tzdata.
+Preparing to unpack .../3-tzdata_2026e-0ubuntu0.24.04.1_all.deb ...
+Unpacking tzdata (2026e-0ubuntu0.24.04.1) ...
+Selecting previously unselected package readline-common.
+Preparing to unpack .../4-readline-common_8.2-4build1_all.deb ...
+Unpacking readline-common (8.2-4build1) ...
+Selecting previously unselected package libreadline8t64:amd64.
+Preparing to unpack .../5-libreadline8t64_8.2-4build1_amd64.deb ...
+Adding 'diversion of /lib/x86_64-linux-gnu/libhistory.so.8 to /lib/x86_64-linux-gnu/libhistory.so.8.usr-is-merged by libreadline8t64'
+Adding 'diversion of /lib/x86_64-linux-gnu/libhistory.so.8.2 to /lib/x86_64-linux-gnu/libhistory.so.8.2.usr-is-merged by libreadline8t64'
+Adding 'diversion of /lib/x86_64-linux-gnu/libreadline.so.8 to /lib/x86_64-linux-gnu/libreadline.so.8.usr-is-merged by libreadline8t64'
+Adding 'diversion of /lib/x86_64-linux-gnu/libreadline.so.8.2 to /lib/x86_64-linux-gnu/libreadline.so.8.2.usr-is-merged by libreadline8t64'
+Unpacking libreadline8t64:amd64 (8.2-4build1) ...
+Selecting previously unselected package libsqlite3-0:amd64.
+Preparing to unpack .../6-libsqlite3-0_3.45.1-1ubuntu2.9_amd64.deb ...
+Unpacking libsqlite3-0:amd64 (3.45.1-1ubuntu2.9) ...
+Selecting previously unselected package libpython3.12-stdlib:amd64.
+Preparing to unpack .../7-libpython3.12-stdlib_3.12.3-1ubuntu0.17_amd64.deb ...
+Unpacking libpython3.12-stdlib:amd64 (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package python3.12.
+Preparing to unpack .../8-python3.12_3.12.3-1ubuntu0.17_amd64.deb ...
+Unpacking python3.12 (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package libpython3-stdlib:amd64.
+Preparing to unpack .../9-libpython3-stdlib_3.12.3-0ubuntu2.1_amd64.deb ...
+Unpacking libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+Setting up python3-minimal (3.12.3-0ubuntu2.1) ...
+Selecting previously unselected package python3.
+(Reading database ... 5706 files and directories currently installed.)
+Preparing to unpack .../0-python3_3.12.3-0ubuntu2.1_amd64.deb ...
+Unpacking python3 (3.12.3-0ubuntu2.1) ...
+Selecting previously unselected package perl-modules-5.38.
+Preparing to unpack .../1-perl-modules-5.38_5.38.2-3.2ubuntu0.7_all.deb ...
+Unpacking perl-modules-5.38 (5.38.2-3.2ubuntu0.7) ...
+Selecting previously unselected package libgdbm6t64:amd64.
+Preparing to unpack .../2-libgdbm6t64_1.23-5.1build1_amd64.deb ...
+Unpacking libgdbm6t64:amd64 (1.23-5.1build1) ...
+Selecting previously unselected package libgdbm-compat4t64:amd64.
+Preparing to unpack .../3-libgdbm-compat4t64_1.23-5.1build1_amd64.deb ...
+Unpacking libgdbm-compat4t64:amd64 (1.23-5.1build1) ...
+Selecting previously unselected package libperl5.38t64:amd64.
+Preparing to unpack .../4-libperl5.38t64_5.38.2-3.2ubuntu0.7_amd64.deb ...
+Unpacking libperl5.38t64:amd64 (5.38.2-3.2ubuntu0.7) ...
+Selecting previously unselected package perl.
+Preparing to unpack .../5-perl_5.38.2-3.2ubuntu0.7_amd64.deb ...
+Unpacking perl (5.38.2-3.2ubuntu0.7) ...
+Selecting previously unselected package adduser.
+Preparing to unpack .../6-adduser_3.137ubuntu1_all.deb ...
+Unpacking adduser (3.137ubuntu1) ...
+Setting up adduser (3.137ubuntu1) ...
+Selecting previously unselected package openssl.
+(Reading database ... 7787 files and directories currently installed.)
+Preparing to unpack .../00-openssl_3.0.13-0ubuntu3.16_amd64.deb ...
+Unpacking openssl (3.0.13-0ubuntu3.16) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../01-ca-certificates_20260816ubuntu0.24.04.2_all.deb ...
+Unpacking ca-certificates (20260816ubuntu0.24.04.2) ...
+Selecting previously unselected package krb5-locales.
+Preparing to unpack .../02-krb5-locales_1.20.1-6ubuntu2.10_all.deb ...
+Unpacking krb5-locales (1.20.1-6ubuntu2.10) ...
+Selecting previously unselected package less.
+Preparing to unpack .../03-less_590-2ubuntu2.1_amd64.deb ...
+Unpacking less (590-2ubuntu2.1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../04-libbsd0_0.12.1-1build1.1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.12.1-1build1.1) ...
+Selecting previously unselected package libkrb5support0:amd64.
+Preparing to unpack .../05-libkrb5support0_1.20.1-6ubuntu2.10_amd64.deb ...
+Unpacking libkrb5support0:amd64 (1.20.1-6ubuntu2.10) ...
+Selecting previously unselected package libk5crypto3:amd64.
+Preparing to unpack .../06-libk5crypto3_1.20.1-6ubuntu2.10_amd64.deb ...
+Unpacking libk5crypto3:amd64 (1.20.1-6ubuntu2.10) ...
+Selecting previously unselected package libkeyutils1:amd64.
+Preparing to unpack .../07-libkeyutils1_1.6.3-3build1_amd64.deb ...
+Unpacking libkeyutils1:amd64 (1.6.3-3build1) ...
+Selecting previously unselected package libkrb5-3:amd64.
+Preparing to unpack .../08-libkrb5-3_1.20.1-6ubuntu2.10_amd64.deb ...
+Unpacking libkrb5-3:amd64 (1.20.1-6ubuntu2.10) ...
+Selecting previously unselected package libgssapi-krb5-2:amd64.
+Preparing to unpack .../09-libgssapi-krb5-2_1.20.1-6ubuntu2.10_amd64.deb ...
+Unpacking libgssapi-krb5-2:amd64 (1.20.1-6ubuntu2.10) ...
+Selecting previously unselected package libcbor0.10:amd64.
+Preparing to unpack .../10-libcbor0.10_0.10.2-1.2ubuntu2_amd64.deb ...
+Unpacking libcbor0.10:amd64 (0.10.2-1.2ubuntu2) ...
+Selecting previously unselected package libedit2:amd64.
+Preparing to unpack .../11-libedit2_3.1-20230828-1build1_amd64.deb ...
+Unpacking libedit2:amd64 (3.1-20230828-1build1) ...
+Selecting previously unselected package libfido2-1:amd64.
+Preparing to unpack .../12-libfido2-1_1.14.0-1build3_amd64.deb ...
+Unpacking libfido2-1:amd64 (1.14.0-1build3) ...
+Selecting previously unselected package libnghttp2-14:amd64.
+Preparing to unpack .../13-libnghttp2-14_1.59.0-1ubuntu0.4_amd64.deb ...
+Unpacking libnghttp2-14:amd64 (1.59.0-1ubuntu0.4) ...
+Selecting previously unselected package libpsl5t64:amd64.
+Preparing to unpack .../14-libpsl5t64_0.21.2-1.1build1_amd64.deb ...
+Unpacking libpsl5t64:amd64 (0.21.2-1.1build1) ...
+Selecting previously unselected package libxau6:amd64.
+Preparing to unpack .../15-libxau6_1%3a1.0.9-1build6_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.9-1build6) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../16-libxdmcp6_1%3a1.1.3-0ubuntu6_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.3-0ubuntu6) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../17-libxcb1_1.15-1ubuntu2_amd64.deb ...
+Unpacking libxcb1:amd64 (1.15-1ubuntu2) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../18-libx11-data_2%3a1.8.7-1ubuntu0.1_all.deb ...
+Unpacking libx11-data (2:1.8.7-1ubuntu0.1) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../19-libx11-6_2%3a1.8.7-1ubuntu0.1_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.8.7-1ubuntu0.1) ...
+Selecting previously unselected package libxext6:amd64.
+Preparing to unpack .../20-libxext6_2%3a1.3.4-1build2_amd64.deb ...
+Unpacking libxext6:amd64 (2:1.3.4-1build2) ...
+Selecting previously unselected package libxmuu1:amd64.
+Preparing to unpack .../21-libxmuu1_2%3a1.1.3-3build2_amd64.deb ...
+Unpacking libxmuu1:amd64 (2:1.1.3-3build2) ...
+Selecting previously unselected package openssh-client.
+Preparing to unpack .../22-openssh-client_1%3a9.6p1-3ubuntu13.20_amd64.deb ...
+Unpacking openssh-client (1:9.6p1-3ubuntu13.20) ...
+Selecting previously unselected package publicsuffix.
+Preparing to unpack .../23-publicsuffix_20231001.0357-0.1_all.deb ...
+Unpacking publicsuffix (20231001.0357-0.1) ...
+Selecting previously unselected package xauth.
+Preparing to unpack .../24-xauth_1%3a1.1.2-1build1_amd64.deb ...
+Unpacking xauth (1:1.1.2-1build1) ...
+Selecting previously unselected package libbrotli1:amd64.
+Preparing to unpack .../25-libbrotli1_1.1.0-2ubuntu0.1_amd64.deb ...
+Unpacking libbrotli1:amd64 (1.1.0-2ubuntu0.1) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../26-libsasl2-modules-db_2.1.28+dfsg1-5ubuntu3.1_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.28+dfsg1-5ubuntu3.1) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../27-libsasl2-2_2.1.28+dfsg1-5ubuntu3.1_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.28+dfsg1-5ubuntu3.1) ...
+Selecting previously unselected package libldap2:amd64.
+Preparing to unpack .../28-libldap2_2.6.10+dfsg-0ubuntu0.24.04.1_amd64.deb ...
+Unpacking libldap2:amd64 (2.6.10+dfsg-0ubuntu0.24.04.1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../29-librtmp1_2.4+20151223.gitfa8646d.1-2build7_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build7) ...
+Selecting previously unselected package libssh-4:amd64.
+Preparing to unpack .../30-libssh-4_0.10.6-2ubuntu0.5_amd64.deb ...
+Unpacking libssh-4:amd64 (0.10.6-2ubuntu0.5) ...
+Selecting previously unselected package libcurl4t64:amd64.
+Preparing to unpack .../31-libcurl4t64_8.5.0-2ubuntu10.16_amd64.deb ...
+Unpacking libcurl4t64:amd64 (8.5.0-2ubuntu10.16) ...
+Selecting previously unselected package curl.
+Preparing to unpack .../32-curl_8.5.0-2ubuntu10.16_amd64.deb ...
+Unpacking curl (8.5.0-2ubuntu10.16) ...
+Selecting previously unselected package libcurl3t64-gnutls:amd64.
+Preparing to unpack .../33-libcurl3t64-gnutls_8.5.0-2ubuntu10.16_amd64.deb ...
+Unpacking libcurl3t64-gnutls:amd64 (8.5.0-2ubuntu10.16) ...
+Selecting previously unselected package liberror-perl.
+Preparing to unpack .../34-liberror-perl_0.17029-2_all.deb ...
+Unpacking liberror-perl (0.17029-2) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../35-git-man_1%3a2.43.0-1ubuntu7.4_all.deb ...
+Unpacking git-man (1:2.43.0-1ubuntu7.4) ...
+Selecting previously unselected package git.
+Preparing to unpack .../36-git_1%3a2.43.0-1ubuntu7.4_amd64.deb ...
+Unpacking git (1:2.43.0-1ubuntu7.4) ...
+Selecting previously unselected package libldap-common.
+Preparing to unpack .../37-libldap-common_2.6.10+dfsg-0ubuntu0.24.04.1_all.deb ...
+Unpacking libldap-common (2.6.10+dfsg-0ubuntu0.24.04.1) ...
+Selecting previously unselected package libsasl2-modules:amd64.
+Preparing to unpack .../38-libsasl2-modules_2.1.28+dfsg1-5ubuntu3.1_amd64.deb ...
+Unpacking libsasl2-modules:amd64 (2.1.28+dfsg1-5ubuntu3.1) ...
+Selecting previously unselected package patch.
+Preparing to unpack .../39-patch_2.7.6-7build3_amd64.deb ...
+Unpacking patch (2.7.6-7build3) ...
+Selecting previously unselected package python3-pip-whl.
+Preparing to unpack .../40-python3-pip-whl_24.0+dfsg-1ubuntu1.3_all.deb ...
+Unpacking python3-pip-whl (24.0+dfsg-1ubuntu1.3) ...
+Selecting previously unselected package python3-setuptools-whl.
+Preparing to unpack .../41-python3-setuptools-whl_68.1.2-2ubuntu1.2_all.deb ...
+Unpacking python3-setuptools-whl (68.1.2-2ubuntu1.2) ...
+Selecting previously unselected package python3.12-venv.
+Preparing to unpack .../42-python3.12-venv_3.12.3-1ubuntu0.17_amd64.deb ...
+Unpacking python3.12-venv (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package python3-venv.
+Preparing to unpack .../43-python3-venv_3.12.3-0ubuntu2.1_amd64.deb ...
+Unpacking python3-venv (3.12.3-0ubuntu2.1) ...
+Setting up media-types (10.1.0) ...
+Setting up libxau6:amd64 (1:1.0.9-1build6) ...
+Setting up python3-setuptools-whl (68.1.2-2ubuntu1.2) ...
+Setting up libkeyutils1:amd64 (1.6.3-3build1) ...
+Setting up libgdbm6t64:amd64 (1.23-5.1build1) ...
+Setting up libgdbm-compat4t64:amd64 (1.23-5.1build1) ...
+Setting up libcbor0.10:amd64 (0.10.2-1.2ubuntu2) ...
+Setting up libbrotli1:amd64 (1.1.0-2ubuntu0.1) ...
+Setting up libsqlite3-0:amd64 (3.45.1-1ubuntu2.9) ...
+Setting up libsasl2-modules:amd64 (2.1.28+dfsg1-5ubuntu3.1) ...
+Setting up libpsl5t64:amd64 (0.21.2-1.1build1) ...
+Setting up libnghttp2-14:amd64 (1.59.0-1ubuntu0.4) ...
+Setting up less (590-2ubuntu2.1) ...
+Setting up krb5-locales (1.20.1-6ubuntu2.10) ...
+Setting up libldap-common (2.6.10+dfsg-0ubuntu0.24.04.1) ...
+Setting up libkrb5support0:amd64 (1.20.1-6ubuntu2.10) ...
+Setting up libsasl2-modules-db:amd64 (2.1.28+dfsg1-5ubuntu3.1) ...
+Setting up tzdata (2026e-0ubuntu0.24.04.1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79.)
+debconf: falling back to frontend: Readline
+Configuring tzdata
+------------------
+
+Please select the geographic area in which you live. Subsequent configuration questions will narrow this down by presenting a list of cities, representing the time zones in which they are
+located.
+
+  1. Africa  2. America  3. Antarctica  4. Arctic  5. Asia  6. Atlantic  7. Australia  8. Europe  9. Indian  10. Pacific  11. Etc  12. Legacy
+Geographic area: 2
+
+Please select the city or region corresponding to your time zone.
+
+  1. Adak                     21. Atka            41. Costa_Rica    61. Grenada               81. Kentucky/Louisville  101. Monterrey               121. Porto_Acre     141. St_Kitts
+  2. Anchorage                22. Bahia           42. Coyhaique     62. Guadeloupe            82. Kentucky/Monticello  102. Montevideo              122. Porto_Velho    142. St_Lucia
+  3. Anguilla                 23. Bahia_Banderas  43. Creston       63. Guatemala             83. Kralendijk           103. Montreal                123. Puerto_Rico    143. St_Thomas
+  4. Antigua                  24. Barbados        44. Cuiaba        64. Guayaquil             84. La_Paz               104. Montserrat              124. Punta_Arenas   144. St_Vincent
+  5. Araguaina                25. Belem           45. Curacao       65. Guyana                85. Lima                 105. Nassau                  125. Rainy_River    145. Swift_Current
+  6. Argentina/Buenos_Aires   26. Belize          46. Danmarkshavn  66. Halifax               86. Los_Angeles          106. New_York                126. Rankin_Inlet   146. Tegucigalpa
+  7. Argentina/Catamarca      27. Blanc-Sablon    47. Dawson        67. Havana                87. Lower_Princes        107. Nipigon                 127. Recife         147. Thule
+  8. Argentina/Cordoba        28. Boa_Vista       48. Dawson_Creek  68. Hermosillo            88. Maceio               108. Nome                    128. Regina         148. Thunder_Bay
+  9. Argentina/Jujuy          29. Bogota          49. Denver        69. Indiana/Indianapolis  89. Managua              109. Noronha                 129. Resolute       149. Tijuana
+  10. Argentina/La_Rioja      30. Boise           50. Detroit       70. Indiana/Knox          90. Manaus               110. North_Dakota/Beulah     130. Rio_Branco     150. Toronto
+  11. Argentina/Mendoza       31. Cambridge_Bay   51. Dominica      71. Indiana/Marengo       91. Marigot              111. North_Dakota/Center     131. Santa_Isabel   151. Tortola
+  12. Argentina/Rio_Gallegos  32. Campo_Grande    52. Edmonton      72. Indiana/Petersburg    92. Martinique           112. North_Dakota/New_Salem  132. Santarem       152. Vancouver
+  13. Argentina/Salta         33. Cancun          53. Eirunepe      73. Indiana/Tell_City     93. Matamoros            113. Nuuk                    133. Santiago       153. Virgin
+  14. Argentina/San_Juan      34. Caracas         54. El_Salvador   74. Indiana/Vevay         94. Mazatlan             114. Ojinaga                 134. Santo_Domingo  154. Whitehorse
+  15. Argentina/San_Luis      35. Cayenne         55. Ensenada      75. Indiana/Vincennes     95. Menominee            115. Panama                  135. Sao_Paulo      155. Winnipeg
+  16. Argentina/Tucuman       36. Cayman          56. Fort_Nelson   76. Indiana/Winamac       96. Merida               116. Pangnirtung             136. Scoresbysund   156. Yakutat
+  17. Argentina/Ushuaia       37. Chicago         57. Fortaleza     77. Inuvik                97. Metlakatla           117. Paramaribo              137. Shiprock       157. Yellowknife
+  18. Aruba                   38. Chihuahua       58. Glace_Bay     78. Iqaluit               98. Mexico_City          118. Phoenix                 138. Sitka
+  19. Asuncion                39. Ciudad_Juarez   59. Goose_Bay     79. Jamaica               99. Miquelon             119. Port-au-Prince          139. St_Barthelemy
+  20. Atikokan                40. Coral_Harbour   60. Grand_Turk    80. Juneau                100. Moncton             120. Port_of_Spain           140. St_Johns
+Time zone: 106
+
+
+Current default time zone: 'America/New_York'
+Local time is now:      Sat Nov 14 17:12:11 EST 2026.
+Universal Time is now:  Sat Nov 14 22:12:11 UTC 2026.
+Run 'dpkg-reconfigure tzdata' if you wish to change it.
+
+Setting up libx11-data (2:1.8.7-1ubuntu0.1) ...
+Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build7) ...
+Setting up perl-modules-5.38 (5.38.2-3.2ubuntu0.7) ...
+Setting up patch (2.7.6-7build3) ...
+Setting up libk5crypto3:amd64 (1.20.1-6ubuntu2.10) ...
+Setting up libsasl2-2:amd64 (2.1.28+dfsg1-5ubuntu3.1) ...
+Setting up git-man (1:2.43.0-1ubuntu7.4) ...
+Setting up netbase (6.4) ...
+Setting up libkrb5-3:amd64 (1.20.1-6ubuntu2.10) ...
+Setting up libperl5.38t64:amd64 (5.38.2-3.2ubuntu0.7) ...
+Setting up libfido2-1:amd64 (1.14.0-1build3) ...
+Setting up openssl (3.0.13-0ubuntu3.16) ...
+Setting up libbsd0:amd64 (0.12.1-1build1.1) ...
+Setting up readline-common (8.2-4build1) ...
+Setting up publicsuffix (20231001.0357-0.1) ...
+Setting up libldap2:amd64 (2.6.10+dfsg-0ubuntu0.24.04.1) ...
+Setting up libxdmcp6:amd64 (1:1.1.3-0ubuntu6) ...
+Setting up libxcb1:amd64 (1.15-1ubuntu2) ...
+Setting up libedit2:amd64 (3.1-20230828-1build1) ...
+Setting up ca-certificates (20260816ubuntu0.24.04.2) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79.)
+debconf: falling back to frontend: Readline
+Updating certificates in /etc/ssl/certs...
+120 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+Setting up perl (5.38.2-3.2ubuntu0.7) ...
+Setting up libgssapi-krb5-2:amd64 (1.20.1-6ubuntu2.10) ...
+Setting up libssh-4:amd64 (0.10.6-2ubuntu0.5) ...
+Setting up libreadline8t64:amd64 (8.2-4build1) ...
+Setting up libx11-6:amd64 (2:1.8.7-1ubuntu0.1) ...
+Setting up libxmuu1:amd64 (2:1.1.3-3build2) ...
+Setting up libpython3.12-stdlib:amd64 (3.12.3-1ubuntu0.17) ...
+Setting up libcurl4t64:amd64 (8.5.0-2ubuntu10.16) ...
+Setting up python3-pip-whl (24.0+dfsg-1ubuntu1.3) ...
+Setting up openssh-client (1:9.6p1-3ubuntu13.20) ...
+Setting up python3.12 (3.12.3-1ubuntu0.17) ...
+Setting up libcurl3t64-gnutls:amd64 (8.5.0-2ubuntu10.16) ...
+Setting up libxext6:amd64 (2:1.3.4-1build2) ...
+Setting up liberror-perl (0.17029-2) ...
+Setting up git (1:2.43.0-1ubuntu7.4) ...
+Setting up xauth (1:1.1.2-1build1) ...
+Setting up curl (8.5.0-2ubuntu10.16) ...
+Setting up libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+Setting up python3.12-venv (3.12.3-1ubuntu0.17) ...
+Setting up python3 (3.12.3-0ubuntu2.1) ...
+running python rtupdate hooks for python3.12...
+running python post-rtupdate hooks for python3.12...
+Setting up python3-venv (3.12.3-0ubuntu2.1) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+Script started, output log file is '/out/session_transcript.txt'.
+# python3 -m venv ~/sg && ~/sg/bin/pip install semgrep
+~/sg/bin/semgrep --version
+cd ~ && git clone https://github.com/0stra/CISC-699-50--A-2026-Fall---Applied-Project---CryptoBench.git cb-repo
+cd cb-repo && git checkout a10-rc6 && git rev-parse HEAD
+Collecting semgrep
+  Downloading semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-manylinux_2_34_x86_64.whl.metadata (22 kB)
+Collecting attrs>=21.3 (from semgrep)
+  Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting boltons~=21.0 (from semgrep)
+  Downloading boltons-21.0.0-py2.py3-none-any.whl.metadata (1.5 kB)
+Collecting certifi>=2026.10.19 (from semgrep)
+  Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+Collecting click-option-group~=0.5 (from semgrep)
+  Downloading click_option_group-0.5.9-py3-none-any.whl.metadata (5.8 kB)
+Collecting click~=8.4.2 (from semgrep)
+  Downloading click-8.4.2-py3-none-any.whl.metadata (2.6 kB)
+Collecting colorama~=0.4.0 (from semgrep)
+  Downloading colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Collecting exceptiongroup~=1.2.0 (from semgrep)
+  Downloading exceptiongroup-1.2.2-py3-none-any.whl.metadata (6.6 kB)
+Collecting glom>=23.3 (from semgrep)
+  Downloading glom-25.12.0-py3-none-any.whl.metadata (5.2 kB)
+Collecting jsonschema~=4.25.1 (from semgrep)
+  Downloading jsonschema-4.25.1-py3-none-any.whl.metadata (7.6 kB)
+Collecting mcp==1.29.0 (from semgrep)
+  Downloading mcp-1.29.0-py3-none-any.whl.metadata (9.3 kB)
+Collecting opentelemetry-api~=1.37.0 (from semgrep)
+  Downloading opentelemetry_api-1.37.0-py3-none-any.whl.metadata (1.5 kB)
+Collecting opentelemetry-sdk~=1.37.0 (from semgrep)
+  Downloading opentelemetry_sdk-1.37.0-py3-none-any.whl.metadata (1.5 kB)
+Collecting opentelemetry-exporter-otlp-proto-http~=1.37.0 (from semgrep)
+  Downloading opentelemetry_exporter_otlp_proto_http-1.37.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.66b2-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation-threading~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_threading-0.66b2-py3-none-any.whl.metadata (2.1 kB)
+Collecting packaging>=21.0 (from semgrep)
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting peewee~=3.14 (from semgrep)
+  Downloading peewee-3.19.0-py3-none-any.whl.metadata (7.0 kB)
+Collecting pyjwt<3,>=2.15.0 (from pyjwt[crypto]<3,>=2.15.0->semgrep)
+  Downloading pyjwt-2.15.1-py3-none-any.whl.metadata (3.5 kB)
+Collecting requests~=2.22 (from semgrep)
+  Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting rich>=13.5.2 (from semgrep)
+  Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Collecting ruamel.yaml>=0.18.15 (from semgrep)
+  Downloading ruamel_yaml-0.19.1-py3-none-any.whl.metadata (16 kB)
+Collecting ruamel.yaml.clib==0.2.15 (from semgrep)
+  Downloading ruamel_yaml_clib-0.2.15-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (3.5 kB)
+Collecting semantic-version~=2.10.0 (from semgrep)
+  Downloading semantic_version-2.10.0-py2.py3-none-any.whl.metadata (9.7 kB)
+Collecting structlog~=26.1.0 (from semgrep)
+  Downloading structlog-26.1.0-py3-none-any.whl.metadata (9.7 kB)
+Collecting tomli~=2.4.0 (from semgrep)
+  Downloading tomli-2.4.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (10 kB)
+Collecting typing-extensions~=4.2 (from semgrep)
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting urllib3~=2.0 (from semgrep)
+  Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting wcmatch~=8.3 (from semgrep)
+  Downloading wcmatch-8.5.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting anyio>=4.5 (from mcp==1.29.0->semgrep)
+  Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+Collecting httpx-sse>=0.4 (from mcp==1.29.0->semgrep)
+  Downloading httpx_sse-0.4.3-py3-none-any.whl.metadata (9.7 kB)
+Collecting httpx<1.0.0,>=0.27.1 (from mcp==1.29.0->semgrep)
+  Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting pydantic-settings>=2.5.2 (from mcp==1.29.0->semgrep)
+  Downloading pydantic_settings-2.16.3-py3-none-any.whl.metadata (4.0 kB)
+Collecting pydantic<3.0.0,>=2.11.0 (from mcp==1.29.0->semgrep)
+  Downloading pydantic-2.14.3-py3-none-any.whl.metadata (141 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 141.5/141.5 kB 2.1 MB/s eta 0:00:00
+Collecting python-multipart>=0.0.9 (from mcp==1.29.0->semgrep)
+  Downloading python_multipart-0.0.33-py3-none-any.whl.metadata (6.3 kB)
+Collecting sse-starlette>=1.6.1 (from mcp==1.29.0->semgrep)
+  Downloading sse_starlette-3.7.0-py3-none-any.whl.metadata (15 kB)
+Collecting starlette>=0.27 (from mcp==1.29.0->semgrep)
+  Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting typing-inspection>=0.4.1 (from mcp==1.29.0->semgrep)
+  Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+Collecting uvicorn>=0.31.1 (from mcp==1.29.0->semgrep)
+  Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting face>=20.1.1 (from glom>=23.3->semgrep)
+  Downloading face-26.0.1-py3-none-any.whl.metadata (1.8 kB)
+Collecting jsonschema-specifications>=2023.03.6 (from jsonschema~=4.25.1->semgrep)
+  Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting referencing>=0.28.4 (from jsonschema~=4.25.1->semgrep)
+  Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting rpds-py>=0.7.1 (from jsonschema~=4.25.1->semgrep)
+  Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+Collecting importlib-metadata<8.8.0,>=6.0 (from opentelemetry-api~=1.37.0->semgrep)
+  Downloading importlib_metadata-8.7.1-py3-none-any.whl.metadata (4.7 kB)
+Collecting googleapis-common-protos~=1.52 (from opentelemetry-exporter-otlp-proto-http~=1.37.0->semgrep)
+  Downloading googleapis_common_protos-1.76.0-py3-none-any.whl.metadata (8.5 kB)
+Collecting opentelemetry-exporter-otlp-proto-common==1.37.0 (from opentelemetry-exporter-otlp-proto-http~=1.37.0->semgrep)
+  Downloading opentelemetry_exporter_otlp_proto_common-1.37.0-py3-none-any.whl.metadata (1.8 kB)
+Collecting opentelemetry-proto==1.37.0 (from opentelemetry-exporter-otlp-proto-http~=1.37.0->semgrep)
+  Downloading opentelemetry_proto-1.37.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting protobuf<7.0,>=5.0 (from opentelemetry-proto==1.37.0->opentelemetry-exporter-otlp-proto-http~=1.37.0->semgrep)
+  Downloading protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
+Collecting opentelemetry-instrumentation==0.66b2 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.66b2-py3-none-any.whl.metadata (7.2 kB)
+Collecting opentelemetry-semantic-conventions==0.66b2 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.66b2-py3-none-any.whl.metadata (2.4 kB)
+Collecting opentelemetry-util-http==0.66b2 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.66b2-py3-none-any.whl.metadata (2.6 kB)
+Collecting wrapt<3.0.0,>=1.0.0 (from opentelemetry-instrumentation==0.66b2->opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading wrapt-2.5.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (7.6 kB)
+INFO: pip is looking at multiple versions of opentelemetry-semantic-conventions to determine which version is compatible with other requirements. This could take a while.
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.66b1-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation==0.66b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.66b1-py3-none-any.whl.metadata (7.2 kB)
+Collecting opentelemetry-semantic-conventions==0.66b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.66b1-py3-none-any.whl.metadata (2.4 kB)
+Collecting opentelemetry-util-http==0.66b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.66b1-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.66b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation==0.66b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.66b0-py3-none-any.whl.metadata (7.2 kB)
+Collecting opentelemetry-semantic-conventions==0.66b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.66b0-py3-none-any.whl.metadata (2.4 kB)
+Collecting opentelemetry-util-http==0.66b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.66b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.65b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation==0.65b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.65b0-py3-none-any.whl.metadata (7.2 kB)
+Collecting opentelemetry-semantic-conventions==0.65b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.65b0-py3-none-any.whl.metadata (2.4 kB)
+Collecting opentelemetry-util-http==0.65b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.65b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.64b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation==0.64b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.64b0-py3-none-any.whl.metadata (7.2 kB)
+Collecting opentelemetry-semantic-conventions==0.64b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.64b0-py3-none-any.whl.metadata (2.4 kB)
+Collecting opentelemetry-util-http==0.64b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.64b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.63b1-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation==0.63b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.63b1-py3-none-any.whl.metadata (7.2 kB)
+Collecting opentelemetry-semantic-conventions==0.63b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.63b1-py3-none-any.whl.metadata (2.4 kB)
+Collecting opentelemetry-util-http==0.63b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.63b1-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.63b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation==0.63b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.63b0-py3-none-any.whl.metadata (7.2 kB)
+Collecting opentelemetry-semantic-conventions==0.63b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.63b0-py3-none-any.whl.metadata (2.4 kB)
+Collecting opentelemetry-util-http==0.63b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.63b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.62b1-py3-none-any.whl.metadata (2.7 kB)
+Collecting opentelemetry-instrumentation==0.62b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.62b1-py3-none-any.whl.metadata (7.2 kB)
+Collecting opentelemetry-semantic-conventions==0.62b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.62b1-py3-none-any.whl.metadata (2.5 kB)
+Collecting opentelemetry-util-http==0.62b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.62b1-py3-none-any.whl.metadata (2.6 kB)
+INFO: pip is still looking at multiple versions of opentelemetry-semantic-conventions to determine which version is compatible with other requirements. This could take a while.
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.62b0-py3-none-any.whl.metadata (2.7 kB)
+Collecting opentelemetry-instrumentation==0.62b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.62b0-py3-none-any.whl.metadata (7.2 kB)
+Collecting opentelemetry-semantic-conventions==0.62b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.62b0-py3-none-any.whl.metadata (2.5 kB)
+Collecting opentelemetry-util-http==0.62b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.62b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.61b0-py3-none-any.whl.metadata (2.7 kB)
+Collecting opentelemetry-instrumentation==0.61b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.61b0-py3-none-any.whl.metadata (7.2 kB)
+Collecting opentelemetry-semantic-conventions==0.61b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.61b0-py3-none-any.whl.metadata (2.5 kB)
+Collecting opentelemetry-util-http==0.61b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.61b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting wrapt<2.0.0,>=1.0.0 (from opentelemetry-instrumentation==0.61b0->opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading wrapt-1.17.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.4 kB)
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.60b1-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation==0.60b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.60b1-py3-none-any.whl.metadata (7.2 kB)
+Collecting opentelemetry-semantic-conventions==0.60b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.60b1-py3-none-any.whl.metadata (2.4 kB)
+Collecting opentelemetry-util-http==0.60b1 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.60b1-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.60b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation==0.60b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.60b0-py3-none-any.whl.metadata (7.2 kB)
+Collecting opentelemetry-semantic-conventions==0.60b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.60b0-py3-none-any.whl.metadata (2.4 kB)
+Collecting opentelemetry-util-http==0.60b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.60b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.59b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation==0.59b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.59b0-py3-none-any.whl.metadata (7.1 kB)
+Collecting opentelemetry-semantic-conventions==0.59b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.59b0-py3-none-any.whl.metadata (2.4 kB)
+Collecting opentelemetry-util-http==0.59b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.59b0-py3-none-any.whl.metadata (2.6 kB)
+INFO: This is taking longer than usual. You might need to provide the dependency resolver with stricter constraints to reduce runtime. See https://pip.pypa.io/warnings/backtracking for guidance. If you want to abort this run, press Ctrl + C.
+Collecting opentelemetry-instrumentation-requests~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_requests-0.58b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-instrumentation==0.58b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_instrumentation-0.58b0-py3-none-any.whl.metadata (7.1 kB)
+Collecting opentelemetry-semantic-conventions==0.58b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_semantic_conventions-0.58b0-py3-none-any.whl.metadata (2.4 kB)
+Collecting opentelemetry-util-http==0.58b0 (from opentelemetry-instrumentation-requests~=0.58b0->semgrep)
+  Downloading opentelemetry_util_http-0.58b0-py3-none-any.whl.metadata (2.6 kB)
+INFO: pip is looking at multiple versions of opentelemetry-instrumentation-threading to determine which version is compatible with other requirements. This could take a while.
+Collecting opentelemetry-instrumentation-threading~=0.58b0 (from semgrep)
+  Downloading opentelemetry_instrumentation_threading-0.66b1-py3-none-any.whl.metadata (2.1 kB)
+  Downloading opentelemetry_instrumentation_threading-0.66b0-py3-none-any.whl.metadata (2.1 kB)
+  Downloading opentelemetry_instrumentation_threading-0.65b0-py3-none-any.whl.metadata (2.1 kB)
+  Downloading opentelemetry_instrumentation_threading-0.64b0-py3-none-any.whl.metadata (2.1 kB)
+  Downloading opentelemetry_instrumentation_threading-0.63b1-py3-none-any.whl.metadata (2.1 kB)
+  Downloading opentelemetry_instrumentation_threading-0.63b0-py3-none-any.whl.metadata (2.1 kB)
+  Downloading opentelemetry_instrumentation_threading-0.62b1-py3-none-any.whl.metadata (2.2 kB)
+INFO: pip is still looking at multiple versions of opentelemetry-instrumentation-threading to determine which version is compatible with other requirements. This could take a while.
+  Downloading opentelemetry_instrumentation_threading-0.62b0-py3-none-any.whl.metadata (2.2 kB)
+  Downloading opentelemetry_instrumentation_threading-0.61b0-py3-none-any.whl.metadata (2.2 kB)
+  Downloading opentelemetry_instrumentation_threading-0.60b1-py3-none-any.whl.metadata (2.1 kB)
+  Downloading opentelemetry_instrumentation_threading-0.60b0-py3-none-any.whl.metadata (2.1 kB)
+  Downloading opentelemetry_instrumentation_threading-0.59b0-py3-none-any.whl.metadata (2.1 kB)
+INFO: This is taking longer than usual. You might need to provide the dependency resolver with stricter constraints to reduce runtime. See https://pip.pypa.io/warnings/backtracking for guidance. If you want to abort this run, press Ctrl + C.
+  Downloading opentelemetry_instrumentation_threading-0.58b0-py3-none-any.whl.metadata (2.1 kB)
+Collecting cryptography>=3.4.0 (from pyjwt[crypto]<3,>=2.15.0->semgrep)
+  Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.4 kB)
+Collecting charset_normalizer<4,>=2 (from requests~=2.22->semgrep)
+  Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 46.4/46.4 kB 3.5 MB/s eta 0:00:00
+Collecting idna<4,>=2.5 (from requests~=2.22->semgrep)
+  Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=13.5.2->semgrep)
+  Downloading markdown_it_py-4.3.0-py3-none-any.whl.metadata (7.9 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich>=13.5.2->semgrep)
+  Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting bracex>=2.1.1 (from wcmatch~=8.3->semgrep)
+  Downloading bracex-3.2.3-py3-none-any.whl.metadata (3.3 kB)
+Collecting cffi>=2.0.0 (from cryptography>=3.4.0->pyjwt[crypto]<3,>=2.15.0->semgrep)
+  Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+Collecting httpcore==1.* (from httpx<1.0.0,>=0.27.1->mcp==1.29.0->semgrep)
+  Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.27.1->mcp==1.29.0->semgrep)
+  Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting zipp>=3.20 (from importlib-metadata<8.8.0,>=6.0->opentelemetry-api~=1.37.0->semgrep)
+  Downloading zipp-4.1.2-py3-none-any.whl.metadata (3.6 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13.5.2->semgrep)
+  Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.11.0->mcp==1.29.0->semgrep)
+  Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.50.4 (from pydantic<3.0.0,>=2.11.0->mcp==1.29.0->semgrep)
+  Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.6 kB)
+Collecting python-dotenv>=1.2.2 (from pydantic-settings>=2.5.2->mcp==1.29.0->semgrep)
+  Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+Collecting pycparser (from cffi>=2.0.0->cryptography>=3.4.0->pyjwt[crypto]<3,>=2.15.0->semgrep)
+  Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+Downloading semgrep-1.185.0-cp310.cp311.cp312.cp313.cp314.py310.py311.py312.py313.py314-none-manylinux_2_34_x86_64.whl (72.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 72.3/72.3 MB 11.1 MB/s eta 0:00:00
+Downloading mcp-1.29.0-py3-none-any.whl (223 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 223.4/223.4 kB 13.8 MB/s eta 0:00:00
+Downloading ruamel_yaml_clib-0.2.15-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (788 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 788.2/788.2 kB 32.9 MB/s eta 0:00:00
+Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 67.5/67.5 kB 2.7 MB/s eta 0:00:00
+Downloading boltons-21.0.0-py2.py3-none-any.whl (193 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 193.7/193.7 kB 13.3 MB/s eta 0:00:00
+Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 135.1/135.1 kB 4.7 MB/s eta 0:00:00
+Downloading click-8.4.2-py3-none-any.whl (119 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 119.2/119.2 kB 5.3 MB/s eta 0:00:00
+Downloading click_option_group-0.5.9-py3-none-any.whl (11 kB)
+Downloading colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Downloading exceptiongroup-1.2.2-py3-none-any.whl (16 kB)
+Downloading glom-25.12.0-py3-none-any.whl (103 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 103.3/103.3 kB 6.7 MB/s eta 0:00:00
+Downloading jsonschema-4.25.1-py3-none-any.whl (90 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.0/90.0 kB 5.2 MB/s eta 0:00:00
+Downloading opentelemetry_api-1.37.0-py3-none-any.whl (65 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 65.7/65.7 kB 3.2 MB/s eta 0:00:00
+Downloading opentelemetry_exporter_otlp_proto_http-1.37.0-py3-none-any.whl (19 kB)
+Downloading opentelemetry_exporter_otlp_proto_common-1.37.0-py3-none-any.whl (18 kB)
+Downloading opentelemetry_proto-1.37.0-py3-none-any.whl (72 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 72.5/72.5 kB 5.6 MB/s eta 0:00:00
+Downloading opentelemetry_instrumentation_requests-0.58b0-py3-none-any.whl (12 kB)
+Downloading opentelemetry_instrumentation-0.58b0-py3-none-any.whl (33 kB)
+Downloading opentelemetry_semantic_conventions-0.58b0-py3-none-any.whl (207 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 208.0/208.0 kB 11.1 MB/s eta 0:00:00
+Downloading opentelemetry_util_http-0.58b0-py3-none-any.whl (7.7 kB)
+Downloading opentelemetry_instrumentation_threading-0.58b0-py3-none-any.whl (9.3 kB)
+Downloading opentelemetry_sdk-1.37.0-py3-none-any.whl (131 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.9/131.9 kB 5.4 MB/s eta 0:00:00
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 130.0/130.0 kB 4.1 MB/s eta 0:00:00
+Downloading peewee-3.19.0-py3-none-any.whl (411 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 411.9/411.9 kB 21.0 MB/s eta 0:00:00
+Downloading pyjwt-2.15.1-py3-none-any.whl (33 kB)
+Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.1/73.1 kB 3.4 MB/s eta 0:00:00
+Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 310.7/310.7 kB 11.2 MB/s eta 0:00:00
+Downloading ruamel_yaml-0.19.1-py3-none-any.whl (118 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.1/118.1 kB 7.2 MB/s eta 0:00:00
+Downloading semantic_version-2.10.0-py2.py3-none-any.whl (15 kB)
+Downloading structlog-26.1.0-py3-none-any.whl (73 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.8/73.8 kB 5.1 MB/s eta 0:00:00
+Downloading tomli-2.4.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (253 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 253.3/253.3 kB 11.7 MB/s eta 0:00:00
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.6/45.6 kB 781.0 kB/s eta 0:00:00
+Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 135.7/135.7 kB 14.2 MB/s eta 0:00:00
+Downloading wcmatch-8.5.2-py3-none-any.whl (39 kB)
+Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.5/134.5 kB 10.4 MB/s eta 0:00:00
+Downloading bracex-3.2.3-py3-none-any.whl (14 kB)
+Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 257.6/257.6 kB 13.5 MB/s eta 0:00:00
+Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl (4.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 35.3 MB/s eta 0:00:00
+Downloading face-26.0.1-py3-none-any.whl (57 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.6/57.6 kB 4.0 MB/s eta 0:00:00
+Downloading googleapis_common_protos-1.76.0-py3-none-any.whl (307 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 307.7/307.7 kB 17.6 MB/s eta 0:00:00
+Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.5/73.5 kB 5.0 MB/s eta 0:00:00
+Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.8/78.8 kB 3.1 MB/s eta 0:00:00
+Downloading httpx_sse-0.4.3-py3-none-any.whl (9.0 kB)
+Downloading idna-3.20-py3-none-any.whl (69 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 5.8 MB/s eta 0:00:00
+Downloading importlib_metadata-8.7.1-py3-none-any.whl (27 kB)
+Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Downloading markdown_it_py-4.3.0-py3-none-any.whl (96 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 97.0/97.0 kB 4.6 MB/s eta 0:00:00
+Downloading pydantic-2.14.3-py3-none-any.whl (494 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 494.1/494.1 kB 11.8 MB/s eta 0:00:00
+Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 29.1 MB/s eta 0:00:00
+Downloading pydantic_settings-2.16.3-py3-none-any.whl (82 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 82.7/82.7 kB 5.4 MB/s eta 0:00:00
+Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 26.3 MB/s eta 0:00:00
+Downloading python_multipart-0.0.33-py3-none-any.whl (32 kB)
+Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (371 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 371.3/371.3 kB 17.8 MB/s eta 0:00:00
+Downloading sse_starlette-3.7.0-py3-none-any.whl (18 kB)
+Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80.6/80.6 kB 5.7 MB/s eta 0:00:00
+Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 87.4/87.4 kB 6.3 MB/s eta 0:00:00
+Downloading wrapt-1.17.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (88 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 88.0/88.0 kB 4.8 MB/s eta 0:00:00
+Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 221.8/221.8 kB 15.4 MB/s eta 0:00:00
+Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Downloading protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 323.4/323.4 kB 15.8 MB/s eta 0:00:00
+Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+Downloading zipp-4.1.2-py3-none-any.whl (10 kB)
+Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 6.0 MB/s eta 0:00:00
+Installing collected packages: peewee, boltons, zipp, wrapt, urllib3, typing-extensions, tomli, structlog, semantic-version, ruamel.yaml.clib, ruamel.yaml, rpds-py, python-multipart, python-dotenv, pyjwt, pygments, pycparser, protobuf, packaging, opentelemetry-util-http, mdurl, idna, httpx-sse, h11, face, exceptiongroup, colorama, click, charset_normalizer, certifi, bracex, attrs, annotated-types, wcmatch, uvicorn, typing-inspection, requests, referencing, pydantic-core, opentelemetry-proto, markdown-it-py, importlib-metadata, httpcore, googleapis-common-protos, glom, click-option-group, cffi, anyio, starlette, rich, pydantic, opentelemetry-exporter-otlp-proto-common, opentelemetry-api, jsonschema-specifications, httpx, cryptography, sse-starlette, pydantic-settings, opentelemetry-semantic-conventions, jsonschema, opentelemetry-sdk, opentelemetry-instrumentation, mcp, opentelemetry-instrumentation-threading, opentelemetry-instrumentation-requests, opentelemetry-exporter-otlp-proto-http, semgrep
+Successfully installed annotated-types-0.8.0 anyio-4.16.0 attrs-26.1.0 boltons-21.0.0 bracex-3.2.3 certifi-2026.10.23 cffi-2.1.1 charset_normalizer-3.5.2 click-8.4.2 click-option-group-0.5.9 colorama-0.4.6 cryptography-50.0.2 exceptiongroup-1.2.2 face-26.0.1 glom-25.12.0 googleapis-common-protos-1.76.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 httpx-sse-0.4.3 idna-3.20 importlib-metadata-8.7.1 jsonschema-4.25.1 jsonschema-specifications-2025.9.1 markdown-it-py-4.3.0 mcp-1.29.0 mdurl-0.1.2 opentelemetry-api-1.37.0 opentelemetry-exporter-otlp-proto-common-1.37.0 opentelemetry-exporter-otlp-proto-http-1.37.0 opentelemetry-instrumentation-0.58b0 opentelemetry-instrumentation-requests-0.58b0 opentelemetry-instrumentation-threading-0.58b0 opentelemetry-proto-1.37.0 opentelemetry-sdk-1.37.0 opentelemetry-semantic-conventions-0.58b0 opentelemetry-util-http-0.58b0 packaging-26.3 peewee-3.19.0 protobuf-6.33.6 pycparser-3.12 pydantic-2.14.3 pydantic-core-2.50.4 pydantic-settings-2.16.3 pygments-2.21.0 pyjwt-2.15.1 python-dotenv-1.2.4 python-multipart-0.0.33 referencing-0.37.0 requests-2.34.2 rich-15.0.0 rpds-py-2026.9.1 ruamel.yaml-0.19.1 ruamel.yaml.clib-0.2.15 semantic-version-2.10.0 semgrep-1.185.0 sse-starlette-3.7.0 starlette-1.10.0 structlog-26.1.0 tomli-2.4.1 typing-extensions-4.16.0 typing-inspection-0.4.5 urllib3-2.8.0 uvicorn-0.54.0 wcmatch-8.5.2 wrapt-1.17.3 zipp-4.1.2
+# 1.185.0
+# Cloning into 'cb-repo'...
+remote: Enumerating objects: 552, done.
+remote: Counting objects: 100% (333/333), done.
+remote: Compressing objects: 100% (258/258), done.
+remote: Total 552 (delta 188), reused 173 (delta 75), pack-reused 219 (from 1)
+Receiving objects: 100% (552/552), 1.77 MiB | 6.41 MiB/s, done.
+Resolving deltas: 100% (266/266), done.
+# Note: switching to 'a10-rc6'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at e4c4687 Assignment 10: tag name in register v3
+e4c46874f17ebc6c05c501e4ef48fe9ea2ee4d8c
+# cat ~/cb-repo/docs/REPRODUCE.md
+# REPRODUCE.md
+
+How to repeat the four Semgrep checks (A, B, C, D) on public inputs. Written 4 November 2026 for Assignment 10. Everything here uses public files and unmodified public rules. No credentials, no restricted data, no network scan.
+
+What this reproduces: the pilot checks only. It does not reproduce any accuracy result, because none exists yet (see `README.md`, section "What is not here").
+
+## 0. What you need
+
+- A Linux or macOS terminal.
+- `git`, `curl`, and a SHA-256 tool (`sha256sum` on Linux, `shasum -a 256` on macOS).
+- Python 3.8 or newer and Semgrep. Recorded working versions: Semgrep 1.99.0 (macOS, Python 3.8.2) and Semgrep 1.181.0 (Ubuntu, Python 3.13.16). If you install a different Semgrep version, write it down. Findings may differ across versions (ISSUE-07).
+- Internet access to `github.com` and `raw.githubusercontent.com`.
+- A copy of this repository, because step 4 uses one file from it (`data/test_material/same_shape_control/SameShapeControl.java`). Call its location `REPO`.
+
+Check Semgrep is installed: `semgrep --version` prints a version number.
+
+## 1. Make an empty working folder and fetch the pinned rules
+
+Use a new empty folder, outside `REPO`. `REPO` and `WORK` are placeholders for real folder paths you choose (for example `~/cb-repo` and `~/cb-work`).
+
+1. Create the folder `WORK` (`mkdir -p ~/cb-work`) and `cd` into it.
+2. `git clone https://github.com/semgrep/semgrep-rules.git`
+3. `cd semgrep-rules`
+4. `git checkout 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9`
+5. `git rev-parse HEAD` must print exactly `17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9`. If not, stop.
+
+You stay inside the `semgrep-rules` folder for the rest of the steps, and run every command below from there. The commands use paths relative to it (`../` is `WORK`).
+
+## 2. Fetch the two pinned Apache files and verify every file
+
+1. `curl -fsSL -o ../Md5Crypt.java https://raw.githubusercontent.com/apache/commons-codec/f13dd50f566c318283c4138820b15d75c26a0217/src/main/java/org/apache/commons/codec/digest/Md5Crypt.java`
+2. `curl -fsSL -o ../StringUtils.java https://raw.githubusercontent.com/apache/commons-codec/f13dd50f566c318283c4138820b15d75c26a0217/src/main/java/org/apache/commons/codec/binary/StringUtils.java`
+3. Fetch two more pinned public files used by check E, from the same commit:
+   - `curl -fsSL -o ../DigestUtils.java https://raw.githubusercontent.com/apache/commons-codec/f13dd50f566c318283c4138820b15d75c26a0217/src/main/java/org/apache/commons/codec/digest/DigestUtils.java`
+   - `curl -fsSL -o ../DigestUtilsTest.java https://raw.githubusercontent.com/apache/commons-codec/f13dd50f566c318283c4138820b15d75c26a0217/src/test/java/org/apache/commons/codec/digest/DigestUtilsTest.java`
+4. Copy the control file from your repository copy: `cp REPO/data/test_material/same_shape_control/SameShapeControl.java ../SameShapeControl.java` (replace `REPO` with the real path).
+5. Compute the SHA-256 of each file and compare with the expected values:
+   - `../Md5Crypt.java`: `fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747` (361 lines)
+   - `../StringUtils.java`: `6c44ebc7424c69fd04b6f3df10332934a149e6901fd29e86d96df4176527a99a` (425 lines)
+   - `../DigestUtils.java`: `427fa77411e7a0ea7798151b199aa17892b7f1043ad7d26baf566d2d97e36347`
+   - `../DigestUtilsTest.java`: `b886f74b8450318218366af7d486666de1e1a94945e81f3ba191ef36cbbda426`
+   - `../SameShapeControl.java`: `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539` (14 lines)
+   - `java/lang/security/audit/crypto/use-of-md5-digest-utils.java` (inside the rules clone): `bd22fdb5ef195e383ec69aa9dbf1d0fd8f6cb5d41aef3f725f1aba5e5aa05908`
+   - `java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml` (the rule, inside the rules clone): `a0614baf029418dd9b298713c3328f371faa1edb0eac7cc2c4a3a99ce1a220a5`
+6. If any value differs, stop. The input is not the one the records describe.
+
+## 3. Run the four checks
+
+Every run uses the options `--metrics=off --disable-version-check`. Run each check twice and save the output to a file, so you can compare the two runs.
+
+**Check A (positive control, rule author's own test file).**
+`semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml java/lang/security/audit/crypto/use-of-md5-digest-utils.java`
+Expected: the line `Ran 1 rule on 1 file: 1 finding.` is printed (Semgrep 1.181.0 also prints `Findings: 1 (1 blocking)` in the summary box; 1.99.0 does not), the finding excerpt is marked `15┆`, and the summary line reads `Ran 1 rule on 1 file: 1 finding.`
+
+**Check B (four official rules on the target file).**
+`semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml --config java/lang/security/audit/crypto/use-of-md5.yaml --config java/lang/security/audit/crypto/weak-random.yaml --config java/lang/security/audit/md5-used-as-password.yaml ../Md5Crypt.java`
+Expected: `Ran 4 rules on 1 file: 0 findings.` (1.181.0 also prints `Findings: 0 (0 blocking)`).
+
+**Check C (known negative, same four rules on a file with no cryptography).**
+The same command as check B, with `../StringUtils.java` as the last argument.
+Expected: `Ran 4 rules on 1 file: 0 findings.`
+
+**Check D (same-shape control, added 4 November 2026).**
+`semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml ../SameShapeControl.java`
+Expected: the excerpt is marked `6┆` (`return DigestUtils.getMd5Digest().digest(data);`), and there is no finding on lines 10 to 12. Summary line: `Ran 1 rule on 1 file: 1 finding.`
+
+**Check E (the same rule on two more public files, and the shape of Md5Crypt.java).**
+`semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml ../DigestUtils.java ../DigestUtilsTest.java`
+Expected: `Ran 1 rule on 2 files: 0 findings.` Then show the three lines of `Md5Crypt.java` that the claims refer to: `sed -n '259p;275p;312p' ../Md5Crypt.java`. Expected: each line assigns `DigestUtils.getMd5Digest()` to a variable (the variable form), at lines 259, 275 and 312. `DigestUtils.java` line 469 holds `getMd5Digest().digest(data)` without the `DigestUtils.` prefix (`sed -n 469p ../DigestUtils.java`), a second shape the rule does not match (claims register L8).
+
+The line `Scanning 1 file tracked by git` can appear even though the files are outside any repository you made; it is Semgrep's wording and not a problem. Semgrep may print a warning about LibreSSL on macOS (harmless) and a "Scan Status" box. These are not findings.
+
+**Check F (the other three rules, one at a time).**
+For each of `crypto/use-of-md5`, `crypto/weak-random` and `md5-used-as-password` (folder `java/lang/security/audit/`): run the rule on its own official test file, then on `../Md5Crypt.java`, with the same options as above, e.g. `semgrep scan --metrics=off --disable-version-check --config java/lang/security/audit/crypto/use-of-md5.yaml java/lang/security/audit/crypto/use-of-md5.java`. Then run `grep -c getInstance ../Md5Crypt.java`.
+Expected on the rule's own test file: use-of-md5 = 3 findings (lines 7, 15, 29); weak-random = 3 (lines 48, 51, 165); md5-used-as-password = 1 (line 41). Expected on `Md5Crypt.java`: 0 findings for each rule, and the `getInstance` count is 0.
+
+## 4. Compare the two runs of each check
+
+Save the first and second output of each check to separate files and run `diff` on them. Expected: no differences. Note that Semgrep output may contain a timing or version line in some versions; if `diff` shows only such a line, record it.
+
+## 5. How to read the results
+
+- Check A passing shows the rule works on the code shape it describes.
+- Check C returning 0 shows the rules do not fire on a file with no cryptography.
+- Check B returning 0 on `Md5Crypt.java`, which does use MD5, is a miss by these four rules. It is not evidence that the file is safe.
+- Check D explains the miss: the rule finds the chained form and not the variable form. `Md5Crypt.java` uses the variable form (lines 259, 275, 312).
+- Check D is one rule and two shapes made for this purpose. It says nothing about how common either shape is, or about other rules.
+
+- Check F shows each of the other three rules works on its own test file and has no matching call in `Md5Crypt.java` (it has no `getInstance`, and `Random` appears only as a type). That is a different cause from check D.
+- Check E shows the 0 findings on the two Apache files and lets you see the two shapes yourself.
+
+## 6. What to record
+======================= TERMINAL TEXT, PART 2 (same container; first attempt, then second attempt in bash) =======================
+For each run: who ran it, the date, the Semgrep version (`semgrep --version`), the operating system, the rules commit, the sha256 values from step 2, the exact command, the output, and any difference from the expected result above. Name files with `REFERENCE` (run by Claude), `PERSONAL` (run by the student) or `REVIEWER` (run by someone else), plus the date. The project owner puts them in `analysis/raw/`; a reviewer who cannot write to the repository sends the files to the owner or attaches them to the review.
+
+## 7. Not reproducible from this repository
+
+- The Sonar Cryptography Plugin and SonarQube: not installed, so there is nothing to run (ISSUE-01).
+- The TLS scanner: not selected. No endpoint has authorisation on file (RISK-05). Do not scan any endpoint to "reproduce" this project.
+- The reference inventory: only a provisional list and one partial own pass exist (ISSUE-09). No frozen answer key exists, so no recall or precision can be computed.
+# export PATH=~/sg/bin:$PATH
+semgrep --version
+mkdir -p ~/cb-work && cd ~/cb-work
+git clone https://github.com/semgrep/semgrep-rules.git
+cd semgrep-rules
+git checkout 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9
+git rev-parse HEAD# 
+1.185.0
+# # Cloning into 'semgrep-rules'...
+remote: Enumerating objects: 53511, done.
+remote: Counting objects: 100% (92/92), done.
+remote: Compressing objects: 100% (67/67), done.
+remote: Total 53511 (delta 47), reused 55 (delta 25), pack-reused 53419 (from 2)
+Receiving objects: 100% (53511/53511), 10.72 MiB | 10.15 MiB/s, done.
+Resolving deltas: 100% (34535/34535), done.
+# # Note: switching to '17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 17e31e11 Merge pull request #4083 from semgrep/malaverdiere/fix-keyvault-timeadd-duration
+# 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9
+# C=https://raw.githubusercontent.com/apache/commons-codec/f13dd50f566c318283c4138820b15d75c26a0217
+curl -fsSL -o ../Md5Crypt.java $C/src/main/java/org/apache/commons/codec/digest/Md5Crypt.java
+curl -fsSL -o ../StringUtils.java $C/src/main/java/org/apache/commons/codec/binary/StringUtils.java
+curl -fsSL -o ../DigestUtils.java $C/src/main/java/org/apache/commons/codec/digest/DigestUtils.java
+curl -fsSL -o ../DigestUtilsTest.java $C/src/test/java/org/apache/commons/codec/digest/DigestUtilsTest.java
+cp ~/cb-repo/data/test_material/same_shape_control/SameShapeControl.java ../SameShapeControl.java
+wc -l ../Md5Crypt.java ../StringUtils.java ../SameShapeControl.java# # # # # # 
+  361 ../Md5Crypt.java
+  425 ../StringUtils.java
+   14 ../SameShapeControl.java
+  800 total
+# cat > ../expected.sha <<'EOF'
+fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747  ../Md5Crypt.java
+6c44ebc7424c69fd04b6f3df10332934a149e6901fd29e86d96df4176527a99a  ../StringUtils.java
+427fa77411e7a0ea7798151b199aa17892b7f1043ad7d26baf566d2d97e36347  ../DigestUtils.java
+b886f74b8450318218366af7d486666de1e1a94945e81f3ba191ef36cbbda426  ../DigestUtilsTest.java
+657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539  ../SameShapeControl.java
+bd22fdb5ef195e383ec69aa9dbf1d0fd8f6cb5d41aef3f725f1aba5e5aa05908  java/lang/security/audit/crypto/use-of-md5-digest-utils.java
+a0614baf029418dd9b298713c3328f371faa1edb0eac7cc2c4a3a99ce1a220a5  java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml
+EOF
+sha256sum -c ../expected.sha> > > > > > > > # A=java/lang/security/audit
+O="--metrics=off --disable-version-check"
+for i in 1 2; do semgrep scan $O --config $A/crypto/use-of-md5-digest-utils.yaml $A/crypto/use-of-md5-digest-utils.java > ../A$i.txt 2>&1; done
+for i in 1 2; do semgrep scan $O --config $A/crypto/use-of-md5-digest-utils.yaml --config $A/crypto/use-of-md5.yaml --config $A/crypto/weak-random.yaml --config $A/md5-used-as-password.yaml ../Md5Crypt.java > ../B$i.txt 2>&1; done
+for i in 1 2; do semgrep scan $O --config $A/crypto/use-of-md5-digest-utils.yaml --config $A/crypto/use-of-md5.yaml --config $A/crypto/weak-random.yaml --config $A/md5-used-as-password.yaml ../StringUtils.java > ../C$i.txt 2>&1; done
+for i in 1 2; do semgrep scan $O --config $A/crypto/use-of-md5-digest-utils.yaml ../SameShapeControl.java > ../D$i.txt 2>&1; done
+for f in A B C D; do echo "=== $f"; cat ../${f}1.txt; donesha256sum: '../expected.shaA=java/lang/security/audit': No such file or directory
+# # # 
+# # # === A
+[ERROR] WARNING: unable to find a config; path `/crypto/use-of-md5-digest-utils.yaml` does not exist
+[ERROR] invalid configuration file found (1 configs were invalid)
+=== B
+[ERROR] WARNING: unable to find a config; path `/crypto/use-of-md5-digest-utils.yaml` does not exist
+[ERROR] WARNING: unable to find a config; path `/crypto/use-of-md5.yaml` does not exist
+[ERROR] WARNING: unable to find a config; path `/crypto/weak-random.yaml` does not exist
+[ERROR] WARNING: unable to find a config; path `/md5-used-as-password.yaml` does not exist
+[ERROR] invalid configuration file found (4 configs were invalid)
+=== C
+[ERROR] WARNING: unable to find a config; path `/crypto/use-of-md5-digest-utils.yaml` does not exist
+[ERROR] WARNING: unable to find a config; path `/crypto/use-of-md5.yaml` does not exist
+[ERROR] WARNING: unable to find a config; path `/crypto/weak-random.yaml` does not exist
+[ERROR] WARNING: unable to find a config; path `/md5-used-as-password.yaml` does not exist
+[ERROR] invalid configuration file found (4 configs were invalid)
+=== D
+[ERROR] WARNING: unable to find a config; path `/crypto/use-of-md5-digest-utils.yaml` does not exist
+[ERROR] invalid configuration file found (1 configs were invalid)
+# for i in 1 2; do semgrep scan $O --config $A/crypto/use-of-md5-digest-utils.yaml ../DigestUtils.java ../DigestUtilsTest.java > ../E$i.txt 2>&1; done
+cat ../E1.txt
+sed -n '259p;275p;312p' ../Md5Crypt.java
+sed -n 469p ../DigestUtils.java
+# [ERROR] WARNING: unable to find a config; path `/crypto/use-of-md5-digest-utils.yaml` does not exist
+[ERROR] invalid configuration file found (1 configs were invalid)
+#         final MessageDigest messageDigestMd5 = DigestUtils.getMd5Digest();
+        MessageDigest altMessageDigestMd5 = DigestUtils.getMd5Digest();
+            altMessageDigestMd5 = DigestUtils.getMd5Digest();
+#         return getMd5Digest().digest(data);
+# for P in crypto/use-of-md5 crypto/weak-random md5-used-as-password; do
+  echo "=== $P on its own test file"; semgrep scan $O --config $A/$P.yaml $A/$P.java 2>&1 | tee ../F_${P//\//_}_own.txt
+  echo "=== $P on Md5Crypt.java"; semgrep scan $O --config $A/$P.yaml ../Md5Crypt.java 2>&1 | tee ../F_${P//\//_}_target.txt
+done
+grep -c getInstance ../Md5Crypt.java> > > === crypto/use-of-md5 on its own test file
+sh: 41: Bad substitution
+
+=== crypto/use-of-md5 on Md5Crypt.java
+sh: 42: Bad substitution
+=== crypto/weak-random on its own test file
+sh: 41: Bad substitution
+=== crypto/weak-random on Md5Crypt.java
+sh: 42: Bad substitution
+=== md5-used-as-password on its own test file
+sh: 41: Bad substitution
+=== md5-used-as-password on Md5Crypt.java
+sh: 42: Bad substitution
+# 0
+# for f in A B C D E; do echo "== $f"; diff ../${f}1.txt ../${f}2.txt && echo identical; done
+date== A
+identical
+== B
+identical
+== C
+identical
+== D
+identical
+== E
+identical
+# 
+Sat Nov 14 17:18:04 EST 2026
+#
+# bash
+cd ~/cb-work/semgrep-rules
+pwd
+mkdir -p ../failed_attempt
+mv ../A?.txt ../B?.txt ../C?.txt ../D?.txt ../E?.txt ../failed_attempt/
+sha256sum -c ../expected.sharoot@e581c1e4cd9d:~/cb-work/semgrep-rules# cd ~/cb-work/semgrep-rules
+root@e581c1e4cd9d:~/cb-work/semgrep-rules# pwd
+/root/cb-work/semgrep-rules
+root@e581c1e4cd9d:~/cb-work/semgrep-rules# mkdir -p ../failed_attempt
+root@e581c1e4cd9d:~/cb-work/semgrep-rules# mv ../A?.txt ../B?.txt ../C?.txt ../D?.txt ../E?.txt ../failed_attempt/
+root@e581c1e4cd9d:~/cb-work/semgrep-rules# sha256sum -c ../expected.sha
+../Md5Crypt.java: OK
+../StringUtils.java: OK
+../DigestUtils.java: OK
+../DigestUtilsTest.java: OK
+../SameShapeControl.java: OK
+java/lang/security/audit/crypto/use-of-md5-digest-utils.java: OK
+java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml: OK
+root@e581c1e4cd9d:~/cb-work/semgrep-rules# A=java/lang/security/audit
+O="--metrics=off --disable-version-check"
+echo "A=$A"
+for i in 1 2; do semgrep scan $O --config $A/crypto/use-of-md5-digest-utils.yaml $A/crypto/use-of-md5-digest-utils.java > ../A$i.txt 2>&1; done
+for i in 1 2; do semgrep scan $O --config $A/crypto/use-of-md5-digest-utils.yaml --config $A/crypto/use-of-md5.yaml --config $A/crypto/weak-random.yaml --config $A/md5-used-as-password.yaml ../Md5Crypt.java > ../B$i.txt 2>&1; done
+for i in 1 2; do semgrep scan $O --config $A/crypto/use-of-md5-digest-utils.yaml --config $A/crypto/use-of-md5.yaml --config $A/crypto/weak-random.yaml --config $A/md5-used-as-password.yaml ../StringUtils.java > ../C$i.txt 2>&1; done
+for i in 1 2; do semgrep scan $O --config $A/crypto/use-of-md5-digest-utils.yaml ../SameShapeControl.java > ../D$i.txt 2>&1; done
+for f in A B C D; do echo "=== $f"; cat ../${f}1.txt; done
+A=java/lang/security/audit
+
+=== A
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 1 (1 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 1 finding.
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                                                                
+    java/lang/security/audit/crypto/use-of-md5-digest-utils.java
+    ❯❱ java.lang.security.audit.crypto.use-of-md5-digest-utils
+          ❰❰ Blocking ❱❱
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
+          therefore not suitable as a cryptographic signature. Use HMAC instead.                         
+                                                                                                         
+           ▶▶┆ Autofix ▶ getSha512Digest
+           15┆ byte[] hashValue = DigestUtils.getMd5Digest().digest(password.getBytes());
+
+=== B
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 4 Code rules:
+  Scanning 1 file with 4 java rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 4
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 4 rules on 1 file: 0 findings.
+=== C
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 4 Code rules:
+  Scanning 1 file with 4 java rules.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 4
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 4 rules on 1 file: 0 findings.
+=== D
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 1 (1 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 1 finding.
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                            
+    ../SameShapeControl.java
+    ❯❱ java.lang.security.audit.crypto.use-of-md5-digest-utils
+          ❰❰ Blocking ❱❱
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
+          therefore not suitable as a cryptographic signature. Use HMAC instead.                         
+                                                                                                         
+           ▶▶┆ Autofix ▶ getSha512Digest
+            6┆ return DigestUtils.getMd5Digest().digest(data);
+
+root@e581c1e4cd9d:~/cb-work/semgrep-rules# 
+root@e581c1e4cd9d:~/cb-work/semgrep-rules# for i in 1 2; do semgrep scan $O --config $A/crypto/use-of-md5-digest-utils.yaml ../DigestUtils.java ../DigestUtilsTest.java > ../E$i.txt 2>&1; done
+cat ../E1.txt
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 2 files tracked by git with 1 Code rule:
+  Scanning 2 files.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 2
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 2 files: 0 findings.
+root@e581c1e4cd9d:~/cb-work/semgrep-rules# f(){ n=$1; echo "=== $n on its own test file"; semgrep scan $O --config $A/$2.yaml $A/$2.java 2>&1 | tee ../F_${n}_own.txt; echo "=== $n on Md5Crypt.java"; semgrep scan $O --config $A/$2.yaml ../Md5Crypt.java 2>&1 | tee ../F_${n}_target.txt; }
+f use-of-md5 crypto/use-of-md5
+f weak-random crypto/weak-random
+f md5-used-as-password md5-used-as-password
+grep -c getInstance ../Md5Crypt.java
+=== use-of-md5 on its own test file
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 3 (3 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 3 findings.
+                   
+                   
+┌─────────────────┐
+│ 3 Code Findings │
+└─────────────────┘
+                                                   
+    java/lang/security/audit/crypto/use-of-md5.java
+    ❯❱ java.lang.security.audit.crypto.use-of-md5
+          ❰❰ Blocking ❱❱
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
+          therefore not suitable as a cryptographic signature. Use HMAC instead.                         
+                                                                                                         
+           ▶▶┆ Autofix ▶ "SHA-512"
+            7┆ MessageDigest md5Digest = MessageDigest.getInstance("MD5");
+            ⋮┆----------------------------------------
+           ▶▶┆ Autofix ▶ "SHA-512"
+           15┆ MessageDigest md5Digest = MessageDigest.getInstance("md5");
+            ⋮┆----------------------------------------
+           ▶▶┆ Autofix ▶ "SHA-512"
+           29┆ java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+
+=== use-of-md5 on Md5Crypt.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+=== weak-random on its own test file
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 3 (3 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 3 findings.
+                   
+                   
+┌─────────────────┐
+│ 3 Code Findings │
+└─────────────────┘
+                                                    
+    java/lang/security/audit/crypto/weak-random.java
+    ❯❱ java.lang.security.audit.crypto.weak-random
+          ❰❰ Blocking ❱❱
+          Detected use of the functions `Math.random()` or `java.util.Random()`. These are both not      
+          cryptographically strong random number generators (RNGs). If you are using these RNGs to create
+          passwords or secret tokens, use `java.security.SecureRandom` instead.                          
+                                                                                                         
+           48┆ float rand = new java.util.Random().nextFloat();
+            ⋮┆----------------------------------------
+           51┆ new java.util.Random().nextInt();
+            ⋮┆----------------------------------------
+          165┆ double value = java.lang.Math.random();
+
+=== weak-random on Md5Crypt.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+=== md5-used-as-password on its own test file
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 1 (1 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 1 finding.
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                                                      
+    java/lang/security/audit/md5-used-as-password.java
+    ❯❱ java.lang.security.audit.md5-used-as-password
+          ❰❰ Blocking ❱❱
+          It looks like MD5 is used as a password hash. MD5 is not considered a secure password hash because  
+          it can be cracked by an attacker in a short amount of time. Use a suitable password hashing function
+          such as PBKDF2 or bcrypt. You can use `javax.crypto.SecretKeyFactory` with                          
+          `SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")` or, if using Spring,                           
+          `org.springframework.security.crypto.bcrypt`.                                                       
+                                                                                                              
+           41┆ user.setPassword(md.digest(), salt);
+
+=== md5-used-as-password on Md5Crypt.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+0
+root@e581c1e4cd9d:~/cb-work/semgrep-rules# for f in A B C D E; do echo "== $f"; diff ../${f}1.txt ../${f}2.txt && echo identical; done
+grep -c "finding" ../A1.txt ../B1.txt ../C1.txt ../D1.txt ../E1.txt
+date
+== A
+identical
+== B
+identical
+== C
+identical
+== D
+identical
+== E
+identical
+../A1.txt:1
+../B1.txt:1
+../C1.txt:1
+../D1.txt:1
+../E1.txt:1
+Sat Nov 14 17:20:50 EST 2026
+root@e581c1e4cd9d:~/cb-work/semgrep-rules# 
