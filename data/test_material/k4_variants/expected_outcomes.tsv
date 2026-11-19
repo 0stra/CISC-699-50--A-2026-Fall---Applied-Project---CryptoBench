@@ -1,0 +1,13 @@
+file	expected (written before running)	feature changed
+V00_chained_baseline.java	match	same shape as the rule author's positive control and as check D
+V01_variable_form.java	no match	the shape used at lines 259, 275 and 312 of Md5Crypt.java: .digest is not chained on the call
+V02_unprefixed_call.java	no match	the shape at line 469 of DigestUtils.java: no DigestUtils receiver (claims register L8)
+V03_fully_qualified_receiver.java	no match (uncertain)	receiver written with its package name; depends on how the pattern DigestUtils matches a dotted name
+V04_sha512_chained.java	no match	same chained shape with a different algorithm method; the rule's own negative case
+V05_chained_digest_no_args.java	match	digest(...) with zero arguments
+V06_chained_update_not_digest.java	no match	chained call is update, not digest
+V07_chained_across_lines.java	match	same expression split over three lines
+V08_parenthesised_call.java	match (uncertain)	parentheses around the creation call
+V09_md5_static_helper.java	no match	another Commons Codec API that computes MD5 in one call; the rule only names getMd5Digest
+V10_md5Hex_helper.java	no match	as V09, hex output
+V11_chained_result_assigned.java	match	chained call whose result is assigned to a variable (the rule author's own test layout)
