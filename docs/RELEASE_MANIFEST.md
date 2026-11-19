@@ -258,6 +258,12 @@ Format of each line: path, SHA-256, role.
 - `docs/WALKTHROUGH_SCRIPT_A12.md`  
   sha256 `a87440f31978eb9450001e66006c1ea7d84dc3186580bad29d5a0cd88601595d`  
   Script for the recorded walkthrough
+- `docs/independent_run/SOP_FRIEND.md`  
+  sha256 `70b6cf05552cbb68e75505d9bb4f57f9571b853d05d87b8a5c9928ae73d7da81`  
+  One-page guide for the independent helper (source pass first, then the run)
+- `docs/independent_run/cb_run.sh`  
+  sha256 `01afcd8bb492c85b4c4736c1d46b10880c6e74e091f42f47a0c0fd2d1f06031b`  
+  Helper shell script for the independent run: wraps the commands of docs/REPRODUCE.md, adds no analysis (written by Claude, tested once by Claude on Semgrep 1.186.0: 33 matched, 0 differed; test not filed as a record)
 - `journal/2026-10-04.md`  
   sha256 `06ecf50518df0a89f4c105a29daa53345be056b51aee0349726f4caed6048041`  
   Dated working entry
