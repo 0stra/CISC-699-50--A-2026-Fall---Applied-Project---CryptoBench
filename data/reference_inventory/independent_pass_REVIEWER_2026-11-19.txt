@@ -1,0 +1,296 @@
+Cryptographic Operations in Md5Crypt.java
+The file contains several cryptographic operations involving MD5 hashing, random salt generation, password processing, digest manipulation, and secure memory cleanup.
+
+Note: Line numbers below are estimated from the supplied source code, counting the first line (/*Name...) as line 1.
+
+1. List of cryptographic operations
+No.
+
+Short name
+
+Algorithm / material
+
+Approx. line numbers
+
+1
+
+Secure random salt generation
+
+SecureRandom, random salt
+
+44–45
+
+2
+
+Custom random salt generation
+
+Random, random salt
+
+59–60
+
+3
+
+APR1 salt preparation
+
+APR1 prefix and salt
+
+75–77
+
+4
+
+String-to-password bytes conversion
+
+UTF-8 password material
+
+90
+
+5
+
+Password hashing (APR1)
+
+MD5-based APR1
+
+105–106
+
+6
+
+Random MD5 salt generation
+
+SecureRandom, random salt
+
+122–123
+
+7
+
+Custom MD5 salt generation
+
+Random, random salt
+
+138–139
+
+8
+
+MD5 salt preparation
+
+MD5-crypt salt and prefix
+
+157–158
+
+9
+
+Secure random initialization
+
+SecureRandom
+
+175
+
+10
+
+Salt validation and extraction
+
+Cryptographic salt material
+
+197–207
+
+11
+
+MD5 digest initialization
+
+MD5 hash
+
+208
+
+12
+
+Password digest update
+
+Password bytes and MD5
+
+213–214
+
+13
+
+Prefix digest update
+
+APR1 or MD5 prefix
+
+218–219
+
+14
+
+Salt digest update
+
+Salt bytes and MD5
+
+223–224
+
+15
+
+Alternate MD5 digest
+
+MD5(password + salt + password)
+
+227–231
+
+16
+
+Password-length-based digest mixing
+
+MD5 digest and password bytes
+
+233–236
+
+17
+
+Digest cleanup
+
+Clearing intermediate digest bytes
+
+240
+
+18
+
+Bit-dependent digest mixing
+
+Password and intermediate digest
+
+244–252
+
+19
+
+Initial hash generation
+
+MD5 digest finalization
+
+258–259
+
+20
+
+1000-round password hashing
+
+Repeated MD5 hashing
+
+263–280
+
+21
+
+Final hash encoding
+
+Custom crypt Base64 encoding
+
+284–289
+
+22
+
+Digest cleanup and password clearing
+
+Sensitive cryptographic material
+
+292–296
+
+2. Explanation of each operation
+1. Secure random salt generation: Uses SecureRandom indirectly through B64.getRandomSalt(8) to generate an unpredictable salt for APR1 hashing.
+
+2. Custom random salt generation: Accepts a caller-provided Random object to generate a salt, which becomes part of the hashing process.
+
+3. APR1 salt preparation: Adds the $apr1$ prefix when necessary so the input salt is recognized as an Apache APR1 salt.
+
+4. String-to-password bytes conversion: Converts the password string into UTF-8 bytes, preparing it for cryptographic hashing.
+
+5. Password hashing (APR1): Passes the password bytes and APR1 salt to the MD5-based hashing implementation.
+
+6. Random MD5 salt generation: Generates a random salt for the traditional Unix MD5-crypt algorithm.
+
+7. Custom MD5 salt generation: Uses a supplied random generator to produce the salt used by MD5-crypt.
+
+8. MD5 salt preparation: Passes the password, salt, and MD5 prefix into the hashing implementation.
+
+9. Secure random initialization: Creates a SecureRandom instance for generating cryptographically stronger salts when needed.
+
+10. Salt validation and extraction: Checks the salt format using a regular expression and extracts the actual salt used in the cryptographic computation.
+
+11. MD5 digest initialization: Obtains an MD5 MessageDigest instance that performs the cryptographic hashing operations.
+
+12. Password digest update: Adds the password bytes to the MD5 digest as the first component of the hash computation.
+
+13. Prefix digest update: Adds the algorithm identifier ($apr1$ or $1$) to the digest, distinguishing the two variants.
+
+14. Salt digest update: Adds the salt bytes to the MD5 digest, ensuring that the same password can produce different hashes with different salts.
+
+15. Alternate MD5 digest: Creates an additional MD5 digest using the password, salt, and password again as input.
+
+16. Password-length-based digest mixing: Repeatedly incorporates the alternate digest into the primary digest based on the password length.
+
+17. Digest cleanup: Clears the intermediate digest byte array to reduce the time sensitive intermediate data remains in memory.
+
+18. Bit-dependent digest mixing: Adds either password bytes or digest bytes depending on the bits of the password length, following the MD5-crypt algorithm.
+
+19. Initial hash generation: Calls digest() to finalize the initial MD5 computation and obtain the intermediate hash.
+
+20. 1000-round password hashing: Performs 1,000 MD5 iterations, mixing password bytes, salt bytes, and intermediate digest bytes according to the MD5-crypt algorithm.
+
+21. Final hash encoding: Uses B64.b64from24bit() to convert the final digest bytes into the encoded string representation expected by Unix MD5-crypt and Apache APR1.
+
+22. Digest cleanup and password clearing: Resets digest objects and overwrites password, salt, and final digest byte arrays to reduce sensitive information remaining in memory.
+
+3. Where there was uncertainty and what was decided
+These are the places where classification could be ambiguous:
+
+Uncertain area
+
+Why it was uncertain
+
+Decision
+
+Random salt generation
+
+Random number generation does not directly calculate a hash.
+
+Included because salt generation is preparation for a cryptographic operation.
+
+Prefix preparation
+
+Adding $apr1$ or $1$ does not itself perform hashing.
+
+Included because the prefix determines the hashing variant.
+
+Salt validation
+
+Regular expressions are not cryptographic algorithms.
+
+Included because validation prepares the salt used by the hashing algorithm.
+
+Password conversion
+
+UTF-8 conversion is not encryption or hashing.
+
+Included because it prepares password material for hashing.
+
+Digest updates
+
+MessageDigest.update() does not finalize a hash.
+
+Included because it supplies input to the cryptographic computation.
+
+Intermediate byte clearing
+
+Arrays.fill() does not perform a cryptographic calculation.
+
+Included because it is security-related cleanup of sensitive material.
+
+Base64 encoding
+
+Encoding is not encryption or hashing.
+
+Included because it converts the cryptographic digest into the final password-hash representation.
+
+4. Final decision
+The file contains three main categories of cryptographic activity:
+
+Preparation: Password conversion, random salt generation, salt validation, and prefix preparation.
+
+Cryptographic computation: MD5 digest initialization, digest updates, alternate hashing, and the 1,000-round MD5 process.
+
+Finalization and cleanup: Digest encoding, resetting digest objects, and clearing sensitive byte arrays.
+
+Important distinction: This implementation performs password hashing, not password encryption. MD5-crypt and APR1 are legacy password-hashing schemes and are not recommended for new password-storage systems.

@@ -39,6 +39,9 @@ Format of each line: path, SHA-256, role.
 - `analysis/raw/semgrep_checks_A_to_F_PERSONAL_FRESHENV_2026-11-14.txt`  
   sha256 `edc5ac7e38f44d15e82148322480a6b9a5fa6f6e367cb96fac91eb4499d28884`  
   Raw run record: my own fresh-environment re-run of checks A to F in a Docker container, Semgrep 1.185.0 (P8); author re-run, not independent; includes the invalid first attempt
+- `analysis/raw/semgrep_checks_A_to_F_REVIEWER_2026-11-19.txt`  
+  sha256 `833e83b37565bd32ddf88036a5374ee6afcdf73f6eda00f47f7b3774e1bd3da9`  
+  Raw run record: independent run by Gaurav Sharma with the helper script (terminal text, unedited)
 - `analysis/raw/semgrep_checks_D_E_PERSONAL_2026-11-04.txt`  
   sha256 `4d22cd0bdb7b7bf3e3635840d79006741b62ad72bc8d4f28aa688783029cd54f`  
   Raw run record: my own checks D and E on my MacBook (P6)
@@ -117,6 +120,15 @@ Format of each line: path, SHA-256, role.
 - `data/reference_inventory/README.md`  
   sha256 `13ff39ef15e1d41de2ef20b8c540e1468aec7c36f23b0ffef68e0b2fbbf4ed2d`  
   Inventory folder note
+- `data/reference_inventory/independent_pass_REVIEWER_2026-11-19.txt`  
+  sha256 `0924b7ebd2a663d59e3f9312715065ba0a48665034c34c381452129b76c57060`  
+  Independent source-pass list by Gaurav Sharma (unedited; line numbers do not match the pinned file)
+- `data/reference_inventory/independent_pass_REVIEWER_annotated_copy_Md5Crypt_2026-11-19.java.txt`  
+  sha256 `10d358121e01b32f210f36e5261fee9e05fc9edb395cf52b569b4319110c7c45`  
+  His annotated copy of Md5Crypt.java (header line added; not the pinned file)
+- `data/reference_inventory/independent_pass_comparison_2026-11-19.md`  
+  sha256 `425bcc8a5c4f27522d219d5454ddd115e74ae12958550b19d12855e76f38a4b5`  
+  Draft comparison by operation of the independent pass with candidate v1 (Claude; not yet reviewed by Nitin)
 - `data/reference_inventory/md5crypt_pilot_reference_list_2026-10-21.md`  
   sha256 `087e4eef8cbf95ef714f85ea31d457561b1c714cc5967a6f21ac0603bccfec0e`  
   Provisional nine-entry list, drafted by Claude; not independent (ISSUE-09)
@@ -216,6 +228,9 @@ Format of each line: path, SHA-256, role.
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
   Pinned versions, hashes, check results
+- `docs/INDEPENDENT_REVIEW_RECORD_2026-11-19.md`  
+  sha256 `eacf340d7b0429e4beadcdf8319a016047371e119cbf44dedfce6cd8bfe1b404`  
+  Record of the independent run and source pass: what was received, statements, discrepancies, status
 - `docs/INDEPENDENT_RUN_PACKAGE.md`  
   sha256 `1d8bbf28db99d9526e8beaa87fd08bf376c65e93a4750b233bda8cfb14dc43da`  
   Request text and record template for an independent human run (not yet done)
@@ -238,7 +253,7 @@ Format of each line: path, SHA-256, role.
   sha256 `fa595a23b4903e47fdebaeabd131bc7c49c3b21b2853a83c70f917911fe90429`  
   Step-by-step reproduction of checks A, B, C, D
 - `docs/RESPONSE_LOG.md`  
-  sha256 `0e0149db0d00bee6463ecf81b9ef40adabd3f77ffd2edf9eff8a4295b211f61a`  
+  sha256 `02d1d1939ba07142d626fbc0df74de86fa7b08e9e1272cbc0c483ffe2112f37e`  
   Feedback item, change, location, unresolved issue
 - `docs/RESPONSE_NOTE_A12.md`  
   sha256 `8f602c33cc668fcef2096de4d78a8e52acc7c2134ab475dbb732a446b58da532`  
