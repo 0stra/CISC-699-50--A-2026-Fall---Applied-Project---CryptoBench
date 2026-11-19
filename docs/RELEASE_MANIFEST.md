@@ -10,7 +10,7 @@ Format of each line: path, SHA-256, role.
   sha256 `7588848f6364e9561d175ff9292e129e90414697f39d4743f1b851524e451c8d`  
   Tool config; still names dead ruleset p/cryptography (ISSUE-06); not used by any run
 - `README.md`  
-  sha256 `757e62c3d2288afb7b5abde4a6d9f1a06eadffbd043e67d7d46c6b11fa4211b2`  
+  sha256 `b0e01b5bba6dd0f931668cb1c6d6603efb00e5efde4cb5f869f72e9c1ae5a088`  
   Research README (purpose, inventory, provenance, steps, restrictions, limits, navigation)
 - `analysis/raw/README.md`  
   sha256 `8d11592f871323aa46944eefcab2757483494757d30e09903dff4b0b7d42dc9b`  
@@ -21,6 +21,12 @@ Format of each line: path, SHA-256, role.
 - `analysis/raw/audit_REVIEWER_freshagent_2026-11-04.md`  
   sha256 `d9e10dc5bc1e54ad3c7d4f12030b764cf2ed4cb58194d3f744b79c96c02657d5`  
   Verbatim report of the fresh-agent audit (AI reviewer, low independence)
+- `analysis/raw/cyclonedx_schema_validation_REFERENCE_2026-11-19.txt`  
+  sha256 `c3424af015b9d783a28a01af4cb7691ff0bb6827e08a3d33d017218ba9f47088`  
+  Raw record: CycloneDX 1.6 schema validation of the candidate inventory, with negative control (check-jsonschema 0.39.0)
+- `analysis/raw/semgrep_K4_variants_REFERENCE_2026-11-19.txt`  
+  sha256 `16da81a31a92a6f8b294abe2ce7d1f30dbf4a38a9b1060534a27c94a92a4b5f2`  
+  Raw run record: twelve K4 variants on the pinned rule, run by Claude (R4, Semgrep 1.186.0); expected outcomes committed before the run
 - `analysis/raw/semgrep_TC1_Md5Crypt_2026-10-18.txt`  
   sha256 `a92c51c905f57e6936765b49265b4089e2265b5264a461030419ec5387e34b36`  
   Raw run record: run by Claude in container (R1)
@@ -60,6 +66,9 @@ Format of each line: path, SHA-256, role.
 - `analysis/results/claims_register_2026-11-05.md`  
   sha256 `e3466ec913a48c6b598e29099aa0895c8b0f115903cde08a3cc0367ec6386aeb`  
   Claims register v3: statuses added, L2 corrected
+- `analysis/results/claims_register_2026-11-19.md`  
+  sha256 `e127a6af63fa2d6c83c73a96427bce81fab14241ce0401dfb58f2845d5643887`  
+  Claims register version 4 (K4 and K9 revised; K4 still provisional)
 - `analysis/results/figure_1_proof_map.png`  
   sha256 `115e131ebda343cfdbedb18dbb3ab58ac3327941b00f6fc147eb5ae091530488`  
   Figure: claims to records
@@ -120,9 +129,54 @@ Format of each line: path, SHA-256, role.
 - `data/reference_inventory/reference_inventory_template.json`  
   sha256 `a851ef3d6547c6e75f728144f2e8b9575b0853f4e63a4f9b65c693ad89a2139d`  
   CBOM-style inventory template (JSON validity checked only)
+- `data/reference_inventory/reference_inventory_v1_candidate_2026-11-19.json`  
+  sha256 `fa216520553f393ec294727c11e1e33a03e03a792a463f96be943b05a096f9cc`  
+  Candidate reference inventory v1 (CycloneDX 1.6, 10 items, 53 lines); hashed, not frozen, not independent
 - `data/test_material/README.md`  
   sha256 `8bd8fd9345dabd4fad18199154a30986e3524e541667108b4a71d256423ea254`  
   Selection criteria; holds only the control
+- `data/test_material/k4_variants/README.md`  
+  sha256 `5007588c9028478ed51a2266d764a0e79eaa8308177e2c7325ea6f72d26603cc`  
+  Explains the twelve K4 variants (synthetic, Claude-written)
+- `data/test_material/k4_variants/V00_chained_baseline.java`  
+  sha256 `92a469203ba7070efbe3f5544d88ba149f892a1fc7097476c34bb6eba0c3bf05`  
+  Synthetic Java variant for K4 (Claude-written; one code feature changed)
+- `data/test_material/k4_variants/V01_variable_form.java`  
+  sha256 `ff3f170cc6f610b2088d1fc730716953d7ac2a2fac7cea69a364657d4c7281e9`  
+  Synthetic Java variant for K4 (Claude-written; one code feature changed)
+- `data/test_material/k4_variants/V02_unprefixed_call.java`  
+  sha256 `fba9d47c59ef5de0c9bae7f6dbb4621e3a972929c5d06c3b6c7b2b4f5acb11e8`  
+  Synthetic Java variant for K4 (Claude-written; one code feature changed)
+- `data/test_material/k4_variants/V03_fully_qualified_receiver.java`  
+  sha256 `a15e82e51635eeb6670631c56000b5fd1b365a1050cafe824853b2222d8bee76`  
+  Synthetic Java variant for K4 (Claude-written; one code feature changed)
+- `data/test_material/k4_variants/V04_sha512_chained.java`  
+  sha256 `365bbea08064e545b7d2a4debd770045328e9373494685af6326c8b7d4da90b5`  
+  Synthetic Java variant for K4 (Claude-written; one code feature changed)
+- `data/test_material/k4_variants/V05_chained_digest_no_args.java`  
+  sha256 `cab8e3eee5bca870e70db7d30681b44390f44abcc010dc8661b23199f29324e7`  
+  Synthetic Java variant for K4 (Claude-written; one code feature changed)
+- `data/test_material/k4_variants/V06_chained_update_not_digest.java`  
+  sha256 `c85992f7ca1c7028d1e1289068b1f9e6fa18a439d468fa01ed5b5931544aeca0`  
+  Synthetic Java variant for K4 (Claude-written; one code feature changed)
+- `data/test_material/k4_variants/V07_chained_across_lines.java`  
+  sha256 `6c254476825e759cab8169c9cf1692d14b7c95ff379bbed7638890df67dc248d`  
+  Synthetic Java variant for K4 (Claude-written; one code feature changed)
+- `data/test_material/k4_variants/V08_parenthesised_call.java`  
+  sha256 `e8554a680d63d1d5974ba397a691debfa68b2a1c987c3cb31d39654e53f8c68c`  
+  Synthetic Java variant for K4 (Claude-written; one code feature changed)
+- `data/test_material/k4_variants/V09_md5_static_helper.java`  
+  sha256 `cf9ae67ed4d72ff0a275b26cfc1e249060d355ee816f955c9f64180c19319f20`  
+  Synthetic Java variant for K4 (Claude-written; one code feature changed)
+- `data/test_material/k4_variants/V10_md5Hex_helper.java`  
+  sha256 `6e66a986fde85bf41ada68c2df5f2733e6005777c0b7997eeb67b4218b18473b`  
+  Synthetic Java variant for K4 (Claude-written; one code feature changed)
+- `data/test_material/k4_variants/V11_chained_result_assigned.java`  
+  sha256 `f3849d67acf61d14d27d369a0eb07d9a5b752d850cf66f38d1221067df210494`  
+  Synthetic Java variant for K4 (Claude-written; one code feature changed)
+- `data/test_material/k4_variants/expected_outcomes.tsv`  
+  sha256 `25ea3e95effdc971ce3375a197026d6408bb6380d28ecd8401f847b1b6ed5fa8`  
+  Expected outcome per variant, committed before any run
 - `data/test_material/same_shape_control/README.md`  
   sha256 `e02652358ceeee9f425a3fa911cdb463881ecf887f5a54400c1bed7d2312b5c1`  
   Control provenance and limits
@@ -130,7 +184,7 @@ Format of each line: path, SHA-256, role.
   sha256 `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539`  
   Synthetic 14-line control (written by Claude); not a sample
 - `docs/AI_VALIDATION_LEDGER.md`  
-  sha256 `900551f5f72acbcf60ef6468d651ae7466030531af9627c806812b10ba176348`  
+  sha256 `19e3705ddec681c76ffe10a0abc4844036675ae8f34846b2f93957121799663e`  
   What AI tools proposed, who checked it and how
 - `docs/AUDIT_RECORD_A10.md`  
   sha256 `3a6e0a4f4562b8b0831d8dfc585c5ee2f6e6303613dd79e2337c4eca8ede1c00`  
@@ -139,7 +193,7 @@ Format of each line: path, SHA-256, role.
   sha256 `8fbf74705285357abd3996bad755fda5da18421bb0ee32f691702757bb5e4a6a`  
   AI check of each citation used in the thesis draft (not my own reading)
 - `docs/CORRECTION_HISTORY.md`  
-  sha256 `ada299145fe407321ea2a24c28a1dfe841ecd89b8747b1a0a74b502ee3f8a276`  
+  sha256 `ee82dd0d180f65c499006a7cd9a4cee3b8b6705c57eb15a091a5b0dc90177165`  
   Corrections with commit hashes; pointer to earlier text
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
@@ -147,9 +201,18 @@ Format of each line: path, SHA-256, role.
 - `docs/INDEPENDENT_RUN_PACKAGE.md`  
   sha256 `1d8bbf28db99d9526e8beaa87fd08bf376c65e93a4750b233bda8cfb14dc43da`  
   Request text and record template for an independent human run (not yet done)
+- `docs/INDEPENDENT_SOURCE_PASS_PACKAGE.md`  
+  sha256 `e9a1962cffe4749ccd6f99c4f13578b895629cbdc3935643c89a93715d7f1497`  
+  Request and record template for an independent source pass (not yet done)
+- `docs/INVENTORY_FREEZE_RECORD.md`  
+  sha256 `5dbff238d007f602a9fa7e72038954ecf4eebcde529cc5583c8199af90ee0476`  
+  Unit decision, candidate hash, why not frozen, what freezing requires
 - `docs/ISSUE_LOG.md`  
-  sha256 `b2a8843cf28ea66bed21d9cf2b7a39f2703d8873266639f86c4d2250dc89832d`  
+  sha256 `4dbc77c2b8e10dee2f4821c2f1c4e87fd661b338f40bae1049da593197ed3eca`  
   Issues and risks
+- `docs/K4_RULE_ANALYSIS_2026-11-19.md`  
+  sha256 `12c3942c585da567bd9f236a17fdcd17af0f7024ed5d3a7cd406ec700730438d`  
+  Matching conditions of the rule behind K4, twelve variants, what is and is not supported, my checklist
 - `docs/PROCEDURE_NOTES.md`  
   sha256 `f95afa397619b8bf35eee1dc7f3f9101e44c4ca66148a7f626e50ec9b917068c`  
   Status, run labels, protocol rules, fallback rules
@@ -157,7 +220,7 @@ Format of each line: path, SHA-256, role.
   sha256 `fa595a23b4903e47fdebaeabd131bc7c49c3b21b2853a83c70f917911fe90429`  
   Step-by-step reproduction of checks A, B, C, D
 - `docs/RESPONSE_LOG.md`  
-  sha256 `56bd07e622b90f49f2b6066b90170cb048c9da168211308252b8b2eb398fbf7f`  
+  sha256 `0e0149db0d00bee6463ecf81b9ef40adabd3f77ffd2edf9eff8a4295b211f61a`  
   Feedback item, change, location, unresolved issue
 - `docs/SOURCE_LEDGER.md`  
   sha256 `429c9f6a772e9988d45cc5a9462544527ab88cadc12b53e7c37d38139f7381bc`  
@@ -165,6 +228,9 @@ Format of each line: path, SHA-256, role.
 - `docs/TAG_AND_MANIFEST.md`  
   sha256 `38dcffd8cee491a708bb0a3fe87af05b999a93eab776cd74b4b337766f726e22`  
   How tags and the manifest relate; manifest check; drift found and restored
+- `docs/VERIFICATION_MATRIX_2026-11-19.md`  
+  sha256 `725782981e7abf222b24be5f5f18afd5f24a0a5063d2784036180d037bb3eabb`  
+  Literature claims linked to source, AI step and my verification (not yet done)
 - `journal/2026-10-04.md`  
   sha256 `06ecf50518df0a89f4c105a29daa53345be056b51aee0349726f4caed6048041`  
   Dated working entry
@@ -189,6 +255,9 @@ Format of each line: path, SHA-256, role.
 - `journal/2026-11-14.md`  
   sha256 `839e7fc289828c287efbf3bdd4e61b9d8676956b3616581ae171e61f7c4640a7`  
   Dated working entry
+- `journal/2026-11-19.md`  
+  sha256 `0c54f42da8bad390f2ac5f93083340c0ceea6db5cd4411d0ed0c0c033d5b3635`  
+  Dated journal entry for Assignment 12
 - `journal/README.md`  
   sha256 `1b819658a7d86afe71c422e8e9c7c10dc27ed6f101dd115b152a911cccbc0359`  
   Dated working entry
@@ -201,3 +270,15 @@ Format of each line: path, SHA-256, role.
 - `sonar-project.properties`  
   sha256 `025dc6e6a69c0ecfc5f0b0e1b860e86db04c833e3822cb2b7746a4d174cf8d64`  
   SonarQube config; plugin not installed (ISSUE-01); nothing run
+- `submission/A11/CryptoBench_11_Cover_Note_Revision_Plan.docx`  
+  sha256 `0d02c8891aab05c2aa174bde8b689aaff310c4128f15b06a9fbe7544a3814ebe`  
+  (role to add)
+- `submission/A11/CryptoBench_11_Cover_Note_Revision_Plan.pdf`  
+  sha256 `a33c6d186eebe5341ca49c4aeb31668a3e45d55f927fb9746b142e1507f22566`  
+  (role to add)
+- `submission/A11/CryptoBench_11_Full_Draft_Thesis.docx`  
+  sha256 `b626904027df58897cbee396d4da2d795166e8bb36870a418eea9a77d7952400`  
+  (role to add)
+- `submission/A11/CryptoBench_11_Full_Draft_Thesis.pdf`  
+  sha256 `419443d7c67ba5e1cba4bd2b419f92b11cb2c112d2b43464fa209263e7475253`  
+  (role to add)

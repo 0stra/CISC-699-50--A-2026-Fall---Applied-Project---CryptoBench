@@ -63,6 +63,12 @@ Status words: **Validated** (checked against the source by me or by a separate p
 - Verification: I compared each result with the expected value in `docs/REPRODUCE.md`, and Claude compared the pasted output again line by line. All matched.
 - Status: an author re-run, not an independent one (ISSUE-11 stays open). The file written by the `script` command is not yet in the record; the record uses the text I copied from the terminal.
 
+## 9c. Assignment 12 work (19 November)
+
+- Claude analysed the rule file, wrote and ran twelve K4 variants (run R4), grouped my 53 agreed lines into 10 operation-level items, built the CycloneDX 1.6 JSON, validated it with check-jsonschema, wrote the K4 analysis, the inventory freeze record, the independent source-pass package, the verification matrix and the response log entries H1 to H5.
+- What I checked so far: I decided the unit (operation primary) and decided not to freeze the inventory before an independent source pass. I have not yet reviewed the item grouping, read the rule file, re-run the variants or read any cited paper. Those are listed as pending in `docs/RESPONSE_LOG.md` (H1, H2, H5) and `docs/VERIFICATION_MATRIX_2026-11-19.md`.
+- Verification Claude did: it wrote the expected outcomes for the variants before running them and committed them first (`45f6180`); it ran a negative control for the schema validation; it checked that the 10 items cover exactly the 53 agreed lines.
+
 ## 10. What I will do next
 
 I will re-read the rule YAML against lines 15 and 259 (item 2), open the cited papers (item 6) and ask for an independent human run of `docs/REPRODUCE.md`. These are planned, not done.

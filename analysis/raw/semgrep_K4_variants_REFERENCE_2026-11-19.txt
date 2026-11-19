@@ -1,0 +1,343 @@
+K4 controlled variants, run by Claude (AI assistant) in its cloud container, 19 November 2026 (REFERENCE run, label R4). Not run by the student and not independent.
+
+WHAT THIS IS. Twelve small synthetic Java files (data/test_material/k4_variants/, committed in 45f6180 together with expected_outcomes.tsv BEFORE this run) each change one code feature of a call to DigestUtils.getMd5Digest(). The pinned rule use-of-md5-digest-utils.yaml was run once on each file. This answers the Assignment 11 feedback (priority 2): document the exact matching conditions and test them with controlled examples that change one feature at a time, including the unprefixed call at DigestUtils.java line 469.
+
+ENVIRONMENT. Claude's container, Linux (uname below), Semgrep 1.186.0 (a fourth version), semgrep-rules commit 17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9. Rule file sha256 a0614baf029418dd9b298713c3328f371faa1edb0eac7cc2c4a3a99ce1a220a5 (same as in docs/REPRODUCE.md). Each file was run once.
+
+RESULT SUMMARY (expected written before the run, observed from the output below). All 12 outcomes matched the expectation.
+  V00 chained baseline: 1 finding (line 6).            expected: match
+  V01 variable form: 0.                                 expected: no match
+  V02 unprefixed call getMd5Digest().digest(): 0.       expected: no match
+  V03 fully qualified receiver (org.apache...DigestUtils): 0.  expected: no match (uncertain)
+  V04 getSha512Digest chained: 0.                       expected: no match
+  V05 chained digest() with no arguments: 1 (line 6).   expected: match
+  V06 chained update(...), not digest: 0.               expected: no match
+  V07 chained call split over three lines: 1 (line 7, the line with .getMd5Digest(), because the rule reports only the method name through focus-metavariable). expected: match
+  V08 parenthesised creation call: 1 (line 6).          expected: match (uncertain)
+  V09 DigestUtils.md5(data): 0.                         expected: no match
+  V10 DigestUtils.md5Hex(s): 0.                         expected: no match
+  V11 chained, result assigned to a variable: 1 (line 6). expected: match
+
+LIMITS. One run per file, one environment, files written by Claude, so a pass shows only that my reading of the pattern predicts this rule on these twelve shapes. It does not show how often any shape occurs in real code, and it says nothing about the other three rules or about Sonar. The student has not yet repeated these runs (planned: Docker container, PERSONAL file).
+
+RAW OUTPUT FOLLOWS (unedited; first lines are uname, rules commit and rule hash).
+=============================================================================
+semgrep 1.186.0; python Python 3.13.18
+Linux 6.18.44-fc-v653 x86_64
+17e31e11ebac99fb7dfe1cd288f7a32151b6f3f9
+a0614baf029418dd9b298713c3328f371faa1edb0eac7cc2c4a3a99ce1a220a5  java/lang/security/audit/crypto/use-of-md5-digest-utils.yaml
+=================== V00_chained_baseline.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                                                                            
+    /home/claude/cb/data/test_material/k4_variants/V00_chained_baseline.java
+    ❯❱ java.lang.security.audit.crypto.use-of-md5-digest-utils
+          ❰❰ Blocking ❱❱
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
+          therefore not suitable as a cryptographic signature. Use HMAC instead.                         
+                                                                                                         
+           ▶▶┆ Autofix ▶ getSha512Digest
+            6┆ return DigestUtils.getMd5Digest().digest(data); // TARGET
+
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 1 (1 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 1 finding.
+=================== V01_variable_form.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+=================== V02_unprefixed_call.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+=================== V03_fully_qualified_receiver.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+=================== V04_sha512_chained.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+=================== V05_chained_digest_no_args.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                                                                                  
+    /home/claude/cb/data/test_material/k4_variants/V05_chained_digest_no_args.java
+    ❯❱ java.lang.security.audit.crypto.use-of-md5-digest-utils
+          ❰❰ Blocking ❱❱
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
+          therefore not suitable as a cryptographic signature. Use HMAC instead.                         
+                                                                                                         
+           ▶▶┆ Autofix ▶ getSha512Digest
+            6┆ return DigestUtils.getMd5Digest().digest(); // TARGET
+
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 1 (1 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 1 finding.
+=================== V06_chained_update_not_digest.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+=================== V07_chained_across_lines.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                                                                                
+    /home/claude/cb/data/test_material/k4_variants/V07_chained_across_lines.java
+    ❯❱ java.lang.security.audit.crypto.use-of-md5-digest-utils
+          ❰❰ Blocking ❱❱
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
+          therefore not suitable as a cryptographic signature. Use HMAC instead.                         
+                                                                                                         
+           ▶▶┆ Autofix ▶ getSha512Digest
+            7┆ .getMd5Digest()
+
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 1 (1 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 1 finding.
+=================== V08_parenthesised_call.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                                                                              
+    /home/claude/cb/data/test_material/k4_variants/V08_parenthesised_call.java
+    ❯❱ java.lang.security.audit.crypto.use-of-md5-digest-utils
+          ❰❰ Blocking ❱❱
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
+          therefore not suitable as a cryptographic signature. Use HMAC instead.                         
+                                                                                                         
+           ▶▶┆ Autofix ▶ getSha512Digest
+            6┆ return (DigestUtils.getMd5Digest()).digest(data); // TARGET
+
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 1 (1 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 1 finding.
+=================== V09_md5_static_helper.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+=================== V10_md5Hex_helper.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 0 findings.
+=================== V11_chained_result_assigned.java
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 1 file tracked by git with 1 Code rule:
+  Scanning 1 file.
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                                                                                   
+    /home/claude/cb/data/test_material/k4_variants/V11_chained_result_assigned.java
+    ❯❱ java.lang.security.audit.crypto.use-of-md5-digest-utils
+          ❰❰ Blocking ❱❱
+          Detected MD5 hash algorithm which is considered insecure. MD5 is not collision resistant and is
+          therefore not suitable as a cryptographic signature. Use HMAC instead.                         
+                                                                                                         
+           ▶▶┆ Autofix ▶ getSha512Digest
+            6┆ byte[] h = DigestUtils.getMd5Digest().digest(data); // TARGET
+
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 1 (1 blocking)
+ • Rules run: 1
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 1 rule on 1 file: 1 finding.

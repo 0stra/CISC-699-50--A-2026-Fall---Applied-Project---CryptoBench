@@ -1,0 +1,18 @@
+CycloneDX 1.6 schema validation of the reference inventory candidate v1, run by Claude (AI assistant) in its cloud container, 19 November 2026 (REFERENCE run).
+
+FILE: data/reference_inventory/reference_inventory_v1_candidate_2026-11-19.json
+SHA-256: fa216520553f393ec294727c11e1e33a03e03a792a463f96be943b05a096f9cc  (53 occurrences in 10 items, one file: Md5Crypt.java at commit f13dd50f566c318283c4138820b15d75c26a0217)
+SCHEMA: CycloneDX specification 1.6, files bom-1.6.schema.json, spdx.schema.json and jsf-0.82.schema.json downloaded from https://raw.githubusercontent.com/CycloneDX/specification/1.6/schema/
+TOOL: check-jsonschema 0.39.0 (existing tool, pip), run with --base-uri pointing at the local copy of the schema so that the referenced spdx and jsf files resolve locally. This answers the Assignment 11 feedback to validate against the CycloneDX schema, not only JSON syntax.
+
+COMMAND 1 (the inventory):
+check-jsonschema --base-uri file:///home/claude/w/schema/bom-1.6.schema.json --schemafile bom-1.6.schema.json <inventory file>
+OUTPUT:
+ok -- validation done
+
+COMMAND 2 (negative control: the same file with components[0].cryptoProperties.assetType changed to "not-a-type"):
+OUTPUT:
+Schema validation errors were encountered.
+  /home/claude/w/bad.json::$.components[0].cryptoProperties.assetType: 'not-a-type' is not one of ['algorithm', 'certificate', 'protocol', 'related-crypto-material']
+
+READING. The inventory is valid CycloneDX 1.6 and the validator rejects an invalid value, so a pass is not an empty check. Validity says the structure is legal. It does not say the items are correct, complete or independent; that depends on the source review (see docs/INVENTORY_FREEZE_RECORD.md). The Sonar Cryptography Plugin's output version has not been confirmed, so schema 1.6 is an assumption for comparison (ISSUE-01, ISSUE-04).

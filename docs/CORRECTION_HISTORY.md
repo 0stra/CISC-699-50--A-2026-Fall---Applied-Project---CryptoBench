@@ -21,6 +21,8 @@ Correction history for the Assignment 10 release candidate, written 5 November 2
 
 - **14 November, evening.** Fresh-environment re-run added (`analysis/raw/semgrep_checks_A_to_F_PERSONAL_FRESHENV_2026-11-14.txt`). Its first attempt at checks A to F failed because the paste-ready commands Claude wrote were faulty (a missing line break merged two blocks, and a bash-only substitution was run in sh). The failed output is kept in the file and is stated as invalid; the second attempt, with corrected commands, is the result. No claim changed.
 
+- **19 November.** Claims register version 4 added (`analysis/results/claims_register_2026-11-19.md`); version 3 is unchanged. K4 and K9 and limits L2, L4, L5, L8 and L9 changed after new evidence (P8, R4, rule analysis, schema validation). K4 stays provisional. The thesis for Assignment 12 is built from version 4.
+
 ## Known open items
 
 - `own_pass_2.md` has no "Help received:" line and its "Consulted" line says "nothing". `own_pass_agreed.md` records that Claude printed the numbered file for me, flagged wrong line numbers in my first draft of pass 2, and showed me disputed lines. I have not edited my pass 2 header. The header and the agreed-list note disagree; the agreed-list note is the accurate one. I will correct the header and record the correction here.

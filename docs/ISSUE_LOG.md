@@ -1,6 +1,6 @@
 # ISSUE_LOG.md
 
-CryptoBench issue and risk log. Updated 22 October 2026 (Hard Stop 3, thesis version 2), revised 31 October 2026 (ISSUE-09 progress), revised 4 November 2026 (ISSUE-08 control and ISSUE-09 pass 2, Assignment 10), revised 14 November 2026 (ISSUE-11 to ISSUE-13, Assignment 11). Belongs at `docs/ISSUE_LOG.md`. Owner of every item: Nitin (individual project).
+CryptoBench issue and risk log. Updated 22 October 2026 (Hard Stop 3, thesis version 2), revised 31 October 2026 (ISSUE-09 progress), revised 4 November 2026 (ISSUE-08 control and ISSUE-09 pass 2, Assignment 10), revised 14 November 2026 (ISSUE-11 to ISSUE-13, Assignment 11), revised 19 November 2026 (ISSUE-14 and ISSUE-09 update, Assignment 12). Belongs at `docs/ISSUE_LOG.md`. Owner of every item: Nitin (individual project).
 
 ## Issues
 
@@ -17,6 +17,8 @@ CryptoBench issue and risk log. Updated 22 October 2026 (Hard Stop 3, thesis ver
 - ISSUE-11 (new, 14 November), no independent human run of the reproduction steps. Severity: medium to high. State: open. Only a fresh AI agent (low independence), my own self-checks and, since 14 November, my own fresh-environment re-run in Docker (P8, `analysis/raw/semgrep_checks_A_to_F_PERSONAL_FRESHENV_2026-11-14.txt`; all results matched, Semgrep 1.185.0) exist. P8 is not independent (same person, commands written by Claude) and does not close the issue. Request and record template: `docs/INDEPENDENT_RUN_PACKAGE.md`. Closed only when a person other than me has run the steps and the unedited record is in `analysis/raw/`.
 - ISSUE-12 (new, 14 November), citations not yet read by me. Severity: medium. State: partly mitigated. Claude checked every citation used in the thesis draft against source pages (`docs/CITATION_CHECK_2026-11-14.md`) and four statements in my earlier work could not be confirmed and are not used. I have not opened the papers. The year, authors and DOI of Ami et al. (TOPS) are unconfirmed.
 - ISSUE-13 (new, 14 November), branch tip drifted from the tagged manifest. Severity: medium. State: closed on 14 November. Nine files edited after `a10-rc6` were restored to the tagged text; rules for the tag and manifest relationship are in `docs/TAG_AND_MANIFEST.md`.
+- ISSUE-14 (new, 19 November), the K4 rule analysis and variant results are not yet checked by me. Severity: medium. State: open. Claude analysed the rule and ran twelve variants (R4); I have not read the rule file or re-run the variants (`docs/K4_RULE_ANALYSIS_2026-11-19.md`, checklist). K4 stays provisional until I do. Closed when my own reading and my own `PERSONAL` re-run are on record.
+- ISSUE-09 update (19 November): unit of measurement decided (operation primary, lines supporting). A 10-item candidate inventory exists, validated against CycloneDX 1.6 and hashed, but it is not frozen, not independent, and its grouping is not yet reviewed by me (`docs/INVENTORY_FREEZE_RECORD.md`). ISSUE-09 stays narrowed, not closed; it closes when an independent source pass is compared and the final file is hashed.
 
 ## Risks carried forward
 

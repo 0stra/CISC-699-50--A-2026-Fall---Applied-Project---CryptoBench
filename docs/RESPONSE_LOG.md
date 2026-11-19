@@ -68,3 +68,44 @@ The feedback said the release makes a limited procedural finding examinable and 
 - **Change made.** This log is the record: F1 to F4 answer the Assignment 09 feedback; G1 to G4 answer the Assignment 10 feedback. The first set of Assignment 10 priorities (items 1 to 6) was answered by `docs/SOURCE_LEDGER.md`, `docs/AI_VALIDATION_LEDGER.md`, `docs/CORRECTION_HISTORY.md`, claims register v3, Figure 3 and the README status section.
 - **Location.** This file.
 - **Unresolved.** No supervisor feedback is on record for either set. Nothing here is supervisor-approved.
+
+---
+
+# Response to the Assignment 11 feedback (Assignment 12, 19 November 2026)
+
+Dr. Shaalan's Assignment 11 feedback has five priorities, H1 to H5 below. Each entry gives the disposition (completed, reasoned disagreement, or pending with a specific action), the change made, where the evidence is, and what is unresolved. Nothing here is supervisor-approved; there is no reply from Dr. Shaalan on the inventory or the narrower framing.
+
+## H1. "Establish a trustworthy reference inventory" (sections 3.3, 4.4, 5.5)
+
+- **Disposition.** Partly completed; the freeze is pending with a specific action.
+- **Change made.** (1) Unit of measurement decided on 19 November: the operation is the primary unit, lines are supporting evidence. (2) The 53 agreed lines were grouped into 10 items, each with asset type, algorithm or material, file, line locations and a one-sentence reason (`data/reference_inventory/reference_inventory_v1_candidate_2026-11-19.json`). Claude wrote the grouping; I have not yet reviewed it. (3) The file was validated against the CycloneDX 1.6 schema with check-jsonschema, with a negative control (`analysis/raw/cyclonedx_schema_validation_REFERENCE_2026-11-19.txt`). (4) The file was hashed (SHA-256 `fa216520553f393ec294727c11e1e33a03e03a792a463f96be943b05a096f9cc`) and recorded as a candidate, not frozen (`docs/INVENTORY_FREEZE_RECORD.md`). (5) A request and template for an independent source pass was written (`docs/INDEPENDENT_SOURCE_PASS_PACKAGE.md`).
+- **Location.** `docs/INVENTORY_FREEZE_RECORD.md`; thesis sections 3.3, 4.4 and 5.5; ISSUE-09.
+- **Unresolved.** No second person has inspected the source. I have not yet reviewed the item grouping. Dr. Shaalan has not confirmed the unit. The inventory is not frozen, and no recall or precision is calculated. Planned: I review the 10 items (by 21 November); the independent pass is requested from the person who agreed to run the reproduction steps; the freeze happens only after that, or the limitation stays in the thesis.
+
+## H2. "Strengthen the interpretation of zero findings" (sections 4.3, 5.2)
+
+- **Disposition.** Partly completed; my own reading and re-run are pending with a specific action.
+- **Change made.** The pinned rule `use-of-md5-digest-utils.yaml` was analysed and its exact matching conditions written down (`docs/K4_RULE_ANALYSIS_2026-11-19.md`). Twelve synthetic variants that change one feature at a time were written with their expected outcomes committed first (`data/test_material/k4_variants/`, commit `45f6180`), then run once by Claude (Semgrep 1.186.0); all twelve matched the expectation, including the unprefixed call (V02, as at `DigestUtils.java` line 469) and a fully qualified receiver (V03). Claims register version 4 splits K4 into three conclusions (the scanner ran; a particular pattern did not match; the inventory holds an item that was not reported) and keeps K4 provisional (`analysis/results/claims_register_2026-11-19.md`). The thesis now separates the three conclusions.
+- **Location.** `analysis/raw/semgrep_K4_variants_REFERENCE_2026-11-19.txt`; the register; thesis sections 4.3 and 5.2.
+- **Unresolved.** I have not read the rule file myself and have not re-run the variants; both are my checklist in the K4 analysis. K4 moves to "survived with limits" only after that. The third conclusion depends on the unfrozen inventory.
+
+## H3. "Demonstrate independent reproducibility" (sections 3.5, 3.6, 3.8)
+
+- **Disposition.** Pending with a specific action.
+- **Change made.** The feedback agrees the 14 November Docker run is repeatability, not independence; the thesis says the same. The original `session_transcript.txt` of that run is to be attached (I have it). A person has agreed to follow `docs/REPRODUCE.md` using `docs/INDEPENDENT_RUN_PACKAGE.md`.
+- **Location.** `analysis/raw/semgrep_checks_A_to_F_PERSONAL_FRESHENV_2026-11-14.txt`; `docs/INDEPENDENT_RUN_PACKAGE.md`; thesis section 3.5, 3.6.
+- **Unresolved.** The independent run has not been done. Planned: send the package by 20 November and ask for the output by 22 November; file it unedited as a `REVIEWER` record. If it does not arrive, the thesis says so.
+
+## H4. "Align the findings with the thesis contribution" (sections 1.2, 4, 5, 7)
+
+- **Disposition.** Completed for the framing; scoring is not possible and stays pending.
+- **Change made.** The thesis question, contribution and conclusion now frame the completed work as a Semgrep feasibility study, as the feedback allows, subject to Dr. Shaalan's agreement. I did not manufacture results for Sonar or TLS. The thesis states how coverage, false positives and effort will be counted once an inventory is frozen (one declared unit; true positives, false positives and false negatives; undefined measures reported as "not estimable"; effort recorded by phase: setup, scanning, review, reconciliation), and that none is calculated now.
+- **Location.** Thesis sections 1.2, 5, 7; deck slides on contribution and limits.
+- **Unresolved.** Dr. Shaalan has not agreed to the narrower framing; I have asked for his view in the Week 12 worksheet and will ask again by email.
+
+## H5. "Complete human verification of AI-supported material" (sections 2, 4.3, References, Appendix B)
+
+- **Disposition.** Pending with a specific action.
+- **Change made.** A matrix links each important literature claim to its source, the AI step, what the source page showed, and my verification action (`docs/VERIFICATION_MATRIX_2026-11-19.md`). Every source is still marked † or ‡; I have not read any of them.
+- **Location.** `docs/VERIFICATION_MATRIX_2026-11-19.md`; `docs/CITATION_CHECK_2026-11-14.md`; thesis reference list.
+- **Unresolved.** All reading. Planned: 21 November, starting with Näther and Hirsch, Ami et al. (year, authors and DOI of the TOPS paper) and Amann et al. Figure 4 and the register are updated when a claim changes.

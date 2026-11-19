@@ -1,0 +1,768 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:a11d7fa4-f7ad-4ad8-8ccb-a9b8c11a4458",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-19T18:00:00-05:00",
+    "authors": [
+      {
+        "name": "Nitin Prakash"
+      }
+    ],
+    "component": {
+      "type": "file",
+      "name": "Md5Crypt.java",
+      "version": "f13dd50f566c318283c4138820b15d75c26a0217",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fa779456b25d2d36a6c464e200e106c2fa8e94a45dc608844ceb04407ea90747"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/apache/commons-codec/blob/f13dd50f566c318283c4138820b15d75c26a0217/src/main/java/org/apache/commons/codec/digest/Md5Crypt.java"
+        }
+      ]
+    },
+    "properties": [
+      {
+        "name": "cryptobench:inventory-version",
+        "value": "v1 candidate, 19 November 2026"
+      },
+      {
+        "name": "cryptobench:provenance",
+        "value": "The 53 lines are the agreed list in own_pass/agreed_lines.txt, which Nitin Prakash reconciled from his own two passes (own_pass_1.md, own_pass_2.md) under his rules 1A, 2A and 3B. Claude grouped the 53 lines into the 10 items below and wrote the item descriptions on 19 November 2026; Nitin has not yet reviewed the grouping."
+      },
+      {
+        "name": "cryptobench:independence",
+        "value": "NOT independent. Pass 1 followed Claude's provisional list; pass 2 and the agreed list were reconciled by the author's own rules; no second person has inspected the source. See docs/INVENTORY_FREEZE_RECORD.md."
+      },
+      {
+        "name": "cryptobench:unit",
+        "value": "Primary unit: operation (one item per CB-INV id). Supporting unit: source line. 10 items cover 53 lines. The earlier provisional list of 9 entries (11 line numbers) is a different, AI-drafted list and is not this inventory."
+      },
+      {
+        "name": "cryptobench:scope",
+        "value": "Md5Crypt.java only (pilot, one file). Source-visible cryptographic operations; no endpoint, protocol-transport or key-establishment items."
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "CB-INV-01",
+      "name": "MD5 digest for the main hash",
+      "description": "Creates the main MD5 message digest (line 259, assigned to a variable) and feeds it password, prefix, salt and bytes of the alternate digest until it is finalised at 306.",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "hash",
+          "cryptoFunctions": [
+            "digest"
+          ],
+          "executionEnvironment": "software-plain-ram",
+          "implementationPlatform": "generic"
+        },
+        "oid": "1.2.840.113549.2.5"
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "Md5Crypt.java",
+            "line": 259,
+            "additionalContext": "final MessageDigest messageDigestMd5 = DigestUtils.getMd5Digest();"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 263,
+            "additionalContext": "messageDigestMd5.update(keyBytes);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 267,
+            "additionalContext": "messageDigestMd5.update(prefix.getBytes(StandardCharsets.UTF_8));"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 271,
+            "additionalContext": "messageDigestMd5.update(saltBytes);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 282,
+            "additionalContext": "messageDigestMd5.update(finalb, 0, Math.min(ii, 16));"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 283,
+            "additionalContext": "ii -= 16;"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 296,
+            "additionalContext": "messageDigestMd5.update(finalb[j]);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 298,
+            "additionalContext": "messageDigestMd5.update(keyBytes[j]);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 306,
+            "additionalContext": "finalb = messageDigestMd5.digest();"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "cryptobench:id",
+          "value": "CB-INV-01"
+        },
+        {
+          "name": "cryptobench:unit",
+          "value": "operation (item); line numbers are supporting evidence"
+        },
+        {
+          "name": "cryptobench:lines",
+          "value": "259, 263, 267, 271, 282, 283, 296, 298, 306"
+        },
+        {
+          "name": "cryptobench:in-passes",
+          "value": "in both passes"
+        },
+        {
+          "name": "cryptobench:semgrep-md5-rule-target",
+          "value": "yes, creation line(s) 259, 275, 312 only"
+        },
+        {
+          "name": "cryptobench:observability",
+          "value": "source-visible"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "CB-INV-02",
+      "name": "MD5 digest for the alternate sum (password, salt, password)",
+      "description": "Creates a second MD5 digest (line 275, assigned to a variable) from password, salt and password again.",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "hash",
+          "cryptoFunctions": [
+            "digest"
+          ],
+          "executionEnvironment": "software-plain-ram",
+          "implementationPlatform": "generic"
+        },
+        "oid": "1.2.840.113549.2.5"
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "Md5Crypt.java",
+            "line": 275,
+            "additionalContext": "MessageDigest altMessageDigestMd5 = DigestUtils.getMd5Digest();"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 276,
+            "additionalContext": "altMessageDigestMd5.update(keyBytes);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 277,
+            "additionalContext": "altMessageDigestMd5.update(saltBytes);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 278,
+            "additionalContext": "altMessageDigestMd5.update(keyBytes);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 279,
+            "additionalContext": "byte[] finalb = altMessageDigestMd5.digest();"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "cryptobench:id",
+          "value": "CB-INV-02"
+        },
+        {
+          "name": "cryptobench:unit",
+          "value": "operation (item); line numbers are supporting evidence"
+        },
+        {
+          "name": "cryptobench:lines",
+          "value": "275, 276, 277, 278, 279"
+        },
+        {
+          "name": "cryptobench:in-passes",
+          "value": "in both passes"
+        },
+        {
+          "name": "cryptobench:semgrep-md5-rule-target",
+          "value": "yes, creation line(s) 259, 275, 312 only"
+        },
+        {
+          "name": "cryptobench:observability",
+          "value": "source-visible"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "CB-INV-03",
+      "name": "MD5 digest created and used in each of 1,000 rounds",
+      "description": "Loop starting at 311; a fresh MD5 digest is created at 312 each round and updated with password, salt and the previous digest.",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "hash",
+          "cryptoFunctions": [
+            "digest"
+          ],
+          "executionEnvironment": "software-plain-ram",
+          "implementationPlatform": "generic"
+        },
+        "oid": "1.2.840.113549.2.5"
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "Md5Crypt.java",
+            "line": 311,
+            "additionalContext": "for (int i = 0; i < ROUNDS; i++) {"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 312,
+            "additionalContext": "altMessageDigestMd5 = DigestUtils.getMd5Digest();"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 314,
+            "additionalContext": "altMessageDigestMd5.update(keyBytes);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 316,
+            "additionalContext": "altMessageDigestMd5.update(finalb, 0, BLOCKSIZE);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 318,
+            "additionalContext": "if (i % 3 != 0) {"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 319,
+            "additionalContext": "altMessageDigestMd5.update(saltBytes);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 321,
+            "additionalContext": "if (i % 7 != 0) {"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 322,
+            "additionalContext": "altMessageDigestMd5.update(keyBytes);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 325,
+            "additionalContext": "altMessageDigestMd5.update(finalb, 0, BLOCKSIZE);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 327,
+            "additionalContext": "altMessageDigestMd5.update(keyBytes);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 329,
+            "additionalContext": "finalb = altMessageDigestMd5.digest();"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "cryptobench:id",
+          "value": "CB-INV-03"
+        },
+        {
+          "name": "cryptobench:unit",
+          "value": "operation (item); line numbers are supporting evidence"
+        },
+        {
+          "name": "cryptobench:lines",
+          "value": "311, 312, 314, 316, 318, 319, 321, 322, 325, 327, 329"
+        },
+        {
+          "name": "cryptobench:in-passes",
+          "value": "in both passes"
+        },
+        {
+          "name": "cryptobench:semgrep-md5-rule-target",
+          "value": "yes, creation line(s) 259, 275, 312 only"
+        },
+        {
+          "name": "cryptobench:observability",
+          "value": "source-visible"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "CB-INV-04",
+      "name": "MD5-based crypt password-hash scheme ($1$ and $apr1$) and its parameters",
+      "description": "Format identifiers (58, 64), the 16-byte block size (61), the fixed 1,000 rounds (67) and the APR1 entry points that generate a salt (81, 98).",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "kdf",
+          "cryptoFunctions": [
+            "keyderive"
+          ],
+          "executionEnvironment": "software-plain-ram",
+          "implementationPlatform": "generic"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "Md5Crypt.java",
+            "line": 58,
+            "additionalContext": "static final String APR1_PREFIX = \"$apr1$\";"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 61,
+            "additionalContext": "private static final int BLOCKSIZE = 16;"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 64,
+            "additionalContext": "static final String MD5_PREFIX = \"$1$\";"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 67,
+            "additionalContext": "private static final int ROUNDS = 1000;"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 81,
+            "additionalContext": "return apr1Crypt(keyBytes, APR1_PREFIX + B64.getRandomSalt(8));"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 98,
+            "additionalContext": "return apr1Crypt(keyBytes, APR1_PREFIX + B64.getRandomSalt(8, random));"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "cryptobench:id",
+          "value": "CB-INV-04"
+        },
+        {
+          "name": "cryptobench:unit",
+          "value": "operation (item); line numbers are supporting evidence"
+        },
+        {
+          "name": "cryptobench:lines",
+          "value": "58, 61, 64, 67, 81, 98"
+        },
+        {
+          "name": "cryptobench:in-passes",
+          "value": "58 and 64 in one pass only (Rule 3); the rest in both"
+        },
+        {
+          "name": "cryptobench:semgrep-md5-rule-target",
+          "value": "no"
+        },
+        {
+          "name": "cryptobench:observability",
+          "value": "source-visible"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "CB-INV-05",
+      "name": "Random salt generation",
+      "description": "Line 188 calls getRandomSalt(); line 245 generates a random 8-character salt when none is supplied.",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "salt"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "Md5Crypt.java",
+            "line": 188,
+            "additionalContext": "return md5Crypt(keyBytes, MD5_PREFIX + B64.getRandomSalt(8, random));"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 245,
+            "additionalContext": "saltString = B64.getRandomSalt(8, random);"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "cryptobench:id",
+          "value": "CB-INV-05"
+        },
+        {
+          "name": "cryptobench:unit",
+          "value": "operation (item); line numbers are supporting evidence"
+        },
+        {
+          "name": "cryptobench:lines",
+          "value": "188, 245"
+        },
+        {
+          "name": "cryptobench:in-passes",
+          "value": "188 in one pass only; 245 in both"
+        },
+        {
+          "name": "cryptobench:semgrep-md5-rule-target",
+          "value": "no"
+        },
+        {
+          "name": "cryptobench:observability",
+          "value": "source-visible"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "CB-INV-06",
+      "name": "SecureRandom instance used for the default salt source",
+      "description": "Creates a java.security.SecureRandom instance.",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "drbg",
+          "cryptoFunctions": [
+            "generate"
+          ],
+          "executionEnvironment": "software-plain-ram",
+          "implementationPlatform": "generic"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "Md5Crypt.java",
+            "line": 222,
+            "additionalContext": "return md5Crypt(keyBytes, salt, prefix, new SecureRandom());"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "cryptobench:id",
+          "value": "CB-INV-06"
+        },
+        {
+          "name": "cryptobench:unit",
+          "value": "operation (item); line numbers are supporting evidence"
+        },
+        {
+          "name": "cryptobench:lines",
+          "value": "222"
+        },
+        {
+          "name": "cryptobench:in-passes",
+          "value": "one pass only"
+        },
+        {
+          "name": "cryptobench:semgrep-md5-rule-target",
+          "value": "no"
+        },
+        {
+          "name": "cryptobench:observability",
+          "value": "source-visible"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "CB-INV-07",
+      "name": "Salt validation and extraction",
+      "description": "The salt pattern (251) and the checks and conversions that decide which salt bytes go into the hash (252, 253, 254, 256, 258).",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "salt"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "Md5Crypt.java",
+            "line": 251,
+            "additionalContext": "final Pattern p = Pattern.compile(\"^\" + prefix.replace(\"$\", \"\\\\$\") + \"([\\\\.\\\\/a-zA-Z0-9]{1,8}).*\");"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 252,
+            "additionalContext": "final Matcher m = p.matcher(salt);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 253,
+            "additionalContext": "if (!m.find()) {"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 254,
+            "additionalContext": "throw new IllegalArgumentException(\"Invalid salt value: \" + salt);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 256,
+            "additionalContext": "saltString = m.group(1);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 258,
+            "additionalContext": "final byte[] saltBytes = saltString.getBytes(StandardCharsets.UTF_8);"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "cryptobench:id",
+          "value": "CB-INV-07"
+        },
+        {
+          "name": "cryptobench:unit",
+          "value": "operation (item); line numbers are supporting evidence"
+        },
+        {
+          "name": "cryptobench:lines",
+          "value": "251, 252, 253, 254, 256, 258"
+        },
+        {
+          "name": "cryptobench:in-passes",
+          "value": "251 in both passes; 252 to 258 in one pass only (Rule 3)"
+        },
+        {
+          "name": "cryptobench:semgrep-md5-rule-target",
+          "value": "no"
+        },
+        {
+          "name": "cryptobench:observability",
+          "value": "source-visible"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "CB-INV-08",
+      "name": "Password converted to bytes",
+      "description": "Converts the password string to UTF-8 bytes.",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "password"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "Md5Crypt.java",
+            "line": 150,
+            "additionalContext": "return apr1Crypt(keyBytes.getBytes(StandardCharsets.UTF_8), salt);"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "cryptobench:id",
+          "value": "CB-INV-08"
+        },
+        {
+          "name": "cryptobench:unit",
+          "value": "operation (item); line numbers are supporting evidence"
+        },
+        {
+          "name": "cryptobench:lines",
+          "value": "150"
+        },
+        {
+          "name": "cryptobench:in-passes",
+          "value": "one pass only"
+        },
+        {
+          "name": "cryptobench:semgrep-md5-rule-target",
+          "value": "no"
+        },
+        {
+          "name": "cryptobench:observability",
+          "value": "source-visible"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "CB-INV-09",
+      "name": "Final digest encoded to crypt Base64 output",
+      "description": "Encodes the final digest bytes into the crypt Base64 form.",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "digest"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "Md5Crypt.java",
+            "line": 334,
+            "additionalContext": "B64.b64from24bit(finalb[0], finalb[6], finalb[12], 4, passwd);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 335,
+            "additionalContext": "B64.b64from24bit(finalb[1], finalb[7], finalb[13], 4, passwd);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 336,
+            "additionalContext": "B64.b64from24bit(finalb[2], finalb[8], finalb[14], 4, passwd);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 337,
+            "additionalContext": "B64.b64from24bit(finalb[3], finalb[9], finalb[15], 4, passwd);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 338,
+            "additionalContext": "B64.b64from24bit(finalb[4], finalb[10], finalb[5], 4, passwd);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 339,
+            "additionalContext": "B64.b64from24bit((byte) 0, (byte) 0, finalb[11], 2, passwd);"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "cryptobench:id",
+          "value": "CB-INV-09"
+        },
+        {
+          "name": "cryptobench:unit",
+          "value": "operation (item); line numbers are supporting evidence"
+        },
+        {
+          "name": "cryptobench:lines",
+          "value": "334, 335, 336, 337, 338, 339"
+        },
+        {
+          "name": "cryptobench:in-passes",
+          "value": "in both passes"
+        },
+        {
+          "name": "cryptobench:semgrep-md5-rule-target",
+          "value": "no"
+        },
+        {
+          "name": "cryptobench:observability",
+          "value": "source-visible"
+        }
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "CB-INV-10",
+      "name": "Zeroising of intermediate digest, password, salt and final digest bytes",
+      "description": "Clears intermediate digest bytes (288) and, at the end, resets the digest and overwrites password, salt and final digest bytes with zeros (344 to 348).",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "other"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "Md5Crypt.java",
+            "line": 288,
+            "additionalContext": "Arrays.fill(finalb, (byte) 0);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 344,
+            "additionalContext": "messageDigestMd5.reset();"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 345,
+            "additionalContext": "altMessageDigestMd5.reset();"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 346,
+            "additionalContext": "Arrays.fill(keyBytes, (byte) 0);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 347,
+            "additionalContext": "Arrays.fill(saltBytes, (byte) 0);"
+          },
+          {
+            "location": "Md5Crypt.java",
+            "line": 348,
+            "additionalContext": "Arrays.fill(finalb, (byte) 0);"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "cryptobench:id",
+          "value": "CB-INV-10"
+        },
+        {
+          "name": "cryptobench:unit",
+          "value": "operation (item); line numbers are supporting evidence"
+        },
+        {
+          "name": "cryptobench:lines",
+          "value": "288, 344, 345, 346, 347, 348"
+        },
+        {
+          "name": "cryptobench:in-passes",
+          "value": "in both passes"
+        },
+        {
+          "name": "cryptobench:semgrep-md5-rule-target",
+          "value": "no"
+        },
+        {
+          "name": "cryptobench:observability",
+          "value": "source-visible"
+        }
+      ]
+    }
+  ]
+}
