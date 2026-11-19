@@ -78,3 +78,8 @@ I will re-read the rule YAML against lines 15 and 259 (item 2), open the cited p
 - **AI step.** Claude drafted the revised thesis text, the deck and its speaker notes, the response note, the speaking outline, the walkthrough script, the cross-check record and figure 10.
 - **Claim or item affected.** Every number and claim in them comes from the claims register version 4 and the raw records; none is new evidence apart from the items in §9c.
 - **Student verification.** Not yet done. I will read each file before submitting and repeat the cross-check in `docs/CROSSCHECK_A12.md` on the final files. Until then the verification status of these files is “AI-checked only”.
+
+## 9e. Independent records and draft comparison (19 November 2026 evening)
+
+- **AI step.** Claude filed the helper’s run output and source-pass list unedited, wrote the review record, and drafted a comparison by operation with the candidate inventory.
+- **Student verification.** Not yet done: I have not reviewed the comparison. The helper’s statements about no AI use and no help were relayed to Claude by me and have not been verified by anyone else.

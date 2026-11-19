@@ -47,3 +47,7 @@ No recall or precision is calculated from this inventory before step 5. If step 
 - CB-INV-10 zeroising of secret bytes (6 lines).
 
 Only the three creation lines 259, 275 and 312 are the target of the Semgrep MD5 rules. The other items show how much of the file's cryptographic behaviour a call-pattern rule does not address by design; they are not misses by Semgrep.
+
+## Update, 19 November 2026 evening
+
+An independent source-pass list (Gaurav Sharma) was received and compared by operation in draft (`data/reference_inventory/independent_pass_comparison_2026-11-19.md`). I have not reviewed the comparison. The candidate is unchanged and its hash is unchanged. It is still not frozen: I must review the comparison, decide whether wrapper-level salt and prefix operations belong in the inventory, validate again if the file changes, and write the final hash here.

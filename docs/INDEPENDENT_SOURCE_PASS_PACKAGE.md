@@ -1,6 +1,6 @@
 # INDEPENDENT_SOURCE_PASS_PACKAGE.md
 
-Request and record template for an independent source pass over `Md5Crypt.java`. Prepared 19 November 2026 for Assignment 12. **No independent source pass has been done as of this date.** This file is a request, not a record of one.
+Request and record template for an independent source pass over `Md5Crypt.java`. Prepared 19 November 2026 for Assignment 12. **No independent source pass had been done as of this date. Update 19 November evening: one list was received; see `docs/INDEPENDENT_REVIEW_RECORD_2026-11-19.md`.** This file is a request, not a record of one.
 
 ## Who
 

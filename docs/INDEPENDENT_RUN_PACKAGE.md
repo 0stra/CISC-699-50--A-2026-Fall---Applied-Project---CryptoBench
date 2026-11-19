@@ -1,6 +1,6 @@
 # INDEPENDENT_RUN_PACKAGE.md
 
-Request and record template for an independent human run of `docs/REPRODUCE.md`. Prepared 14 November 2026. **No independent human run has been done as of this date.** **Update, 14 November, evening:** I repeated checks A to F myself in a fresh Docker container (`analysis/raw/semgrep_checks_A_to_F_PERSONAL_FRESHENV_2026-11-14.txt`). That is an author re-run, not an independent run; this package is still needed. This file exists so that the run can be done and recorded when a person is available; it is not a record of one.
+Request and record template for an independent human run of `docs/REPRODUCE.md`. Prepared 14 November 2026. **No independent human run had been done as of this date. Update 19 November evening: one was received; see `docs/INDEPENDENT_REVIEW_RECORD_2026-11-19.md`.** **Update, 14 November, evening:** I repeated checks A to F myself in a fresh Docker container (`analysis/raw/semgrep_checks_A_to_F_PERSONAL_FRESHENV_2026-11-14.txt`). That is an author re-run, not an independent run; this package is still needed. This file exists so that the run can be done and recorded when a person is available; it is not a record of one.
 
 ## Who can run it
 

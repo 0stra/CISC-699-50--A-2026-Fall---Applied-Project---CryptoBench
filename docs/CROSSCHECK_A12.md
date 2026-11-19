@@ -4,7 +4,7 @@ Date: 19 November 2026. Compared: the Assignment 12 thesis (near-final draft), t
 
 ## How evidence is identified
 
-Appendix A of the thesis gives every evidence file a stable identifier, EV-01 to EV-47. The deck and the response note use the same identifiers. An identifier names a file path in this repository, and the path does not change between versions. A file that changes content keeps its identifier and gets a new commit hash. The file list is fixed at the Assignment 12 record commit given in the thesis.
+Appendix A of the thesis gives every evidence file a stable identifier, EV-01 to EV-51. The deck and the response note use the same identifiers. An identifier names a file path in this repository, and the path does not change between versions. A file that changes content keeps its identifier and gets a new commit hash. The file list is fixed at the Assignment 12 record commit given in the thesis.
 
 ## Numbers and facts
 
@@ -15,6 +15,12 @@ Appendix A of the thesis gives every evidence file a stable identifier, EV-01 to
 - **Pinned inputs.** semgrep-rules commit 17e31e11…, commons-codec commit f13dd50f…, Md5Crypt.java 361 lines with SHA-256 fa779456…, StringUtils.java 425 lines. Thesis §3.4, deck slide 4, `docs/ENVIRONMENT.md`. Matches.
 - **Semgrep versions.** 1.99.0 (laptop), 1.181.0 (cloud container), 1.185.0 (my fresh container, 14 November), 1.186.0 (variants, 19 November). Thesis §3.4, deck slide 5. Matches.
 - **Literature numbers** (Crypsy F1 0.75, 0.86, 0.95; Cryptoscope 92% and 11 of 15). Thesis §2.3 and §2.4, deck slide 3. These match what Claude recorded in `docs/CITATION_CHECK_2026-11-14.md`. I have not read the papers, so this is consistency only, not verification (marks † and ‡).
+
+## Added after Gaurav’s run (19 November evening)
+
+- His output (EV-48) was compared with the expected values in `docs/REPRODUCE.md`: rules commit, seven hashes, counts for checks A to F and `getInstance` 0. All agree, and the thesis (§3.6, §4.1), the note, the outline and the deck state the same count (33 of 33 matched). His run is described the same way everywhere: one person other than me, helper script, statements unverified.
+- His source-pass list (EV-49) is cited as received, compared in draft by operation (EV-51), not reviewed by me. No document says the inventory is frozen or independent.
+- Figure 1 (gate status) was redrawn: the independent re-run row now reads “DONE, ONE PERSON”.
 
 ## Claims and status
 

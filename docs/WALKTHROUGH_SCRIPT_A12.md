@@ -4,7 +4,7 @@ Target length 8 minutes (suggested range 6 to 10). Read in your own words. Scree
 
 **0:00 to 0:45. What this package is.** “This is Assignment 12 for CryptoBench. It is a feasibility pilot. Only Semgrep ran, on one file. The comparison with the Sonar plugin and a TLS scanner has not been run, and the thesis says that in the abstract.” Show the title page and abstract.
 
-**0:45 to 2:15. What changed since the Assignment 11 feedback.** Open `docs/RESPONSE_LOG.md` entries H1 to H5. “Dr. Shaalan gave five priorities. For each I record the change, where the evidence is and what is unresolved.” Say the dispositions: H1 partly completed, the inventory is a candidate and not frozen; H2 partly completed, K4 stays provisional; H3, the independent run is pending; H4, the framing is narrowed, subject to his agreement; H5, my reading of the sources is pending.
+**0:45 to 2:15. What changed since the Assignment 11 feedback.** Open `docs/RESPONSE_LOG.md` entries H1 to H5. “Dr. Shaalan gave five priorities. For each I record the change, where the evidence is and what is unresolved.” Say the dispositions: H1 partly completed, the inventory is a candidate and not frozen; H2 partly completed, K4 stays provisional; H3, one person other than me reproduced checks A to F (33 of 33 matched), with limits I will name; H4, the framing is narrowed, subject to his agreement; H5, my reading of the sources is pending.
 
 **2:15 to 4:15. Claim to thesis to evidence.** Take K4. Open thesis §4.3, then Figure 3, then evidence EV-17 (raw output) and EV-19 (expected outcomes committed before the run, commit 45f6180). “Twelve variants, twelve outcomes as predicted. The rule needs the chained call; the Md5Crypt calls are stored in a variable.” Then name the three conclusions and say the third is not established because the inventory is not frozen. Open `docs/K4_RULE_ANALYSIS_2026-11-19.md` and say that Claude wrote it and ran the variants and that I have not yet read the rule or re-run them.
 
@@ -12,6 +12,8 @@ Target length 8 minutes (suggested range 6 to 10). Read in your own words. Scree
 
 **5:15 to 6:30. The deck narrative.** Show the deck slides 2 to 9 quickly, naming the problem, the gap, the questions, the method, the evidence and the contribution. Say that the deck makes no claim stronger than the thesis, and show `docs/CROSSCHECK_A12.md`.
 
-**6:30 to 7:30. Remaining work.** Read the list in the response note: my own reading of the rule and re-run of the variants (20 November), review of the grouping (21 November), the independent run and source pass (requested, due 22 November), reading the papers, agreeing the framing with Dr. Shaalan, freezing only after the independent pass.
+**6:30 to 7:30. Remaining work.** Read the list in the response note: my own reading of the rule and re-run of the variants (20 November), review of the grouping (21 November), the points to clear with Gaurav (placeholder initials, the order of his two parts, his missing hesitation notes), reading the papers, agreeing the framing with Dr. Shaalan, freezing only after the independent pass.
+
+****Add to 4:15 to 5:15 (the inventory).** “An independent list of operations came back from Gaurav. His operations mostly match the candidate items. His list has wrapper-level salt and prefix steps the candidate lacks, and his line numbers do not match the file, so I compare by operation only. I have not reviewed the draft comparison.” Open `data/reference_inventory/independent_pass_comparison_2026-11-19.md` and `docs/INDEPENDENT_REVIEW_RECORD_2026-11-19.md`.
 
 **7:30 to 8:00. AI.** “Claude drafted text and figures, wrote and ran the variants and grouped the inventory. I decided the unit, no freeze and the framing. Appendix B lists each step and what I have not yet verified.”

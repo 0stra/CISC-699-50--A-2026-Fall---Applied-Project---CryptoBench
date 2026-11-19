@@ -70,7 +70,7 @@ Format of each line: path, SHA-256, role.
   sha256 `e3466ec913a48c6b598e29099aa0895c8b0f115903cde08a3cc0367ec6386aeb`  
   Claims register v3: statuses added, L2 corrected
 - `analysis/results/claims_register_2026-11-19.md`  
-  sha256 `e127a6af63fa2d6c83c73a96427bce81fab14241ce0401dfb58f2845d5643887`  
+  sha256 `e0a44f48edc364dfdb21be4502e7d6adea4a8e2be8cbd2abccd74ef63e0659ca`  
   Claims register version 4 (K4 and K9 revised; K4 still provisional)
 - `analysis/results/figure_10_k4_variants_2026-11-19.png`  
   sha256 `4a1c404cd256d4d83e87119707b47043527ce9566126b01eaee00618ef59abf8`  
@@ -97,7 +97,7 @@ Format of each line: path, SHA-256, role.
   sha256 `0d9deef026a8f049ee004755e566d673897123da3dfc553932e98202dd3d6dc2`  
   Figure: how the zero on Md5Crypt.java is classified (K8, K9)
 - `analysis/results/figure_7_gate_status_2026-11-19.png`  
-  sha256 `d63a13d38e0afe5453f0721f329d59dc2af4efda792705270786e17f76fe915e`  
+  sha256 `6fda13f4b2fa3c2eb6d90723ea0e6aaa32c3d561326d7a153ba7886555317e46`  
   Figure 1 of the Assignment 12 thesis (gate status); drawn by Claude
 - `analysis/results/figure_8_claim_record_map_2026-11-19.png`  
   sha256 `53c5827686a9692daa79a5b8945007c9909cb78a6d5964175b390ca616cb102a`  
@@ -106,7 +106,7 @@ Format of each line: path, SHA-256, role.
   sha256 `fd820bfb8a7cd503bdfea5bd76d975b5146bb5a0ada6a67eda91a7fe36fe0cef`  
   Figure 2 of the Assignment 12 thesis (classification of the zero); drawn by Claude
 - `analysis/results/figures_a12_source.py`  
-  sha256 `dc48efa6780b449836a0b737cb81257bd37e097d7b7ce3a11b307175b508a531`  
+  sha256 `d4aed27fab89b2397806cca9c8dd45be791eedb77ccbeef96b76d1aa5c902a64`  
   Script that draws figures 1, 2, 4 and 5 of the Assignment 12 thesis; written by Claude
 - `analysis/results/figures_thesis_source.py`  
   sha256 `3d602e75d2ac85906b7e7b174ded3c6f2f701cf91b1d405e2df5bb6a39e683de`  
@@ -211,7 +211,7 @@ Format of each line: path, SHA-256, role.
   sha256 `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539`  
   Synthetic 14-line control (written by Claude); not a sample
 - `docs/AI_VALIDATION_LEDGER.md`  
-  sha256 `02d6566cd9b31acdb2b4ade6da985d02fbc0c4eefb4220ea7801b033c798c5f5`  
+  sha256 `a24a8a8ae7cf8c0f4dfc195f19d35417025dbf228c1a74a06d80cf93abb9ae9c`  
   What AI tools proposed, who checked it and how
 - `docs/AUDIT_RECORD_A10.md`  
   sha256 `3a6e0a4f4562b8b0831d8dfc585c5ee2f6e6303613dd79e2337c4eca8ede1c00`  
@@ -223,7 +223,7 @@ Format of each line: path, SHA-256, role.
   sha256 `ee82dd0d180f65c499006a7cd9a4cee3b8b6705c57eb15a091a5b0dc90177165`  
   Corrections with commit hashes; pointer to earlier text
 - `docs/CROSSCHECK_A12.md`  
-  sha256 `85d67cafde0769bb1950e94a6dd3ce9e01fce52dcb704a0059af9f52b55ababc`  
+  sha256 `0a3c59a2dbf6b63c812d2fd7c6d37c98893328d8ee405e0d4c67b1379f0dd0f5`  
   Cross-check of numbers, claims and figures across thesis, deck and evidence (Claude, not yet repeated by me)
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
@@ -232,16 +232,16 @@ Format of each line: path, SHA-256, role.
   sha256 `eacf340d7b0429e4beadcdf8319a016047371e119cbf44dedfce6cd8bfe1b404`  
   Record of the independent run and source pass: what was received, statements, discrepancies, status
 - `docs/INDEPENDENT_RUN_PACKAGE.md`  
-  sha256 `1d8bbf28db99d9526e8beaa87fd08bf376c65e93a4750b233bda8cfb14dc43da`  
+  sha256 `38ffa8f5469eeb77fa42638405ab95e6cd262d5768f5b2426ea391f826ce1374`  
   Request text and record template for an independent human run (not yet done)
 - `docs/INDEPENDENT_SOURCE_PASS_PACKAGE.md`  
-  sha256 `e9a1962cffe4749ccd6f99c4f13578b895629cbdc3935643c89a93715d7f1497`  
+  sha256 `e5ceeb2aab4e864d94722cfbd2cec745c8994866c5c55617f60e0eef786767f5`  
   Request and record template for an independent source pass (not yet done)
 - `docs/INVENTORY_FREEZE_RECORD.md`  
-  sha256 `5dbff238d007f602a9fa7e72038954ecf4eebcde529cc5583c8199af90ee0476`  
+  sha256 `3e23316cf36c6fd37cac5dd614ae3ebf5a4a2a772daa704cfe3a97773ed5f2f2`  
   Unit decision, candidate hash, why not frozen, what freezing requires
 - `docs/ISSUE_LOG.md`  
-  sha256 `4dbc77c2b8e10dee2f4821c2f1c4e87fd661b338f40bae1049da593197ed3eca`  
+  sha256 `afb48176bd2653d94c0e2ad114574b8046949fcfe66886959bc6869c8e37e70d`  
   Issues and risks
 - `docs/K4_RULE_ANALYSIS_2026-11-19.md`  
   sha256 `12c3942c585da567bd9f236a17fdcd17af0f7024ed5d3a7cd406ec700730438d`  
@@ -256,13 +256,13 @@ Format of each line: path, SHA-256, role.
   sha256 `02d1d1939ba07142d626fbc0df74de86fa7b08e9e1272cbc0c483ffe2112f37e`  
   Feedback item, change, location, unresolved issue
 - `docs/RESPONSE_NOTE_A12.md`  
-  sha256 `8f602c33cc668fcef2096de4d78a8e52acc7c2134ab475dbb732a446b58da532`  
+  sha256 `d9456a6abf49e5fa6357ffa2457eff04c69a898cfeaa59b8e5e23ee073f8fc81`  
   Response and remaining-work note, text version
 - `docs/SOURCE_LEDGER.md`  
   sha256 `429c9f6a772e9988d45cc5a9462544527ab88cadc12b53e7c37d38139f7381bc`  
   Source of every result, figure, label, interpretation and citation, with verification status
 - `docs/SPEAKING_OUTLINE_A12.md`  
-  sha256 `68d032b879005be91111293168b8ad071cd704b8300ff537fec55789d421b18d`  
+  sha256 `144f7a37823e1c7b516a1905a792c9a683cf734569361f043fadeb9a466ea488`  
   Speaking outline for the deck
 - `docs/TAG_AND_MANIFEST.md`  
   sha256 `38dcffd8cee491a708bb0a3fe87af05b999a93eab776cd74b4b337766f726e22`  
@@ -271,7 +271,7 @@ Format of each line: path, SHA-256, role.
   sha256 `725782981e7abf222b24be5f5f18afd5f24a0a5063d2784036180d037bb3eabb`  
   Literature claims linked to source, AI step and my verification (not yet done)
 - `docs/WALKTHROUGH_SCRIPT_A12.md`  
-  sha256 `a87440f31978eb9450001e66006c1ea7d84dc3186580bad29d5a0cd88601595d`  
+  sha256 `3ae487b2fc446ba30f61c3cd6cc4ccfc10e8b6c919b249fb0e63135b17fb3c3c`  
   Script for the recorded walkthrough
 - `docs/independent_run/SOP_FRIEND.md`  
   sha256 `70b6cf05552cbb68e75505d9bb4f57f9571b853d05d87b8a5c9928ae73d7da81`  
@@ -304,7 +304,7 @@ Format of each line: path, SHA-256, role.
   sha256 `839e7fc289828c287efbf3bdd4e61b9d8676956b3616581ae171e61f7c4640a7`  
   Dated working entry
 - `journal/2026-11-19.md`  
-  sha256 `7caf6655ac7a255b0132635b119c1eee7519114183bb2df5b1e246a6e22e1032`  
+  sha256 `8b127f8d34052a7ed1456f1da554293e3993265881f3c3e4a7e974b695c1eae3`  
   Dated journal entry for Assignment 12
 - `journal/README.md`  
   sha256 `1b819658a7d86afe71c422e8e9c7c10dc27ed6f101dd115b152a911cccbc0359`  
