@@ -272,13 +272,13 @@ Format of each line: path, SHA-256, role.
   SonarQube config; plugin not installed (ISSUE-01); nothing run
 - `submission/A11/CryptoBench_11_Cover_Note_Revision_Plan.docx`  
   sha256 `0d02c8891aab05c2aa174bde8b689aaff310c4128f15b06a9fbe7544a3814ebe`  
-  (role to add)
+  Assignment 11 submission copy (thesis draft or cover note); not part of the research record
 - `submission/A11/CryptoBench_11_Cover_Note_Revision_Plan.pdf`  
   sha256 `a33c6d186eebe5341ca49c4aeb31668a3e45d55f927fb9746b142e1507f22566`  
-  (role to add)
+  Assignment 11 submission copy (thesis draft or cover note); not part of the research record
 - `submission/A11/CryptoBench_11_Full_Draft_Thesis.docx`  
   sha256 `b626904027df58897cbee396d4da2d795166e8bb36870a418eea9a77d7952400`  
-  (role to add)
+  Assignment 11 submission copy (thesis draft or cover note); not part of the research record
 - `submission/A11/CryptoBench_11_Full_Draft_Thesis.pdf`  
   sha256 `419443d7c67ba5e1cba4bd2b419f92b11cb2c112d2b43464fa209263e7475253`  
-  (role to add)
+  Assignment 11 submission copy (thesis draft or cover note); not part of the research record
