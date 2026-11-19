@@ -93,6 +93,18 @@ Format of each line: path, SHA-256, role.
 - `analysis/results/figure_6_zero_classification_2026-11-14.png`  
   sha256 `0d9deef026a8f049ee004755e566d673897123da3dfc553932e98202dd3d6dc2`  
   Figure: how the zero on Md5Crypt.java is classified (K8, K9)
+- `analysis/results/figure_7_gate_status_2026-11-19.png`  
+  sha256 `d63a13d38e0afe5453f0721f329d59dc2af4efda792705270786e17f76fe915e`  
+  Figure 1 of the Assignment 12 thesis (gate status); drawn by Claude
+- `analysis/results/figure_8_claim_record_map_2026-11-19.png`  
+  sha256 `53c5827686a9692daa79a5b8945007c9909cb78a6d5964175b390ca616cb102a`  
+  Figure 5 of the Assignment 12 thesis (claim to record map); drawn by Claude
+- `analysis/results/figure_9_zero_classification_2026-11-19.png`  
+  sha256 `fd820bfb8a7cd503bdfea5bd76d975b5146bb5a0ada6a67eda91a7fe36fe0cef`  
+  Figure 2 of the Assignment 12 thesis (classification of the zero); drawn by Claude
+- `analysis/results/figures_a12_source.py`  
+  sha256 `dc48efa6780b449836a0b737cb81257bd37e097d7b7ce3a11b307175b508a531`  
+  Script that draws figures 1, 2, 4 and 5 of the Assignment 12 thesis; written by Claude
 - `analysis/results/figures_thesis_source.py`  
   sha256 `3d602e75d2ac85906b7e7b174ded3c6f2f701cf91b1d405e2df5bb6a39e683de`  
   Script that draws figures 4 to 6 (facts from the claims register and logs)
@@ -297,3 +309,15 @@ Format of each line: path, SHA-256, role.
 - `submission/A11/CryptoBench_11_Full_Draft_Thesis.pdf`  
   sha256 `419443d7c67ba5e1cba4bd2b419f92b11cb2c112d2b43464fa209263e7475253`  
   Assignment 11 submission copy (thesis draft or cover note); not part of the research record
+- `submission/A12/CryptoBench_12_NearFinal_Thesis.docx`  
+  sha256 `10c76b1f3f90e3e41b9cbde288b726990d69fa3ac14cf95b4cbdd324ffb09d10`  
+  Assignment 12 submission copy (thesis or note); not part of the record at the cited commit
+- `submission/A12/CryptoBench_12_NearFinal_Thesis.pdf`  
+  sha256 `9ae7d027073638fce9aa94ec9dd205da957b449da1f38fb0d0eb558995fbc516`  
+  Assignment 12 submission copy (thesis or note); not part of the record at the cited commit
+- `submission/A12/CryptoBench_12_Response_and_Remaining_Work_Note.docx`  
+  sha256 `9eb0db2523173b0dd32715885c4a004db224bf5bc13434beacc855df982cb4ef`  
+  Assignment 12 submission copy (thesis or note); not part of the record at the cited commit
+- `submission/A12/CryptoBench_12_Response_and_Remaining_Work_Note.pdf`  
+  sha256 `257abed4229a2748ed14e961fc6d44c68fb0b9fbd6f98374263ac98ab9f45701`  
+  Assignment 12 submission copy (thesis or note); not part of the record at the cited commit
