@@ -264,6 +264,9 @@ Format of each line: path, SHA-256, role.
 - `docs/SPEAKING_OUTLINE_A12.md`  
   sha256 `144f7a37823e1c7b516a1905a792c9a683cf734569361f043fadeb9a466ea488`  
   Speaking outline for the deck
+- `docs/SPEAKING_SCRIPT_A12.md`  
+  sha256 `3a7392a3ea58aa214d5baa85569de8c462952d48ae2848417bd58216037b6197`  
+  Nine-minute speaking script for the deck (written by Claude; not yet rehearsed by me)
 - `docs/TAG_AND_MANIFEST.md`  
   sha256 `38dcffd8cee491a708bb0a3fe87af05b999a93eab776cd74b4b337766f726e22`  
   How tags and the manifest relate; manifest check; drift found and restored
