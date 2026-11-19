@@ -331,14 +331,14 @@ Format of each line: path, SHA-256, role.
   sha256 `419443d7c67ba5e1cba4bd2b419f92b11cb2c112d2b43464fa209263e7475253`  
   Assignment 11 submission copy (thesis draft or cover note); not part of the research record
 - `submission/A12/CryptoBench_12_NearFinal_Thesis.docx`  
-  sha256 `10c76b1f3f90e3e41b9cbde288b726990d69fa3ac14cf95b4cbdd324ffb09d10`  
+  sha256 `225fc817d4d2ca83401f972a7aa3d23284bbc111682c05dfe3a67288a1fe3b93`  
   Assignment 12 submission copy (thesis or note); not part of the record at the cited commit
 - `submission/A12/CryptoBench_12_NearFinal_Thesis.pdf`  
-  sha256 `9ae7d027073638fce9aa94ec9dd205da957b449da1f38fb0d0eb558995fbc516`  
+  sha256 `85bdcdde7197e702793b27fd4fe113668e440a5df62a7c009bfa531bb576aee8`  
   Assignment 12 submission copy (thesis or note); not part of the record at the cited commit
 - `submission/A12/CryptoBench_12_Response_and_Remaining_Work_Note.docx`  
-  sha256 `9eb0db2523173b0dd32715885c4a004db224bf5bc13434beacc855df982cb4ef`  
+  sha256 `e88467db1f0de185af940d68fcaab02ce05158a8cef090c4904ec5b9ac3bf950`  
   Assignment 12 submission copy (thesis or note); not part of the record at the cited commit
 - `submission/A12/CryptoBench_12_Response_and_Remaining_Work_Note.pdf`  
-  sha256 `257abed4229a2748ed14e961fc6d44c68fb0b9fbd6f98374263ac98ab9f45701`  
+  sha256 `e2932789f53de00e1ccbb4bbf07e339c852c6d17a3b124550d14cc230dd566d6`  
   Assignment 12 submission copy (thesis or note); not part of the record at the cited commit
