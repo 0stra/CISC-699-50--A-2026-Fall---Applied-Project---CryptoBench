@@ -1,6 +1,6 @@
 # RELEASE_MANIFEST.md
 
-Release candidate inventory, generated 4 November 2026 for Assignment 10 and regenerated 14 November 2026 for Assignment 11 (generator output, then reviewed). Every tracked file except this one, with its SHA-256 and role. The stable evidence version is the git tag named in `README.md`. Files that are not in this list are not part of the release candidate. No restricted data, credentials or third-party code is stored in this repository.
+Release candidate inventory, generated 4 November 2026 for Assignment 10 and regenerated 14 November 2026 for Assignment 11 and 19 November 2026 for Assignment 12 (generator output, then reviewed). Every tracked file except this one, with its SHA-256 and role. The stable evidence version is the git tag named in `README.md`. Files that are not in this list are not part of the release candidate. No restricted data, credentials or third-party code is stored in this repository.
 
 Not in the repository on purpose: `Md5Crypt.java`, `StringUtils.java` and the Semgrep rules (public; fetched and hash-checked by `docs/REPRODUCE.md`).
 
@@ -69,6 +69,9 @@ Format of each line: path, SHA-256, role.
 - `analysis/results/claims_register_2026-11-19.md`  
   sha256 `e127a6af63fa2d6c83c73a96427bce81fab14241ce0401dfb58f2845d5643887`  
   Claims register version 4 (K4 and K9 revised; K4 still provisional)
+- `analysis/results/figure_10_k4_variants_2026-11-19.png`  
+  sha256 `4a1c404cd256d4d83e87119707b47043527ce9566126b01eaee00618ef59abf8`  
+  Figure 4 of the Assignment 12 thesis (twelve K4 variants); drawn by Claude
 - `analysis/results/figure_1_proof_map.png`  
   sha256 `115e131ebda343cfdbedb18dbb3ab58ac3327941b00f6fc147eb5ae091530488`  
   Figure: claims to records
@@ -184,7 +187,7 @@ Format of each line: path, SHA-256, role.
   sha256 `657e8eb1ac803fecb27dcbe7808781c5fd315a4981c7f33424645d25ae7c8539`  
   Synthetic 14-line control (written by Claude); not a sample
 - `docs/AI_VALIDATION_LEDGER.md`  
-  sha256 `19e3705ddec681c76ffe10a0abc4844036675ae8f34846b2f93957121799663e`  
+  sha256 `02d6566cd9b31acdb2b4ade6da985d02fbc0c4eefb4220ea7801b033c798c5f5`  
   What AI tools proposed, who checked it and how
 - `docs/AUDIT_RECORD_A10.md`  
   sha256 `3a6e0a4f4562b8b0831d8dfc585c5ee2f6e6303613dd79e2337c4eca8ede1c00`  
@@ -195,6 +198,9 @@ Format of each line: path, SHA-256, role.
 - `docs/CORRECTION_HISTORY.md`  
   sha256 `ee82dd0d180f65c499006a7cd9a4cee3b8b6705c57eb15a091a5b0dc90177165`  
   Corrections with commit hashes; pointer to earlier text
+- `docs/CROSSCHECK_A12.md`  
+  sha256 `85d67cafde0769bb1950e94a6dd3ce9e01fce52dcb704a0059af9f52b55ababc`  
+  Cross-check of numbers, claims and figures across thesis, deck and evidence (Claude, not yet repeated by me)
 - `docs/ENVIRONMENT.md`  
   sha256 `3123eeb41c04c4605f5ced2321441f77a79ebf8f18ea02b96786b48c5a018a5f`  
   Pinned versions, hashes, check results
@@ -222,15 +228,24 @@ Format of each line: path, SHA-256, role.
 - `docs/RESPONSE_LOG.md`  
   sha256 `0e0149db0d00bee6463ecf81b9ef40adabd3f77ffd2edf9eff8a4295b211f61a`  
   Feedback item, change, location, unresolved issue
+- `docs/RESPONSE_NOTE_A12.md`  
+  sha256 `8f602c33cc668fcef2096de4d78a8e52acc7c2134ab475dbb732a446b58da532`  
+  Response and remaining-work note, text version
 - `docs/SOURCE_LEDGER.md`  
   sha256 `429c9f6a772e9988d45cc5a9462544527ab88cadc12b53e7c37d38139f7381bc`  
   Source of every result, figure, label, interpretation and citation, with verification status
+- `docs/SPEAKING_OUTLINE_A12.md`  
+  sha256 `68d032b879005be91111293168b8ad071cd704b8300ff537fec55789d421b18d`  
+  Speaking outline for the deck
 - `docs/TAG_AND_MANIFEST.md`  
   sha256 `38dcffd8cee491a708bb0a3fe87af05b999a93eab776cd74b4b337766f726e22`  
   How tags and the manifest relate; manifest check; drift found and restored
 - `docs/VERIFICATION_MATRIX_2026-11-19.md`  
   sha256 `725782981e7abf222b24be5f5f18afd5f24a0a5063d2784036180d037bb3eabb`  
   Literature claims linked to source, AI step and my verification (not yet done)
+- `docs/WALKTHROUGH_SCRIPT_A12.md`  
+  sha256 `a87440f31978eb9450001e66006c1ea7d84dc3186580bad29d5a0cd88601595d`  
+  Script for the recorded walkthrough
 - `journal/2026-10-04.md`  
   sha256 `06ecf50518df0a89f4c105a29daa53345be056b51aee0349726f4caed6048041`  
   Dated working entry
@@ -256,7 +271,7 @@ Format of each line: path, SHA-256, role.
   sha256 `839e7fc289828c287efbf3bdd4e61b9d8676956b3616581ae171e61f7c4640a7`  
   Dated working entry
 - `journal/2026-11-19.md`  
-  sha256 `0c54f42da8bad390f2ac5f93083340c0ceea6db5cd4411d0ed0c0c033d5b3635`  
+  sha256 `7caf6655ac7a255b0132635b119c1eee7519114183bb2df5b1e246a6e22e1032`  
   Dated journal entry for Assignment 12
 - `journal/README.md`  
   sha256 `1b819658a7d86afe71c422e8e9c7c10dc27ed6f101dd115b152a911cccbc0359`  

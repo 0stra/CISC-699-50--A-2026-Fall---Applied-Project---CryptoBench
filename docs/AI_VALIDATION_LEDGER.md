@@ -72,3 +72,9 @@ Status words: **Validated** (checked against the source by me or by a separate p
 ## 10. What I will do next
 
 I will re-read the rule YAML against lines 15 and 259 (item 2), open the cited papers (item 6) and ask for an independent human run of `docs/REPRODUCE.md`. These are planned, not done.
+
+## 9d. Assignment 12 deliverables (19 November 2026)
+
+- **AI step.** Claude drafted the revised thesis text, the deck and its speaker notes, the response note, the speaking outline, the walkthrough script, the cross-check record and figure 10.
+- **Claim or item affected.** Every number and claim in them comes from the claims register version 4 and the raw records; none is new evidence apart from the items in §9c.
+- **Student verification.** Not yet done. I will read each file before submitting and repeat the cross-check in `docs/CROSSCHECK_A12.md` on the final files. Until then the verification status of these files is “AI-checked only”.
